@@ -18,27 +18,27 @@ const db = new pg.Client({
 })
 db.connect();
 
-app.get("/getUser",async (req,res) => {
-    const result = await db.query("SELECT * FROM users");
-    console.log(result);
-})
+// app.get("/getUser",async (req,rs) => {
+//     const result = await db.query("SELECT * FROM users");
+//     console.log(result);
+// })
 
-app.post("/editUser",async (req,res) => {
-    const name = req.body.updatedName;
-    const id = req.body.updatedId;
-    const result = await db.query("UPDATE users SET name=$1 WHERE id=$2",[name,id]);
-    console.log(result);
-})
+// app.post("/editUser",async (req,res) => {
+//     const name = req.body.updatedName;
+//     const id = req.body.updatedId;
+//     const result = await db.query("UPDATE users SET name=$1 WHERE id=$2",[name,id]);
+//     console.log(result);
+// })
 
-app.post("/addUser",async (req,res) => {
-    const name = req.body.updatedName;
-    //const id = req.body.updatedId;
-    const result = await db.query("INSERT INTO users(name) VALUES ($1) ",[name]);
-    res.status(200).json({ result });
-})
+// app.post("/addUser",async (req,res) => {
+//     const name = req.body.updatedName;
+//     //const id = req.body.updatedId;
+//     const result = await db.query("INSERT INTO users(name) VALUES ($1) ",[name]);
+//     res.status(200).json({ result });
+// })
 
-app.post("/deleteUser",async (req,res) => {
-    const id = req.body.deleteUser;
-    const result = await db.query("DELETE FROM users WHERE id=$1", [id]);
-    res.status(200).json({ result });
-})
+// app.post("/deleteUser",async (req,res) => {
+//     const id = req.body.deleteUser;
+//     const result = await db.query("DELETE FROM users WHERE id=$1", [id]);
+//     res.status(200).json({ result });
+// })

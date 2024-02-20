@@ -5,38 +5,40 @@
                 <p class="text1 blankspacehead">Login to your account</p>
                 <p class="text3">Username</p>
                 <div class="input-group blankspacetextfield">
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                    <input type="text" class="form-control" aria-label="Username" />
                 </div>
                 <p class="text3">Password</p>
                 <div class="input-group blankspacetextfield">
-                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                    <input type="password" class="form-control" aria-label="Password" />
                 </div>
+                <!-- <router-link to="/client-home">Home</router-link> -->
+                <!-- <router-link to="/client-home">Client</router-link> -->
                 <div class="center">
-                    <router-link to="/client-home">
-                        <button class="btn loginbtn" type="button" @click="navigateToClientHome">Login</button>
-                    </router-link>
+                    <button class="btn loginbtn" @click="router.push({ name: 'ClientHome' })" type="button">Login</button>
                 </div>
                 <div class="flex-container">
                     <div>
-                        <p>Don’t have an account? <a href="https://example.com">Create Account</a></p>
+                        <p>
+                            Don’t have an account?
+                            <a href="https://example.com">Create Account</a>
+                        </p>
                     </div>
                     <div class="right-align">
                         <a href="https://example.com">Forget password</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { useRouter } from 'vue-router';
+
 export default {
-    methods: {
-        navigateToClientHome() {
-            // Use Vue Router to navigate to the ClientHome.vue page
-            this.$router.push('/client-home');
-        }
+    setup() {
+        const router = useRouter()
+        return { router }
     }
 }
 </script>
@@ -79,16 +81,15 @@ export default {
     gap: 10px;
     border-radius: 20px;
     border-color: transparent;
-    color: #FFF;
-    background: #1B1C21;
+    color: #fff;
+    background: #1b1c21;
     width: 344px;
-
 }
 
 .loginbtn:hover {
     cursor: pointer;
-    color: #FFF;
-    background: #1B1C21;
+    color: #fff;
+    background: #1b1c21;
 }
 
 .center {
@@ -132,5 +133,18 @@ p {
     width: 848px;
     height: 578px;
     place-items: center;
+}
+
+@media (min-width: 1280px) {
+    body {
+        display: flex;
+        place-items: center;
+    }
+
+    #app {
+        display: grid;
+        /* grid-template-columns: 1fr 1fr; */
+        padding: 0 2rem;
+    }
 }
 </style>

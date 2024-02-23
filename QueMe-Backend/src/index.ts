@@ -1,26 +1,35 @@
 import express, { Express, Request, Response , Application } from 'express';
-import * as pg from "pg";
+import mysql, { Connection } from 'mysql2/promise';
+import { userRouter } from './routes/user';
 
 //set up express
 const app = express();
 const port = 4000;
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'chovy2812',
+    database: 'QueMe',
+});
+
+app.use('/', userRouter)
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
-//set up pg
-// const db = new pg.Client({
-//     user: "postgres",
-//     host: "localhost",
-//     database: "QueMe",
-//     password: "Chovy2812@",
-//     port: 5433
-// })
-// db.connect();
+connection.then( () => {
+    console.log(`Database start...`);
+})
 
-// app.get("/getUser",async (req,rs) => {
-//     const result = await db.query("SELECT * FROM users");
+// app.get("/qm/getUser",async (req,rs) => {
+//     const result = await(await connection).query("INSERT INTO users (phone_number,password) VALUES ('0985584457','chovy2812')");
 //     console.log(result);
+// })
+
+// app.post("/qm/login",async (req,rs) => {
+//     const result = await(await connection).query("SELECT phone_number FROM users WHERE phone_number=$1",[]);
 // })
 
 // app.post("/editUser",async (req,res) => {

@@ -3,9 +3,9 @@
         <div class="container">
             <div class="overlay">
                 <p class="text1 blankspacehead">Login to your account</p>
-                <p class="text3">Username</p>
+                <p class="text3">Phone number</p>
                 <div class="input-group blankspacetextfield">
-                    <input type="text" class="form-control" aria-label="Username" />
+                    <input type="text" class="form-control" aria-label="Phone number" />
                 </div>
                 <p class="text3">Password</p>
                 <div class="input-group blankspacetextfield">

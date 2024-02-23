@@ -7,8 +7,12 @@
                     <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto;">
                 </a>
                 <div>
-                    <button class="btn btn-outline-light space" type="submit">Profile</button>
-                    <button class="btn btn-outline-light" type="submit">Logout</button>
+                    <button class="btn btn-outline-light space" @click="router.push({ name: 'Home' })"
+                        type="submit">Home</button>
+                    <button class="btn btn-outline-light space" @click="router.push({ name: 'ClientHome' })"
+                        type="submit">Profile</button>
+                    <button class="btn btn-outline-light" @click="router.push({ name: 'Login' })"
+                        type="submit">Logout</button>
                 </div>
             </div>
         </nav>
@@ -97,7 +101,7 @@
 
 
         <!-- footer -->
-        <div class="container">
+        <div class="container ">
             <div class="flex-container">
                 <p class="btmtext">banpuenbangkok</p>
                 <p class="btmtext">Contact banpuenbangkok</p>
@@ -105,11 +109,11 @@
             <div class="row">
                 <div class="herizontal-line"></div>
             </div>
-            <div class="row felx-container">
+            <div class="row felx-container footerMargin">
                 <div class="d-grid gap-3 col-7">
                     <button class="btn btn-light btnFooter" @click="router.push({ name: 'ClientHome' })"
                         type="button">MENU</button>
-                    <button class="btn btn-light btnFooter" @click="router.push({ name: 'ClientHome' })"
+                    <button class="btn btn-light btnFooter" @click="router.push({ name: 'Home' })"
                         type="button">RESERVE</button>
                     <button class="btn btn-light btnFooter" @click="router.push({ name: 'ClientHome' })"
                         type="button">Line@</button>
@@ -135,13 +139,23 @@
 
 
 <script>
+import { useRouter } from 'vue-router';
+
 export default {
+    setup() {
+        const router = useRouter()
+        return { router }
+    },
     name: 'ClientHome',
 }
 </script>
 
 
 <style scoped>
+.footerMargin {
+    margin-bottom: 22px;
+}
+
 .btnFooter {
     border-radius: 50px;
 }

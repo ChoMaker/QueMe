@@ -27,20 +27,20 @@ const router = createRouter({
     {
       path: "/",
       name: "Login",
-      component: () => import('../views/Login.vue'),
+      component: () => import("../views/Login.vue"),
     },
     {
       path: "/home",
       name: "Home",
-      component: () => import('../views/Home.vue'),
+      component: () => import("../views/Home.vue"),
     },
     {
       path: "/client-home",
       name: "ClientHome",
-      component: () => import('../views/ClientHome.vue'),
+      component: () => import("../views/ClientHome.vue"),
     },
-  ]
-})
+  ],
+});
 
 /* const router = createRouter({
   history: createWebHistory(),

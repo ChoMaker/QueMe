@@ -135,16 +135,4 @@ p {
     place-items: center;
 }
 
-@media (min-width: 1280px) {
-    body {
-        display: flex;
-        place-items: center;
-    }
-
-    #app {
-        display: grid;
-        /* grid-template-columns: 1fr 1fr; */
-        padding: 0 2rem;
-    }
-}
 </style>

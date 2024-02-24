@@ -3,24 +3,6 @@ import Login from "../views/Login.vue";
 import ClientHome from "../views/ClientHome.vue";
 import Home from "../views/Home.vue";
 
-/* const routes = [
-  {
-    path: "/",
-    name: "home",
-    component: () => import('../views/Home.vue'),
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import('../views/Login.vue'),
-  },
-  {
-    path: "/client-home",
-    name: "ClientHome",
-    component: () => import('../views/ClientHome.vue'),
-  },
-]; */
-
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -38,6 +20,26 @@ const router = createRouter({
       path: "/client-home",
       name: "ClientHome",
       component: () => import("../views/ClientHome.vue"),
+    },
+    {
+      path: "/menu",
+      name: "Menu",
+      component: () => import("../views/Menu.vue"),
+    },
+    {
+      path: "/confirm-reserve",
+      name: "ConfirmReserve",
+      component: () => import("../views/ConfirmReserve.vue"),
+    },
+    {
+      path: "/pay",
+      name: "Pay",
+      component: () => import("../views/Pay.vue"),
+    },
+    {
+      path: "/menu-drink",
+      name: "MenuDrink",
+      component: () => import("../views/MenuDrink.vue"),
     },
   ],
 });

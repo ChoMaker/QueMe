@@ -44,6 +44,13 @@ export default {
 </script>
 
 <style scoped>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+}
+
 .flex-container {
     display: flex;
     justify-content: space-between;
@@ -133,6 +140,13 @@ p {
     width: 848px;
     height: 578px;
     place-items: center;
+    margin-top: 125px;
 }
 
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Optional: Set the container's height to the full viewport height */
+}
 </style>

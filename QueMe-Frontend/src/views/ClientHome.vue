@@ -6,10 +6,8 @@
                 <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto;">
             </a>
             <div>
-                <button class="btn btn-outline-light space" @click="router.push({ name: 'Home' })"
-                    type="submit">Home</button>
-                <button class="btn btn-outline-light space" @click="router.push({ name: 'ClientHome' })"
-                    type="submit">Profile</button>
+                <button class="btn btn-outline-light space" @click="router.push({ name: 'ClientHome' })" type="submit">Home</button>
+                <button class="btn btn-outline-light space" @click="router.push({ name: 'Profile' })" type="submit">Profile</button>
                 <button class="btn btn-outline-light" @click="router.push({ name: 'Login' })" type="submit">Logout</button>
             </div>
         </div>
@@ -109,7 +107,7 @@
         </div>
         <div class="row felx-container footerMargin">
             <div class="d-grid gap-3 col-7">
-                <button class="btn btn-light btnFooter" @click="router.push({ name: 'ClientHome' })"
+                <button class="btn btn-light btnFooter" @click="router.push({ name: 'Menu' })"
                     type="button">MENU</button>
                 <button class="btn btn-light btnFooter" @click="router.push({ name: 'Home' })"
                     type="button">RESERVE</button>

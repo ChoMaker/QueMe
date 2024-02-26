@@ -5,9 +5,9 @@
                 <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto;">
             </a>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-light space" @click="router.push({ name: 'Home' })"
-                    type="submit">Home</button>
                 <button class="btn btn-outline-light space" @click="router.push({ name: 'ClientHome' })"
+                    type="submit">Home</button>
+                <button class="btn btn-outline-light space" @click="router.push({ name: 'Profile' })"
                     type="submit">Profile</button>
                 <button class="btn btn-outline-light" @click="router.push({ name: 'Login' })" type="submit">Logout</button>
             </div>

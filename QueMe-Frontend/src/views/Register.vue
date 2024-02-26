@@ -5,33 +5,20 @@
                 <p class="text1 blankspacehead">Login to your account</p>
                 <p class="text3">Phone number</p>
                 <div class="input-group blankspacetextfield">
-                    <input type="text" class="form-control" aria-label="Phone number" />
+                    <input type="text" class="form-control" style="width: 495px;" aria-label="Phone number" />
                 </div>
                 <p class="text3">Password</p>
                 <div class="input-group blankspacetextfield">
-                    <input type="password" class="form-control" aria-label="Password" />
+                    <input type="password" class="form-control" style="width: 495px;" aria-label="Password" />
                 </div>
-                <!-- <router-link to="/client-home">Home</router-link> -->
-                <!-- <router-link to="/client-home">Client</router-link> -->
+                <p class="text3">Birth date</p>
+                <div class="input-group blankspacetextfield">
+                    <input type="text" class="form-control" style="width: 495px;" aria-label="Phone number" />
+                </div>
                 <div class="center">
-                    <button class="btn loginbtn" @click="router.push({ name: 'ClientHome' })" type="button">Login</button>
+                    <button class="btn loginbtn" @click="router.push({ name: 'Login' })" type="button">Register</button>
                 </div>
-                <div class="flex-container">
-                    <div class="flex-container">
-                        <p>
-                            Don’t have an account?
-                        <ul style="list-style: none; padding: 0; margin: 0; display: inline;">
-                            <li style="display: inline; margin-left: 2px;">
-                                <router-link to="/register">Register</router-link>
-                            </li>
-                        </ul>
-                        </p>
-                    </div>
 
-                    <div class="right-align ml-5">
-                        <a href="https://example.com">Forget password</a>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -48,11 +35,21 @@ export default {
 }
 </script>
 
-
 <style scoped>
-li {
-    display: inline;
-    color: black;
+.backbtn {
+    justify-content: center;
+    display: flex;
+    margin-top: 5px;
+    padding: 3px 30px 5px 30px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 20px;
+    border-color: transparent;
+    color: #fff;
+    background: #1b1c21;
+    width: 50px;
 }
 
 body {
@@ -91,7 +88,7 @@ body {
 .loginbtn {
     justify-content: center;
     display: flex;
-    margin: 5px;
+    margin-top: 5px;
     padding: 3px 30px 5px 30px;
     margin-bottom: 20px;
     justify-content: center;

@@ -41,6 +41,16 @@ const router = createRouter({
       name: "MenuDrink",
       component: () => import("../views/MenuDrink.vue"),
     },
+    {
+      path: "/profile",
+      name: "Profile",
+      component: () => import("../views/Profile.vue"),
+    },
+    {
+      path: "/register",
+      name: "Register",
+      component: () => import("../views/Register.vue"),
+    },
   ],
 });
 

@@ -5,36 +5,14 @@
                 <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto;">
             </a>
             <div class="d-flex justify-content-end">
-                <button class="btn btn-outline-light space" @click="router.push({ name: 'Home' })"
-                    type="submit">Home</button>
                 <button class="btn btn-outline-light space" @click="router.push({ name: 'ClientHome' })"
+                    type="submit">Home</button>
+                <button class="btn btn-outline-light space" @click="router.push({ name: 'Profile' })"
                     type="submit">Profile</button>
                 <button class="btn btn-outline-light" @click="router.push({ name: 'Login' })" type="submit">Logout</button>
             </div>
         </div>
     </nav>
-
-    <!-- <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="10000">
-                <img src="/src/assets/menu/food/1.png" style="width: 500; height: auto;" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" data-bs-interval="2000">
-                <img src="/src/assets/menu/food/2.png" style="width: 500; height: auto;" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="/src/assets/menu/food/3.png" style="width: 500; height: auto;" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div> -->
 
     <div class="flex-container">
         <div style="margin-top: 40px; margin-bottom: 40px; display: flex; justify-content: space-between;">
@@ -44,13 +22,12 @@
                 <button class="btn btn-outline-light space" @click="router.push({ name: 'MenuDrink' })" type="submit">Drinks
                     & Beverages</button>
             </div>
-            <div>
+            <div class="row">
                 <p class="justify-content-between">หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"</p>
-                <button class="btn btn-outline-light space" @click="router.push({ name: 'MenuDrink' })"
+                <button class="btn btn-outline-light space" @click="router.push({ name: 'ConfirmReserve' })"
                     type="submit">Next</button>
             </div>
         </div>
-
 
 
         <!-- Steak -->

@@ -99,310 +99,310 @@
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S05</th>
+                            <th scope="row">SY05</th>
                             <td>คอหมูมะนาว</td>
                             <td>169.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S06</th>
+                            <th scope="row">SY06</th>
                             <td>ลวกจิ้ม ลูกชิ้นปลา</td>
                             <td>169.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S07</th>
+                            <th scope="row">SY07</th>
                             <td>ลวกจิ้ม เกี๊ยวปลา</td>
-                            <td>169.-</td>
+                            <td>179.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S08</th>
+                            <th scope="row">SY08</th>
                             <td>ลวกจิ้ม ทะเล</td>
-                            <td>169.-</td>
+                            <td>199.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S09</th>
+                            <th scope="row">SY09</th>
                             <td>ยำแซลม่อน</td>
-                            <td>169.-</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S10</th>
+                            <th scope="row">SY10</th>
                             <td>ยำเกี๊ยวปลา</td>
-                            <td>169.-</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S11</th>
+                            <th scope="row">SY11</th>
                             <td>ยำหอยนางรม</td>
-                            <td>169.-</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S12</th>
+                            <th scope="row">SY12</th>
                             <td>ยำทะเลรวมมิตร</td>
-                            <td>169.-</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S13</th>
+                            <th scope="row">SY13</th>
                             <td>ยำกุ้งใส่ไข่แดง</td>
-                            <td>169.-</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S14</th>
+                            <th scope="row">SY14</th>
                             <td>กุ้งแช่น้ำปลา</td>
-                            <td>169.-</td>
+                            <td>219.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S15</th>
+                            <th scope="row">SY15</th>
                             <td>แซลม่อนดองน้ำปลา</td>
-                            <td>169.-</td>
+                            <td>219.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">S16</th>
+                            <th scope="row">SY16</th>
                             <td>ยำคอหมูถั่วพลู</td>
+                            <td>189.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI01</th>
+                            <td>ไข่ดาว</td>
+                            <td>19.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI02</th>
+                            <td>สุกี้</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI03</th>
+                            <td>ก๋วยเตี๋ยวคั่ว</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI04</th>
+                            <td>ผัดซีอิ๊ว</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI05</th>
+                            <td>ผัดมาม่า</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI06</th>
+                            <td>ผัดมาม่าขี้เมา</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI07</th>
+                            <td>ข้าวต้ม</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI08</th>
+                            <td>ข้าวไข่เจียว</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI09</th>
+                            <td>ข้าวผัด</td>
+                            <td>159.-</td>
+                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
+                                    aria-label="default input example"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">DI10</th>
+                            <td>ข้าวผัดต้มยำ</td>
                             <td>169.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D01</th>
-                            <td>ไข่ดาว</td>
-                            <td>Otto</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D02</th>
-                            <td>สุกี้</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D03</th>
-                            <td>ก๋วยเตี๋ยวคั่ว</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D04</th>
-                            <td>ผัดซีอิ๊ว</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D05</th>
-                            <td>ผัดมาม่า</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D06</th>
-                            <td>ผัดมาม่าขี้เมา</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D07</th>
-                            <td>ข้าวต้ม</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D08</th>
-                            <td>ข้าวไข่เจียว</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D09</th>
-                            <td>ข้าวผัด</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D10</th>
-                            <td>ข้าวผัดต้มยำ</td>
-                            <td>Thornton</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">D11</th>
+                            <th scope="row">DI11</th>
                             <td>คั่วพริกเกลือ</td>
-                            <td>Thornton</td>
+                            <td>169.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D12</th>
+                            <th scope="row">DI12</th>
                             <td>ทอดกระเทียม</td>
-                            <td>Thornton</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D13</th>
+                            <th scope="row">DI13</th>
                             <td>ผัดคะน้า</td>
-                            <td>Thornton</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D14</th>
+                            <th scope="row">DI14</th>
                             <td>ผัดผงกะหรี่</td>
-                            <td>Thornton</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D15</th>
+                            <th scope="row">DI15</th>
                             <td>ผัดพริกแกง</td>
-                            <td>Thornton</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D16</th>
+                            <th scope="row">DI16</th>
                             <td>ผัดน้ำมันหอย</td>
-                            <td>Thornton</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
                             <th scope="row">D17</th>
                             <td>ผัดกะเพรา</td>
-                            <td>Thornton</td>
+                            <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
                             <th scope="row">D18</th>
                             <td>ผัดพริกหยวก</td>
-                            <td>Thornton</td>
+                            <td>179.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
                             <th scope="row">D19</th>
                             <td>ข้าวผัดกะเพรา</td>
-                            <td>Thornton</td>
+                            <td>189.-n</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
                             <th scope="row">D20</th>
                             <td>ข้าวผัดรถไฟ</td>
-                            <td>Thornton</td>
+                            <td>159.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A01</th>
+                            <th scope="row">AP01</th>
                             <td>ป๊อปคอร์น</td>
-                            <td>Otto</td>
+                            <td>79.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A02</th>
+                            <th scope="row">AP02</th>
                             <td>มะนาว 10 ชิ้น + เกลือ</td>
-                            <td>Thornton</td>
+                            <td>89.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A03</th>
+                            <th scope="row">AP03</th>
                             <td>ชีสบอล</td>
-                            <td>Thornton</td>
+                            <td>89.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A04</th>
+                            <th scope="row">AP04</th>
                             <td>ไส้กรอกทอด</td>
-                            <td>Thornton</td>
+                            <td>89.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A05</th>
+                            <th scope="row">AP05</th>
                             <td>หมูยอทอด</td>
-                            <td>Otto</td>
+                            <td>89.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A06</th>
+                            <th scope="row">AP06</th>
                             <td>รวมถั่วอาบัง</td>
-                            <td>Thornton</td>
+                            <td>89.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A07</th>
+                            <th scope="row">AP07</th>
                             <td>ข้าวเกรียบบ้านเพื่อน</td>
-                            <td>Thornton</td>
+                            <td>89.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A08</th>
+                            <th scope="row">AP08</th>
                             <td>เม็ดมะม่วงหิมพานต์</td>
-                            <td>Thornton</td>
+                            <td>99.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A09</th>
+                            <th scope="row">AP09</th>
                             <td>นักเก็ตไก่</td>
-                            <td>Otto</td>
+                            <td>119.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A10</th>
+                            <th scope="row">AP10</th>
                             <td>ปูอัดซาชิมิ</td>
-                            <td>Thornton</td>
+                            <td>119.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A11</th>
+                            <th scope="row">AP11</th>
                             <td>เฟรนช์ฟราย</td>
-                            <td>Thornton</td>
+                            <td>119.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">A12</th>
+                            <th scope="row">AP12</th>
                             <td>เกี๊ยวซ่าทอด</td>
-                            <td>Thornton</td>
+                            <td>119.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>

@@ -1,18 +1,14 @@
 import express, { Express, Request, Response , Application } from 'express';
 import mysql, { Connection } from 'mysql2/promise';
 import { userRouter } from './routes/user';
+import { connection } from './config/db';
 
 //set up express
 const app = express();
 const port = 4000;
 
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'chovy2812',
-    database: 'QueMe',
-});
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/', userRouter)
 
 app.listen(port, () => {

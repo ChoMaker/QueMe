@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { SignUpRequest } from "../models/signUpRequest";
 import { UserService } from "../services/user";
 import { SignInRequest } from "../models/signInRequest";
+import { ForgotPassword } from "../models/forgotPassword";
+import { UpdatePassword } from "../models/updatePassword";
 
 export namespace UserController {
     export const signIn = async (req: Request, res:Response) => {
@@ -10,11 +12,11 @@ export namespace UserController {
 
         if (result) {
             return res.status(200).json({
-                status:200
+                message: "Login successfully"
             })
         }else {
             return res.status(500).json({
-                status:500
+                message: "Password is incorrect"
             })
         }
     }
@@ -25,16 +27,42 @@ export namespace UserController {
         
         if (result) {
             return res.status(200).json({
-                status:200
+                message: "Create account successfully"
             })
         }else {
             return res.status(500).json({
-                status:500
+                message: "Phonenumber has been already used"
             })
         }
     }
     
     export const forgotPassword = async (req: Request, res:Response) => {
+        const body = req.body as ForgotPassword;
+        const result = await UserService.forgotPassword(body)
+        
+        if (result) {
+            return res.status(200).json({
+                message: "Have phonenumber is system"
+            })
+        }else {
+            return res.status(500).json({
+                message: "Don't have phonenumber"
+            })
+        }
+    }
 
+    export const updatePassword = async (req: Request, res:Response) => {
+        const body = req.body as UpdatePassword;
+        const result = await UserService.updatePassword(body)
+        
+        if (result) {
+            return res.status(200).json({
+                message: "Update password successfully"
+            })
+        }else {
+            return res.status(500).json({
+                message: "Can't update password"
+            })
+        }
     }
  }

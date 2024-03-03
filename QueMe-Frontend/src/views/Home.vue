@@ -9,7 +9,8 @@
                     type="submit">Home</button>
                 <button class="btn btn-outline-light space" @click="router.push({ name: 'Profile' })"
                     type="submit">Profile</button>
-                <button class="btn btn-outline-light" @click="router.push({ name: 'Login' })" type="submit">Logout</button>
+                <button class="btn btn-outline-light" @click="router.push({ name: 'Login' })"
+                    type="submit">Logout</button>
             </div>
         </div>
     </nav>
@@ -34,14 +35,7 @@
             </div>
 
             <div class="col-lg-4">
-                <p class="textAboveTextfield">Fill your name</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
-                <p class="textAboveTextfield">Fill your phone number</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
+
                 <p class="textAboveTextfield">Pick date</p>
                 <div class="input-group">
                     <input type="password" class="form-control textfieldStyle" aria-label="Password" />
@@ -58,8 +52,20 @@
                     <input type="password" class="form-control textfieldStyle" aria-label="Password" />
                 </div>
                 <p class="textAboveTextfield">Zone</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Select zone
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" id="vvip" type="button">VVIP</button></li>
+                        <li><button class="dropdown-item" id="a" type="button">A</button></li>
+                        <li><button class="dropdown-item" id="b" type="button">B</button></li>
+                        <li><button class="dropdown-item" id="c" type="button">C</button></li>
+                        <li><button class="dropdown-item" id="d" type="button">D</button></li>
+                        <li><button class="dropdown-item" id="e" type="button">E</button></li>
+                        <li><button class="dropdown-item" id="f" type="button">F</button></li>
+                    </ul>
                 </div>
 
                 <div class="row description">
@@ -100,8 +106,9 @@
 
     <div class="container checkbox-margin ">
         <div class="d-flex justify-content-end">
-            <button class="btn btn btn-dark space" @click="router.push({ name: 'ClientHome' })" type="submit">Back</button>
-            <button class="btn btn btn-dark" @click="router.push({ name: 'Menu' })" type="submit">Go to payment</button>
+            <button class="btn btn btn-dark space" @click="router.push({ name: 'ClientHome' })"
+                type="submit">Back</button>
+            <button class="btn btn btn-dark" @click="router.push({ name: 'Menu' })" type="submit">Next</button>
         </div>
     </div>
 </template>

@@ -22,25 +22,20 @@
         <div class="row">
             <div class="col-lg-6">
                 <p class="textAboveTextfield">Name</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
+                <input class="form-control textfieldStyle" type="text" value="Name" aria-label="Disabled input example"
+                    disabled readonly>
                 <p class="textAboveTextfield">Phone number</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
+                <input class="form-control textfieldStyle" type="text" value="Phone number"
+                    aria-label="Disabled input example" disabled readonly>
                 <p class="textAboveTextfield">Date picked</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
+                <input class="form-control textfieldStyle" type="text" value="Date picked"
+                    aria-label="Disabled input example" disabled readonly>
                 <p class="textAboveTextfield">Seats (Maximum reservation: 18)</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
+                <input class="form-control textfieldStyle" type="text" value="Seats" aria-label="Disabled input example"
+                    disabled readonly>
                 <p class="textAboveTextfield">Zone</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
+                <input class="form-control textfieldStyle" type="text" value="Zone" aria-label="Disabled input example"
+                    disabled readonly>
                 <div class="row description">
                     <div class="form-check form-check-inline checkbox-margin">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
@@ -96,12 +91,11 @@
 
                             <tr v-for="item in items" :key="item.id">
                                 <td class="d-flex">
-                                    <div class="value-button" @click="decreaseCount(item)" id="decrease"
-                                        value="Decrease Value">-</div>
-                                    <input type="number" :value="item.count" />
-                                    <div class="value-button" @click="increaseCount(item)" id="increase"
-                                        value="Increase Value">+</div>
-                                    <p>{{ item.name }}</p>
+                                    <div class="input-group">
+                                        <button class="decrement" id="decrement">-</button>
+                                        <input class="inndeform" type="number" id="input" value="0" readonly>
+                                        <button class="increment" id="increment">+</button>
+                                    </div>
                                 </td>
                                 <td>{{ item.count }}</td>
                                 <td>{{ item.price }}</td>
@@ -120,7 +114,8 @@
 
     <div class="container checkbox-margin ">
         <div class="d-flex justify-content-end">
-            <button class="btn severalbtn btn-dark space" @click="router.push({ name: 'Menu' })" type="submit">Back</button>
+            <button class="btn severalbtn btn-dark space" @click="router.push({ name: 'Menu' })"
+                type="submit">Back</button>
             <button class="btn severalbtn btn-dark" @click="router.push({ name: 'Pay' })" type="submit">Next</button>
         </div>
     </div>
@@ -156,6 +151,50 @@ export default {
 
 
 <style scoped>
+.inndeform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+    height: 20px;
+    width: 70px;
+    text-align: center;
+}
+
+.increment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+    height: 20px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.decrement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+    height: 20px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
 form {
     width: 300px;
     margin: 0 auto;

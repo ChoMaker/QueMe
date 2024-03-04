@@ -52,21 +52,29 @@
                     <input type="password" class="form-control textfieldStyle" aria-label="Password" />
                 </div>
                 <p class="textAboveTextfield">Zone</p>
-                <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Select zone
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li><button class="dropdown-item" id="vvip" type="button">VVIP</button></li>
-                        <li><button class="dropdown-item" id="a" type="button">A</button></li>
-                        <li><button class="dropdown-item" id="b" type="button">B</button></li>
-                        <li><button class="dropdown-item" id="c" type="button">C</button></li>
-                        <li><button class="dropdown-item" id="d" type="button">D</button></li>
-                        <li><button class="dropdown-item" id="e" type="button">E</button></li>
-                        <li><button class="dropdown-item" id="f" type="button">F</button></li>
-                    </ul>
-                </div>
+                <div class="row">
+    <div class="col-4">
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Select zone
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><button class="dropdown-item" id="vvip" type="button">VVIP</button></li>
+                <li><button class="dropdown-item" id="a" type="button">A</button></li>
+                <li><button class="dropdown-item" id="b" type="button">B</button></li>
+                <li><button class="dropdown-item" id="c" type="button">C</button></li>
+                <li><button class="dropdown-item" id="d" type="button">D</button></li>
+                <li><button class="dropdown-item" id="e" type="button">E</button></li>
+                <li><button class="dropdown-item" id="f" type="button">F</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-6">
+        <input class="form-control" style="width: 50px;" type="text" placeholder="0" aria-label="default input example">
+    </div>
+</div>
+
 
                 <div class="row description">
                     <div class="form-check form-check-inline checkbox-margin">

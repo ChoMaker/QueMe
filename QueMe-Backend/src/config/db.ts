@@ -1,8 +1,9 @@
 import mysql, { Connection } from 'mysql2/promise';
 
 export const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'chovy2812',
-    database: 'QueMe',
+    host: '203.150.107.159',
+    port: 3306,
+    user: 'queme',
+    password: 'password@queme',
+    database: 'queme',
 });

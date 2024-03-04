@@ -91,10 +91,10 @@
 
                             <tr v-for="item in items" :key="item.id">
                                 <td class="d-flex">
-                                    <div class="input-group">
-                                        <button class="decrement" id="decrement">-</button>
-                                        <input class="inndeform" type="number" id="input" value="0" readonly>
-                                        <button class="increment" id="increment">+</button>
+                                    <div class="input-group" style="width: 200px;" >
+                                        <button class="decrement" @click="decrement" id="decrement">-</button>
+                                        <input class="inndeform" type="number" id="input" value="counter" readonly>
+                                        <button class="increment" @click="increment" id="increment">+</button>
                                     </div>
                                 </td>
                                 <td>{{ item.count }}</td>
@@ -146,11 +146,17 @@ export default {
 
         return { router, items, increaseCount, decreaseCount };
     },
+    data() {
+        
+    }
 };
 </script>
 
 
 <style scoped>
+.scopeTextfield{
+    width:150px;
+}
 .inndeform {
     display: flex;
     justify-content: center;

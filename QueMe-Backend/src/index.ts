@@ -1,6 +1,6 @@
 import express, { Express, Request, Response , Application } from 'express';
 import mysql, { Connection } from 'mysql2/promise';
-import { userRouter } from './routes/users';
+import { userRouter } from './routes/user';
 import { connection } from './config/db';
 
 //set up express

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { SignUpRequest } from "../models/signUpRequest";
-import { UserService } from "../services/users";
+import { UserService } from "../services/user";
 import { SignInRequest } from "../models/signInRequest";
 import { ForgotPassword } from "../models/forgotPassword";
 import { UpdatePassword } from "../models/updatePassword";

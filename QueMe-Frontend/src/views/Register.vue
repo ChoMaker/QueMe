@@ -2,7 +2,7 @@
     <div class="container card">
         <div class="container">
             <div class="overlay">
-                <p class="text1 blankspacehead">Login to your account</p>
+                <p class="text1 blankspacehead">Create your account</p>
                 <p class="text3">Phone number</p>
                 <div class="input-group blankspacetextfield">
                     <input type="text" class="form-control" style="width: 495px;" aria-label="Phone number" />

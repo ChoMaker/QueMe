@@ -186,13 +186,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in items" :key="item.id">
+              <tr v-for="(item,index) in items" :key="index">
                 <td class="d-flex">
                   
                   <div class="input-group" style="width: 200px">
-                    <button class="decrement" @click="decrement">-</button>
-                    <input class="inndeform" type="number" :value="counter" readonly />
-                    <button class="increment" @click="increment">+</button>
+                    <button class="decrement" @click="decrement(index)">-</button>
+                    <div hidden>{{ counter }}</div>
+                    <!-- {{ items[index].count }} -->
+                    <input class="inndeform" type="number" v-model="items[index].count" readonly/>
+                    <button class="increment" @click="increment(index)">+</button>
                   </div>
                 </td>
                 <td>{{ item.menu }}</td>
@@ -241,14 +243,18 @@ export default {
       // ... more data from the database
     ];
 
-    const increment = () => {
+    const increment = (index) => {
       counter.value++;
+        items[index].count++;
+        console.log(items[index].count)
     };
 
-    const decrement = () => {
-      if (counter.value > 0) {
-        counter.value--;
-      }
+    const decrement = (index) => {
+      if (items[index].count > 0) {
+        // counter.value--;
+        items[index].count--;
+        console.log(items[index].count)
+    }
     };
 
     return { router, items, counter, increment, decrement };

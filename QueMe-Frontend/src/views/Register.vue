@@ -1,5 +1,4 @@
 <template>
-  <form @submit.prevent="handleSubmit">
     <div class="container card">
       <div class="container">
         <div class="overlay">
@@ -40,7 +39,6 @@
         </div>
       </div>
     </div>
-  </form>
 </template>
 
 <script>
@@ -63,11 +61,11 @@ export default {
 
     const handleSubmit = async () => {
       try {
+        console.log(user.value)
         // Send user data to the server
         const response = await Axios.post('http://localhost:4000/qm/sign-up', user.value);
 
         // Log the server response (you can handle it based on your needs)
-        console.log(response.data);
         console.log(response.data);
 
         // Redirect to the login page after successful registration
@@ -76,7 +74,7 @@ export default {
         // Handle registration error (e.g., display an error message)
         console.error('Registration failed:', error.message);
       }
-    };    
+    };
 
     return { router, user, handleSubmit };
   },

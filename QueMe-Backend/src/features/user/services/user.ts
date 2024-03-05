@@ -23,7 +23,7 @@ export namespace UserService {
             const [resultUser] = await(await connection).query("SELECT phone_number FROM users WHERE phone_number=?", [body.phoneNumber])
             const user = (resultUser as SignUpRequest[])[0]
             if (!user) {
-                const [resultInsert] = await(await connection).query("INSERT INTO users (name,phone_number,password,birth_date,create_at) VALUES (?,?,?,?,?)",[body.name,body.phoneNumber,body.password,body.birthDate,"2024-03-02"]);
+                const [resultInsert] = await(await connection).query("INSERT INTO users (name,phone_number,password,create_at) VALUES (?,?,?,?)",[body.name,body.phoneNumber,body.password,"2024-03-02"]);
                 return true;
             }else {
                 return false;

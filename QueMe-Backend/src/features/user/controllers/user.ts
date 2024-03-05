@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { SignUpRequest } from "../models/signUpRequest";
+import { SignUpRequest } from "../../../models/signUpRequest";
 import { UserService } from "../services/user";
-import { SignInRequest } from "../models/signInRequest";
-import { ForgotPassword } from "../models/forgotPassword";
-import { UpdatePassword } from "../models/updatePassword";
+import { SignInRequest } from "../../../models/signInRequest";
+import { ForgotPassword } from "../../../models/forgotPassword";
+import { UpdatePassword } from "../../../models/updatePassword";
 
 export namespace UserController {
     export const signIn = async (req: Request, res:Response) => {

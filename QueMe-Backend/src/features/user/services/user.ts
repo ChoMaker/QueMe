@@ -1,16 +1,16 @@
 import { connection } from "../../../config/db";
-import { SignInRequest } from "../models/signInRequest";
-import { SignUpRequest } from "../models/signUpRequest";
-import { ForgotPassword } from "../models/forgotPassword";
-import { UpdatePassword } from "../models/updatePassword";
+import { SignInRequest } from "../../../models/signInRequest";
+import { SignUpRequest } from "../../../models/signUpRequest";
+import { ForgotPassword } from "../../../models/forgotPassword";
+import { UpdatePassword } from "../../../models/updatePassword";
 
 export namespace UserService {
     export const signIn = async (body: SignInRequest) => {
         try {
-            const [result] = await(await connection).query("SELECT phone_number,password FROM users WHERE phone_number=?", [body.phoneNumber])
+            const [result] = await (await connection).query("SELECT * FROM users WHERE phone_number=?", [body.phoneNumber])
             const user = (result as SignInRequest[])[0]
             if (user.password === body.password) {
-                return true;
+                return user;
             }
             return false;
         } catch (error) {

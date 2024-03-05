@@ -1,55 +1,75 @@
 <template>
-    <div class="container card">
-        <div class="container">
-            <div class="overlay">
-                <p class="text1 blankspacehead">Login to your account</p>
-                <p class="text3">Phone number</p>
-                <div class="input-group blankspacetextfield">
-                    <input type="text" class="form-control" aria-label="Phone number" />
-                </div>
-                <p class="text3">Password</p>
-                <div class="input-group blankspacetextfield">
-                    <input type="password" class="form-control" aria-label="Password" />
-                </div>
-                <!-- <router-link to="/client-home">Home</router-link> -->
-                <!-- <router-link to="/client-home">Client</router-link> -->
-                <div class="center">
-                    <button class="btn loginbtn" @click="router.push({ name: 'ClientHome' })" type="button">Login</button>
-                </div>
-                <div class="flex-container">
-                    <div class="flex-container">
-                        <p>
-                            Don’t have an account?
-                        <ul style="list-style: none; padding: 0; margin: 0; display: inline;">
-                            <li style="display: inline; margin-left: 2px;">
-                                <router-link to="/register">Register</router-link>
-                            </li>
-                        </ul>
-                        </p>
+      <form @submit.prevent="handleLogin">
+        <div class="container card">
+            <div class="container">
+                <div class="overlay">
+                    <p class="text1 blankspacehead">Login to your account</p>
+                    <p class="text3">Phone number</p>
+                    <div class="input-group blankspacetextfield">
+                        <input v-model="phoneNumber" type="text" class="form-control" aria-label="Phone number" />
                     </div>
-
-                    <div class="right-align ml-5">
-                        <a href="https://example.com">Forget password</a>
+                    <p class="text3">Password</p>
+                    <div class="input-group blankspacetextfield">
+                        <input v-model="password" type="password" class="form-control" aria-label="Password" />
+                    </div>
+                    <div class="center">
+                        <button class="btn loginbtn" @click="handleLogin" type="submit">Login</button>
+                    </div>
+                    <div class="flex-container">
+                        <div class="flex-container">
+                            <p>
+                                Don’t have an account?
+                            <ul style="list-style: none; padding: 0; margin: 0; display: inline;">
+                                <li style="display: inline; margin-left: 2px;">
+                                    <router-link to="/register">Register</router-link>
+                                </li>
+                            </ul>
+                            </p>
+    
+                        </div>
+    
+                        <div class="right-align ml-5">
+                            <a href="https://example.com">Forget password</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+      </form>
 </template>
 
 <script>
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
+import Axios from "axios";
 
 export default {
-    setup() {
-        const router = useRouter()
-        return { router }
-    }
-}
+  setup() {
+    const router = useRouter();
+
+    const phoneNumber = ref('');
+    const password = ref('');
+
+    const handleLogin = () => {
+        console.log('PhoneNumber:', phoneNumber.value);
+        console.log('Password:', password.value);
+        console.log('submitted');
+
+        router.push({ name: 'ClientHome'});
+    };
+
+    return { router, phoneNumber, password, handleLogin };
+  },
+};
 </script>
 
 
+
+
 <style scoped>
+
+
+
 li {
     display: inline;
     color: black;

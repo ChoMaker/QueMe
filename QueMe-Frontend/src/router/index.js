@@ -54,6 +54,25 @@ const router = createRouter({
   ],
 });
 
+// router.beforeEach((to, from, next) => {
+//   // Check if the route requires authentication
+//   if (to.meta.requiresAuth) {
+//     // Check if the user is authenticated (you need to implement your authentication logic)
+//     const isAuthenticated = /* implement your authentication logic */;
+    
+//     if (isAuthenticated) {
+//       // Allow access to the route
+//       next();
+//     } else {
+//       // Redirect to the login page if not authenticated
+//       next({ name: 'Login' });
+//     }
+//   } else {
+//     // Allow access to other routes that do not require authentication
+//     next();
+//   }
+// });
+
 /* const router = createRouter({
   history: createWebHistory(),
   routes,

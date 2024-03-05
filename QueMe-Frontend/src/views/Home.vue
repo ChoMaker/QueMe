@@ -48,13 +48,24 @@
                     เวลา 20:00น.
                     * การจองเลยเวลาจองฟรี ต้องจองแบบ Premium เท่านั้น ซึ่งจะมีค่าใช้จ่ายมากกว่าปกติ</p>
                 <p class="textAboveTextfield">How many seats (Maximum reservation: 18)</p>
-                <div class="input-group">
+                <div class="input-group" style="margin-bottom: 20px;" >
                     <input type="password" class="form-control textfieldStyle" aria-label="Password" />
                 </div>
-                <p class="textAboveTextfield">Zone</p>
+                <span class="textAboveTextfield" style="color: #fff;">Zone: {{ selected }}</span>
                 <div class="row">
-    <div class="col-4">
-        <div class="dropdown">
+    <div class="col-5">
+        <select v-model="selected">
+        <option disabled value=""> Please selected one </option>
+        <option>VVIIP</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+        <option>F</option>
+        </select>
+
+        <!-- <div class="dropdown">
             <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2"
                     data-bs-toggle="dropdown" aria-expanded="false">
                 Select zone
@@ -68,10 +79,10 @@
                 <li><button class="dropdown-item" id="e" type="button">E</button></li>
                 <li><button class="dropdown-item" id="f" type="button">F</button></li>
             </ul>
-        </div>
+        </div> -->
     </div>
     <div class="col-6">
-        <input class="form-control" style="width: 50px;" type="text" placeholder="0" aria-label="default input example">
+        <input class="form-control" style="width: 50px; height: 30px;" type="text" placeholder="0" aria-label="default input example">
     </div>
 </div>
 
@@ -123,17 +134,25 @@
 
 <script>
 import { useRouter } from 'vue-router';
+import {ref} from 'vue';
 
 export default {
     setup() {
         const router = useRouter();
-        return { router };
+
+        const selected = ref('');
+
+        return { router, selected };
     }
 
 }
 </script>
 
 <style scoped>
+select {
+word-wrap: normal;
+height: 40px;
+}
 .btn {
     border-radius: 20px;
     min-width: 110px;

@@ -16,7 +16,7 @@ export namespace UserController {
             })
         }else {
             return res.status(500).json({
-                message: "Password is incorrect"
+                message: "Phonenumber or password is incorrect"
             })
         }
     }

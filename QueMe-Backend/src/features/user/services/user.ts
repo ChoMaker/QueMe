@@ -3,6 +3,7 @@ import { SignInRequest } from "../../../models/signInRequest";
 import { SignUpRequest } from "../../../models/signUpRequest";
 import { ForgotPassword } from "../../../models/forgotPassword";
 import { UpdatePassword } from "../../../models/updatePassword";
+import dayjs, { Dayjs } from "dayjs";
 
 export namespace UserService {
     export const signIn = async (body: SignInRequest) => {
@@ -23,7 +24,7 @@ export namespace UserService {
             const [resultUser] = await(await connection).query("SELECT phone_number FROM users WHERE phone_number=?", [body.phoneNumber])
             const user = (resultUser as SignUpRequest[])[0]
             if (!user) {
-                const [resultInsert] = await(await connection).query("INSERT INTO users (name,phone_number,password,create_at) VALUES (?,?,?,?)",[body.name,body.phoneNumber,body.password,"2024-03-02"]);
+                const [resultInsert] = await(await connection).query("INSERT INTO users (name,phone_number,password,create_at) VALUES (?,?,?,?)",[body.name,body.phoneNumber,body.password,new Date()]);
                 return true;
             }else {
                 return false;

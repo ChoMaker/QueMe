@@ -1,16 +1,16 @@
 <template>
-      <form @submit.prevent="handleLogin">
         <div class="container card">
             <div class="container">
                 <div class="overlay">
                     <p class="text1 blankspacehead">Login to your account</p>
                     <p class="text3">Phone number</p>
                     <div class="input-group blankspacetextfield">
-                        <input v-model="phoneNumber" type="text" class="form-control" aria-label="Phone number" />
+                        <input v-model="userSignin.phoneNumber" type="text" class="form-control" aria-label="Phone number" />
                     </div>
                     <p class="text3">Password</p>
+                    <p>{{  }}</p>
                     <div class="input-group blankspacetextfield">
-                        <input v-model="password" type="password" class="form-control" aria-label="Password" />
+                        <input v-model="userSignin.password" type="password" class="form-control" aria-label="Password" />
                     </div>
                     <div class="center">
                         <button class="btn loginbtn" @click="handleLogin" type="submit">Login</button>
@@ -35,30 +35,41 @@
                 </div>
             </div>
         </div>
-      </form>
 </template>
 
 <script>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import Axios from "axios";
+import ClientHome from './ClientHome.vue';
 
 export default {
   setup() {
     const router = useRouter();
 
-    const phoneNumber = ref('');
-    const password = ref('');
+    const userSignin = ref({
+        phoneNumber: '',
+        password: ''
+    })
 
-    const handleLogin = () => {
-        console.log('PhoneNumber:', phoneNumber.value);
-        console.log('Password:', password.value);
+    // const phoneNumber = ref('');
+    // const password = ref('');
+
+    const handleLogin = async () => {
+        console.log('PhoneNumber:', userSignin.phoneNumber);
+        console.log('Password:', userSignin.password);
         console.log('submitted');
 
-        router.push({ name: 'ClientHome'});
+        try{
+            const response = await Axios.post('http://localhost:4000/qm/sign-in', userSignin.value);
+            router.push({name: 'ClientHome'})
+        }
+        catch(error) {
+            console.error('Sign-in failed:', error.message);
+        }
     };
 
-    return { router, phoneNumber, password, handleLogin };
+    return { router, userSignin, handleLogin };
   },
 };
 </script>

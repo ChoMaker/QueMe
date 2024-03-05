@@ -1,12 +1,15 @@
 import express, { Express, Request, Response , Application } from 'express';
+import cors from 'cors';
 import mysql, { Connection } from 'mysql2/promise';
 import { userRouter } from './routes/user';
 import { connection } from './config/db';
 
 //set up express
+
 const app = express();
 const port = 4000;
 
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', userRouter)

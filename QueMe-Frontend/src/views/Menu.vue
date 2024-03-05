@@ -23,10 +23,12 @@
                     & Beverages</button>
             </div>
             <div class="row">
-                <p class="justify-content-between">หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"</p>
-                <button class="btn btn-outline-light space" @click="router.push({ name: 'ConfirmReserve' })"
-                    type="submit">Next</button>
-            </div>
+    <div class="d-flex justify-content-between">
+        <p class="align-self-center" style="margin-right: 20px;">หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"</p>
+        <button class="btn btn btn-dark" @click="router.push({ name: 'ConfirmReserve' })" type="submit">Next</button>
+    </div>
+</div>
+
         </div>
 
 
@@ -53,8 +55,13 @@
                             <th scope="row">ST01</th>
                             <td>Steak เนื้อ Ribeye 250g น้ำจิ้มแจ่ว</td>
                             <td>890.-</td>
-                            <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
-                                    aria-label="default input example"></td>
+                            <td>
+                                <div class="input-group" style="width: 200px;" >
+                                        <button class="decrement" @click="decrement" id="decrement">-</button>
+                                        <input class="inndeform" type="number" id="input" value="0" readonly>
+                                        <button class="increment" @click="increment" id="increment">+</button>
+                                    </div>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">ST02</th>

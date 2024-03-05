@@ -154,9 +154,6 @@ export default {
 
 
 <style scoped>
-.scopeTextfield{
-    width:150px;
-}
 .inndeform {
     display: flex;
     justify-content: center;

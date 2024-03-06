@@ -3,6 +3,7 @@ import cors from 'cors';
 import mysql, { Connection } from 'mysql2/promise';
 import { userRouter } from './routes/user';
 import { connection } from './config/db';
+import { reserveQueRouter } from './routes/que';
 
 //set up express
 
@@ -13,6 +14,7 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/', userRouter)
+app.use('/', reserveQueRouter)
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

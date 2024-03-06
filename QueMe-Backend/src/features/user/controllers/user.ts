@@ -6,7 +6,7 @@ import { ForgotPassword } from "../../../models/forgotPassword";
 import { UpdatePassword } from "../../../models/updatePassword";
 
 export namespace UserController {
-    export const signIn = async (req: Request, res:Response) => {
+    export const signIn = async (req: Request, res: Response) => {
         const body = req.body as SignInRequest;
         const result = await UserService.signIn(body)
 

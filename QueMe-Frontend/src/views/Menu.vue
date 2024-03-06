@@ -302,28 +302,28 @@
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D17</th>
+                            <th scope="row">DI17</th>
                             <td>ผัดกะเพรา</td>
                             <td>189.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D18</th>
+                            <th scope="row">DI18</th>
                             <td>ผัดพริกหยวก</td>
                             <td>179.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D19</th>
+                            <th scope="row">DI19</th>
                             <td>ข้าวผัดกะเพรา</td>
                             <td>189.-n</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"
                                     aria-label="default input example"></td>
                         </tr>
                         <tr>
-                            <th scope="row">D20</th>
+                            <th scope="row">DI20</th>
                             <td>ข้าวผัดรถไฟ</td>
                             <td>159.-</td>
                             <td><input class="form-control" style="width: 50px;" type="text" placeholder="0"

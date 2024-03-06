@@ -13,7 +13,7 @@ export namespace UserService {
             if (!user || user.password != body.password) {
                 return false;
             }
-            return true;
+            return user.id;
         } catch (error) {
             return false;
         }

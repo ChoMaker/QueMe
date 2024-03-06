@@ -8,7 +8,6 @@
                         <input v-model="userSignin.phoneNumber" type="text" class="form-control" aria-label="Phone number" />
                     </div>
                     <p class="text3">Password</p>
-                    <p>{{  }}</p>
                     <div class="input-group blankspacetextfield">
                         <input v-model="userSignin.password" type="password" class="form-control" aria-label="Password" />
                     </div>

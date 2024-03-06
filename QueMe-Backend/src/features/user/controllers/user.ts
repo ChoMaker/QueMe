@@ -12,7 +12,8 @@ export namespace UserController {
 
         if (result) {
             return res.status(200).json({
-                message: "Login successfully"
+                message: "Login successfully",
+                result: result
             })
         }else {
             return res.status(500).json({

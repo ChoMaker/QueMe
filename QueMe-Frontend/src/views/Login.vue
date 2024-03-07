@@ -61,6 +61,7 @@ export default {
 
         try{
             const response = await Axios.post('http://localhost:4000/qm/sign-in', userSignin.value);
+            localStorage.setItem('id', response.data.result)
             router.push({name: 'ClientHome'})
         }
         catch(error) {

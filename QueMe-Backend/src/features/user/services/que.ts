@@ -19,13 +19,14 @@ type queId = {
 export namespace QueService {
     export const reserveQue = async (body: ReserveQue) => {
         try {
+            console.log(body)
             const [resultQue] = await (await connection).query(`SELECT * from tables WHERE zone='${body.zone}'and name='${body.name}' `)
             const table = (resultQue as table_id[])[0]
             console.log(table.id)
 
             if (table) {
                 //const sql = `INSERT INTO que (user_id,table_id,event_id,status,date_and_time,seat,type) VALUES (${body.user_id},${table.id},${body.event_id},${body.status},${body.date_and_time},${body.seat},${body.type})`
-                const resultTable = await (await connection).query("INSERT INTO que (user_id,table_id,event_id,date_and_time,seat,type) VALUES (?,?,?,?,?,?)", [body.user_id,table.id,body.event_id,body.date_and_time,body.seat,body.type]);
+                const resultTable = await (await connection).query("INSERT INTO que (user_id,table_id,event_id,date_and_time,seat,type) VALUES (?,?,?,?,?,?)", [body.user_id,table.id,body.event_id,new Date(body.date_and_time),body.seat,body.type]);
                 //const que = (resultTable as any[])[0]
                 //console.log([resultTable][0])
                 return true;

@@ -180,27 +180,26 @@
             <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Item</th>
                 <th>Your orders</th>
-                <th>Price</th>
+              <th style="width: 100px;">Price</th>
+              <th style="width: 20px;"></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item,index) in items" :key="index">
+            <tr v-for="(item,index) in items" :key="index">
+                <td>{{ item.menu }}</td>
+                <td>{{ item.price }}</td>
                 <td class="d-flex">
-                  
-                  <div class="input-group" style="width: 200px">
+                  <div class="input-group" style="width: 160px">
                     <button class="decrement" @click="decrement(index)">-</button>
                     <div hidden>{{ counter }}</div>
                     <!-- {{ items[index].count }} -->
                     <input class="inndeform" type="number" v-model="items[index].count" readonly/>
                     <button class="increment" @click="increment(index)">+</button>
                   </div>
-                </td>
-                <td>{{ item.menu }}</td>
-                <td>{{ item.price }}</td>
+                </td>  
               </tr>
-            </tbody>
+          </tbody>
           </table>
 
         </div>
@@ -251,7 +250,7 @@ export default {
 
     const decrement = (index) => {
       if (items[index].count > 0) {
-        // counter.value--;
+        counter.value--;
         items[index].count--;
         console.log(items[index].count)
     }

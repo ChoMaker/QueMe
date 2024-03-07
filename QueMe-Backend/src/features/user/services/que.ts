@@ -3,39 +3,47 @@ import { ReserveQue } from "../../../models/reserveQue";
 import dayjs, { Dayjs } from "dayjs";
 
 type table_id = {
-    id: number;
-    zone: string;
-    name: string;
-}
+  id: number;
+  zone: string;
+  name: string;
+};
 
-type que_id = {
-    insertId: number;
-}
-
-type queId = {
-    ResultSetHeader: que_id;
-}
+type ResultSetHeader = {
+  fieldCount: number;
+  affectedRows: number;
+  insertId: number;
+  info: string;
+  serverStatus: number;
+  warningStatus: number;
+  changedRows: number;
+};
 
 export namespace QueService {
-    export const reserveQue = async (body: ReserveQue) => {
-        try {
-            console.log(body)
-            const [resultQue] = await (await connection).query(`SELECT * from tables WHERE zone='${body.zone}'and name='${body.name}' `)
-            const table = (resultQue as table_id[])[0]
-            console.log(table.id)
+  export const reserveQue = async (body: ReserveQue) => {
+    const [resultQue] = await (
+      await connection
+    ).query(
+      `SELECT * from tables WHERE zone='${body.zone}'and name='${body.name}' `
+    );
+    const table = (resultQue as table_id[])[0];
 
-            if (table) {
-                //const sql = `INSERT INTO que (user_id,table_id,event_id,status,date_and_time,seat,type) VALUES (${body.user_id},${table.id},${body.event_id},${body.status},${body.date_and_time},${body.seat},${body.type})`
-                const resultTable = await (await connection).query("INSERT INTO que (user_id,table_id,event_id,date_and_time,seat,type) VALUES (?,?,?,?,?,?)", [body.user_id,table.id,body.event_id,new Date(body.date_and_time),body.seat,body.type]);
-                //const que = (resultTable as any[])[0]
-                //console.log([resultTable][0])
-                return true;
-            }else {
-                return false;
-            }
-        } catch (error) {
-            console.log(error)
-            return false;
-        }
+    if (table) {
+      //const sql = `INSERT INTO que (user_id,table_id,event_id,status,date_and_time,seat,type) VALUES (${body.user_id},${table.id},${body.event_id},${body.status},${body.date_and_time},${body.seat},${body.type})`
+      const resultTable = await (
+        await connection
+      ).query(
+        "INSERT INTO que (user_id,table_id,event_id,date_and_time,seat,type) VALUES (?,?,?,?,?,?)",
+        [
+          body.user_id,
+          table.id,
+          body.event_id,
+          new Date(body.date_and_time),
+          body.seat,
+          body.type,
+        ]
+      );
+      const insertId = (resultTable[0] as ResultSetHeader).insertId;
+      return insertId;
     }
+  };
 }

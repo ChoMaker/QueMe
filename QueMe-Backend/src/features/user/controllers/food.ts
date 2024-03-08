@@ -7,9 +7,9 @@ export namespace FoodController {
     const body = req.body as AllFood;
 
     try {
-      const result = await FoodService.getFoods(body);
+      const result = await FoodService.getFoods();
       return res.status(200).json({
-        message: "Get all foods successfully",
+        data: result,
       });
     } catch (error) {
       return res.status(500).json({

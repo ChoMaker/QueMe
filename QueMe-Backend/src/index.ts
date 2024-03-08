@@ -1,28 +1,30 @@
-import express, { Express, Request, Response , Application } from 'express';
-import cors from 'cors';
-import mysql, { Connection } from 'mysql2/promise';
-import { userRouter } from './routes/user';
-import { connection } from './config/db';
-import { reserveQueRouter } from './routes/que';
+import express, { Express, Request, Response, Application } from "express";
+import cors from "cors";
+import mysql, { Connection } from "mysql2/promise";
+import { userRouter } from "./routes/user";
+import { connection } from "./config/db";
+import { reserveQueRouter } from "./routes/que";
+import { foodRouter } from "./routes/food";
 
 //set up express
 
 const app = express();
 const port = 4000;
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/', userRouter)
-app.use('/', reserveQueRouter)
+app.use("/", userRouter);
+app.use("/", reserveQueRouter);
+app.use("/", foodRouter);
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
 
-connection.then( () => {
-    console.log(`Database start...`);
-})
+connection.then(() => {
+  console.log(`Database start...`);
+});
 
 // app.get("/qm/getUser",async (req,rs) => {
 //     const result = await(await connection).query("INSERT INTO users (phone_number,password) VALUES ('0985584457','chovy2812')");

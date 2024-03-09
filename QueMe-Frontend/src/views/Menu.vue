@@ -177,14 +177,14 @@ export default {
     const resultFood = ref([]);
 
     const increment = (id) => {
-      const food = resultFood.find((item) => item.id === id);
-      if (food && food.count !== undefined) {
+        const food = resultFood.value.find((item) => item.id === id);
+      if (food) {
         food.count++;
       }
     };
 
     const decrement = (id) => {
-      const food = resultFood.find((item) => item.id === id);
+        const food = resultFood.value.find((item) => item.id === id);
       if (food && food.count > 0) {
         food.count--;
       }
@@ -209,18 +209,19 @@ export default {
     const searchTerm = ref("");
 
     onMounted(async () => {
-      try {
-        const response = await axios.get("http://localhost:4000/qm/getfoods");
-        resultFood.value = response.data.data[0].map((food) => ({...food,count: 0,}));
-        console.log(resultFood.value);
-        console.log(
-          "Response:",
-          await axios.get("http://localhost:4000/qm/getfoods")
-        );
-      } catch (error) {
-        console.error("Error fetching items:", error);
-      }
-    });
+  try {
+    const response = await axios.get("http://localhost:4000/qm/getfoods");
+    // Initialize resultFood as an empty array
+    resultFood.value = [];
+    // Update resultFood with the data from the server
+    resultFood.value = response.data.data[0].map((food) => ({ ...food, count: 0 }));
+    console.log(resultFood.value);
+    console.log("Response:", response);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+  }
+});
+
 
     return {
       router,

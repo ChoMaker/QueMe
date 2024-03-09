@@ -28,7 +28,6 @@ export namespace QueService {
     const table = (resultQue as table_id[])[0];
 
     if (table) {
-      //const sql = `INSERT INTO que (user_id,table_id,event_id,status,date_and_time,seat,type) VALUES (${body.user_id},${table.id},${body.event_id},${body.status},${body.date_and_time},${body.seat},${body.type})`
       const resultTable = await (
         await connection
       ).query(

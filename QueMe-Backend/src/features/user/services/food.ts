@@ -14,7 +14,7 @@ export namespace FoodService {
     ).query(`SELECT * FROM foods WHERE name LIKE '%${body.name}%' `, [
       body.name,
     ]);
-    console.log(resultSearchFood);
+
     const allfoods = resultSearchFood as any;
     if (allfoods) {
       return resultSearchFood;

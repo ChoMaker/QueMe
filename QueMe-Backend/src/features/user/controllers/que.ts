@@ -13,7 +13,7 @@ export namespace QueController {
         result: result,
       });
     } catch (error) {
-      return res.status(500).json({
+      return res.status(404).json({
         message: "Can't reserve que",
       });
     }

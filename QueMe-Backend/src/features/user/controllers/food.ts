@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { AllFood } from "../../../models/allFood";
-import { FoodService } from "../services/food";
 import { SearchFood } from "../../../models/searchFood";
+import { FoodService } from "../services/food";
 
 export namespace FoodController {
   export const getFoods = async (req: Request, res: Response) => {

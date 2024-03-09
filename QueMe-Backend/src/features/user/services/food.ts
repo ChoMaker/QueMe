@@ -1,6 +1,5 @@
 import { connection } from "../../../config/db";
 import { AllFood } from "../../../models/allFood";
-import dayjs, { Dayjs } from "dayjs";
 import { SearchFood } from "../../../models/searchFood";
 
 export namespace FoodService {

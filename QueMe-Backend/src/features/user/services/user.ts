@@ -12,6 +12,7 @@ export namespace UserService {
         await connection
       ).query("SELECT * FROM users WHERE phone_number=?", [body.phoneNumber]);
       const user = (result as SignInRequest[])[0];
+
       if (!user || user.password != body.password) {
         return false;
       }

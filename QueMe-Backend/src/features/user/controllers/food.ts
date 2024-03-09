@@ -4,7 +4,9 @@ import { SearchFood } from "../../../models/searchFood";
 import { FoodService } from "../services/food";
 
 export namespace FoodController {
-  export const getFoods = async (res: Response) => {
+  export const getFoods = async (req: Request, res: Response) => {
+    const body = req.body;
+
     try {
       const result = await FoodService.getFoods();
       return res.status(200).json({

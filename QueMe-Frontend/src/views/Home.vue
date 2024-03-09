@@ -245,7 +245,7 @@ import { TypeOfQue } from "@/util/util";
       console.log("Seat Zone Number:", this.seatZoneNumber);
 
       try {
-        const response = await Axios.post('http://localhost:4000/qm/reserveQue', {
+        const response = await Axios.post('http://localhost:4000/qm/reserveque', {
             event_id: null,
             user_id: localStorage.getItem('id'),
           type: this.selectedOption,

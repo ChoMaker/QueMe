@@ -19,7 +19,7 @@ export namespace OrderService {
     ).query("SELECT * from que WHERE id=?", [body.que_id]);
     const resultQueId = (resultReserveOrder as que_id[])[0];
 
-    if (resultQueId) {
+    if (resultQueId.id) {
       const resultQue = await (
         await connection
       ).query("INSERT INTO orders (food_id,que_id,quantity) VALUES (?,?,?)", [

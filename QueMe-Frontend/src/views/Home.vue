@@ -97,7 +97,7 @@
             <div class="col-6">
               <select
                 v-model="selected"
-                style="height: 25px; border-radius: 20px"
+                style="height: 28px; border-radius: 20px"
               >
                 <option disabled value="">Please selected one</option>
                 <option>VVIIP</option>
@@ -107,6 +107,7 @@
                 <option>D</option>
                 <option>E</option>
                 <option>F</option>
+                <option>S</option>
               </select>
             </div>
             <div class="col-6">

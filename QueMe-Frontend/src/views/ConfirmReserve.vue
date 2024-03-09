@@ -85,6 +85,8 @@
           disabled
           readonly
         />
+
+        
         <div class="row description">
           <div class="form-check form-check-inline checkbox-margin">
             <input
@@ -211,10 +213,10 @@
     <div class="d-flex justify-content-end">
       <button
         class="btn severalbtn btn-dark space"
-        @click="router.push({ name: 'Menu' })"
+        @click="router.push({ name: 'ClientHome' })"
         type="submit"
       >
-        Back
+        Cancel
       </button>
       <button
         class="btn severalbtn btn-dark"

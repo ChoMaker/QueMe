@@ -85,13 +85,13 @@
 
       <!-- table -->
 
+      <!-- table -->
       <div class="col-lg-6">
         <div class="card">
-    <!-- search bar -->
           <div class="container-fluid">
             <form class="d-flex searchbar" @submit.prevent="search">
               <input
-              v-model="searchTerm"
+                v-model="searchTerm"
                 class="form-control me-2"
                 type="search"
                 placeholder="Search"
@@ -103,33 +103,32 @@
             </form>
           </div>
 
-          <table class="table" v-if="searchedItems && searchedItems.length > 0">
+          <table class="table">
             <thead>
               <tr>
-                <!-- <th style="width: 20px;">Item</th>
-                      <th>Your orders</th>
-                      <th style="width: 100px;">Price</th> -->
-                <th>Your orders</th>
+                <th>ID</th>
+                <th>Name</th>
                 <th>Price</th>
-                <th>Quantity</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in searchedItems" :key="index">
-                <td>{{ item.menu }}</td>
-                <td>{{ item.price }}</td>
+              <tr v-for="food in resultFood" :key="food.id">
+                <th scope="row">{{ food.id }}</th>
+                <td>{{ food.name }}</td>
+                <td>{{ food.price }}</td>
                 <td class="d-flex">
                   <div class="input-group" style="width: 160px">
-                    <button class="decrement" @click="decrement(index)">
+                    <button class="decrement" @click="decrement(food.id)">
                       -
                     </button>
                     <input
                       class="inndeform"
                       type="number"
-                      v-model="item.count"
+                      v-model="food.count"
                       readonly
                     />
-                    <button class="increment" @click="increment(index)">
+                    <button class="increment" @click="increment(food.id)">
                       +
                     </button>
                   </div>
@@ -138,10 +137,9 @@
             </tbody>
           </table>
 
-          <div v-else>
-      <p>No results found.</p>
-    </div>
-
+          <!-- <div v-else>
+            <p>No results found.</p>
+          </div> -->
         </div>
       </div>
     </div>
@@ -154,7 +152,7 @@
         @click="router.push({ name: 'ClientHome' })"
         type="submit"
       >
-        Back
+        Cancel
       </button>
       <button
         class="btn btn btn-dark"
@@ -176,53 +174,49 @@ export default {
   setup() {
     const router = useRouter();
 
-    const counter = ref(0);
-    const items = ref([]);
-    const searchTerm = ref("");
-    const searchedItems = ref([]);
+    const resultFood = ref([]);
 
-    const increment = (index) => {
-      counter.value++;
-      items[index].count++;
-      console.log(items[index].count);
+    const increment = (id) => {
+      const food = resultFood.find((item) => item.id === id);
+      if (food && food.count !== undefined) {
+        food.count++;
+      }
     };
 
-    const decrement = (index) => {
-      if (items[index].count > 0) {
-        counter.value--;
-        items[index].count--;
-        console.log(items[index].count);
+    const decrement = (id) => {
+      const food = resultFood.find((item) => item.id === id);
+      if (food && food.count > 0) {
+        food.count--;
       }
     };
 
     const handleNextButtonClick = async () => {
       try {
-        // Perform the API post request to save data to the database
-        const response = await axios.post("http://localhost:4000/gm/getMenu", {
-            items: items.value,
+        const response = await axios.post("http://localhost:4000/qm/getMenu", {
+          items: resultFood,
         });
-
-        // Log the server response
         console.log("Server response:", response.data);
-
-        // Navigate to the next route (change this based on your router configuration)
         router.push({ name: "NextPage" });
       } catch (error) {
         console.error("Error posting data:", error);
       }
     };
 
-    const filterItems = () => {
-      const lowerCaseSearchTerm = searchTerm.value.toLowerCase();
-      return items.value.filter(
-        (item) => item.menu.toLowerCase().includes(lowerCaseSearchTerm)
-      );
+    const search = () => {
+      // Implement your search logic here
     };
+
+    const searchTerm = ref("");
 
     onMounted(async () => {
       try {
-        const response = await axios.get("http://localhost:4000/gm/getMenu");
-        items.value = response.data;
+        const response = await axios.get("http://localhost:4000/qm/getfoods");
+        resultFood.value = response.data.data[0].map((food) => ({...food,count: 0,}));
+        console.log(resultFood.value);
+        console.log(
+          "Response:",
+          await axios.get("http://localhost:4000/qm/getfoods")
+        );
       } catch (error) {
         console.error("Error fetching items:", error);
       }
@@ -230,23 +224,21 @@ export default {
 
     return {
       router,
-      items,
-      counter,
+      resultFood,
       increment,
       decrement,
-      handleNextButtonClick,searchedItems,
+      handleNextButtonClick,
+      search,
       searchTerm,
-      filterItems
     };
   },
 };
 </script>
 
 <style scoped>
-
-.searchbar{
-    margin: 10px;
-    align-self: center;
+.searchbar {
+  margin: 10px;
+  align-self: center;
 }
 /* form {
   width: 300px;

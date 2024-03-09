@@ -106,9 +106,7 @@
             <div class="herizontal-line"></div>
         </div>
         <div class="row felx-container footerMargin">
-            <div class="d-grid gap-3 col-7">
-                <button class="btn btn-light btnFooter" @click="router.push({ name: 'Menu' })"
-                    type="button">MENU</button>
+            <div class="d-grid col-5">
                 <button class="btn btn-light btnFooter" @click="router.push({ name: 'Home' })"
                     type="button">RESERVE</button>
                 <button class="btn btn-light btnFooter" @click="router.push({ name: 'ClientHome' })"
@@ -156,6 +154,7 @@ export default {
 
 .btnFooter {
     border-radius: 50px;
+    height: 45px;
 }
 
 .bgcard {

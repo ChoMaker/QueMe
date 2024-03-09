@@ -27,7 +27,6 @@ export namespace OrderService {
         resultQueId.id,
         body.quantity,
       ]);
-      console.log(resultQue);
       return true;
     }
   };

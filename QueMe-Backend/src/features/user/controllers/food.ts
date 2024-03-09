@@ -5,7 +5,7 @@ import { FoodService } from "../services/food";
 
 export namespace FoodController {
   export const getFoods = async (req: Request, res: Response) => {
-    const body = req.body;
+    const body = req.body as null;
 
     try {
       const result = await FoodService.getFoods();

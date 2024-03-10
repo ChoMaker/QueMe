@@ -6,4 +6,4 @@ userRouter.post("/qm/sign-in", UserController.signIn);
 userRouter.post("/qm/sign-up", UserController.signUp);
 userRouter.post("/qm/forgotpassword", UserController.forgotPassword);
 userRouter.post("/qm/updatepassword", UserController.updatePassword);
-userRouter.get("/qm/getusers", UserController.getUser);
+userRouter.post("/qm/getusers", UserController.getUser);

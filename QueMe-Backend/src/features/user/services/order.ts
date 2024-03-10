@@ -66,7 +66,7 @@ export namespace OrderService {
     for (const orders of filtered) {
       const [foodData] = await (
         await connection
-      ).query("SELECT *,id as food_id from foods WHERE id=?", [orders.food_id]);
+      ).query("SELECT * from foods WHERE id=?", [orders.food_id]);
       const foodData2 = (foodData as foodData[])[0];
       foods.push(foodData2);
     }

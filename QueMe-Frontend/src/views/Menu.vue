@@ -51,13 +51,13 @@
         >
           Food & Appetizer
         </button>
-        <button
+        <!-- <button
           class="btn btn-outline-light space"
           @click="router.push({ name: 'MenuDrink' })"
           type="submit"
         >
           Drinks & Beverages
-        </button>
+        </button> -->
       </div>
       <div class="row">
         <div class="d-flex justify-content-between">
@@ -82,8 +82,6 @@
         <img src="/src/assets/menu/food/3.png" alt="Logo" />
         <img src="/src/assets/menu/food/4.png" alt="Logo" />
       </div>
-
-      <!-- table -->
 
       <!-- table -->
       <div class="col-lg-6">
@@ -198,12 +196,19 @@ export default {
         );
 
         // Extract only the id and quantity properties
-        const itemsToSend = selectedItems.map(({ id, quantity }) => ({ id,quantity,}));
-        console.log("Items to Send:", itemsToSend);
+        const itemsToSend = selectedItems.map(({ id, quantity }) => ({
+          food_id: id,
+          que_id: parseInt(localStorage.getItem("queID")),
+          quantity: quantity,
+        }));
         console.log("Result Food :", resultFood.value);
+        console.log("Items to Send:", itemsToSend);
 
         // Send only the selected items to the server
-        const response = await axios.post("http://localhost:4000/qm/reserveorder",{items: itemsToSend,});
+        const response = await axios.post(
+          "http://localhost:4000/qm/reserveorder",
+          itemsToSend
+        );
         console.log("Server response:", response.data);
         router.push({ name: "ConfirmReserve" });
       } catch (error) {

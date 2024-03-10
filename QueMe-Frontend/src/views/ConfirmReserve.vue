@@ -41,18 +41,15 @@
     <div class="row">
       <div class="col-lg-6">
 
-
-
         <p>Name: {{ userData.name }}</p>
-        <p>Phone: {{ userData.phone }}</p>
-
-
+        <p>Phone: {{ userData.phone_number }}</p>
 
         <p class="textAboveTextfield">Name</p>
         <input
+        ref="name"
           class="form-control textfieldStyle"
           type="text"
-          value="Name"
+          value="name"
           aria-label="Disabled input example"
           disabled
           readonly
@@ -192,24 +189,36 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref,onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
 
 export default {
   setup() {
     const router = useRouter();
+    const name = ref('');
     const counter = ref(0);
 
-    const userData = ref({});
+    const userData = ref({
+      id: "",
+      name: "",
+      phone_number: "",
+      password: "",
+      create_at: "",
+    });
     onMounted(async () => {
-      localStorage.setItem('id', response.data.result)
+      // localStorage.setItem('id', response.data.result)
 
       try {
-        const response = await axios.get('http://localhost:4000/qm/getusers');
+        const response = await axios.get("http://localhost:4000/qm/getusers", {
+          params:{id: localStorage.getItem("id")},
+        });
+
         userData.value = response.data.data;
-        console.log("data are : ", userData.value)
+        name.value = userData.value.name
+        console.log("Name:",name.value)
+        console.log("data are : ", userData.value);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        console.error("Error fetching user data:", error);
       }
     });
 
@@ -271,7 +280,7 @@ export default {
       decrement,
       selectedOption,
       options,
-      userData
+      userData,
     };
   },
 };

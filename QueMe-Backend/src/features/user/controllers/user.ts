@@ -4,6 +4,7 @@ import { UserService } from "../services/user";
 import { SignInRequest } from "../../../models/signInRequest";
 import { ForgotPassword } from "../../../models/forgotPassword";
 import { UpdatePassword } from "../../../models/updatePassword";
+import { GetUser } from "../../../models/getUser";
 
 export namespace UserController {
   export const signIn = async (req: Request, res: Response) => {
@@ -63,6 +64,21 @@ export namespace UserController {
     } else {
       return res.status(500).json({
         message: "Can't update password",
+      });
+    }
+  };
+
+  export const getUser = async (req: Request, res: Response) => {
+    const body = req.body as GetUser;
+    const result = await UserService.getUser(body);
+
+    if (result) {
+      return res.status(200).json({
+        data: result,
+      });
+    } else {
+      return res.status(500).json({
+        message: "User not found",
       });
     }
   };

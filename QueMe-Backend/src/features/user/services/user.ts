@@ -4,6 +4,8 @@ import { SignUpRequest } from "../../../models/signUpRequest";
 import { ForgotPassword } from "../../../models/forgotPassword";
 import { UpdatePassword } from "../../../models/updatePassword";
 import dayjs, { Dayjs } from "dayjs";
+import { GetUser } from "../../../models/getUser";
+import { UserData } from "../../../models/userData";
 
 export namespace UserService {
   export const signIn = async (body: SignInRequest) => {
@@ -74,6 +76,18 @@ export namespace UserService {
         body.phoneNumber,
       ]);
       return true;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  export const getUser = async (body: GetUser) => {
+    try {
+      const [resulUserData] = await (
+        await connection
+      ).query("SELECT * FROM users WHERE id=?", [body.id]);
+      const userData = (resulUserData as UserData[])[0];
+      return [userData.name, userData.phone_number];
     } catch (error) {
       return false;
     }

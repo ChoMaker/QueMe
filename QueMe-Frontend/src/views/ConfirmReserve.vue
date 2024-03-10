@@ -40,6 +40,14 @@
     </div>
     <div class="row">
       <div class="col-lg-6">
+
+
+
+        <p>Name: {{ userData.name }}</p>
+        <p>Phone: {{ userData.phone }}</p>
+
+
+
         <p class="textAboveTextfield">Name</p>
         <input
           class="form-control textfieldStyle"
@@ -86,82 +94,27 @@
           readonly
         />
 
-        
         <div class="row description">
-          <div class="form-check form-check-inline checkbox-margin">
+          <div
+            v-for="(option, index) in options"
+            :key="index"
+            class="form-check form-check-inline checkbox-margin"
+          >
             <input
               class="form-check-input"
               type="radio"
+              :id="'inlineRadio' + index"
+              :value="option.value"
+              v-model="selectedOption"
               name="inlineRadioOptions"
-              id="inlineRadio1"
-              value="option1"
             />
             <label
               class="form-check-label"
-              style="color: #fff"
-              for="inlineRadio1"
-              >จองฟรี โต๊ะหลุด 20:00น. (ฟรี)</label
+              :for="'inlineRadio' + index"
+              :style="{ color: option.color }"
             >
-          </div>
-          <div class="form-check form-check-inline checkbox-margin">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadio2"
-              value="option2"
-            />
-            <label
-              class="form-check-label"
-              style="color: #fff"
-              for="inlineRadio2"
-              >โต๊ะหลุด 21:00น. (฿1000 ต่อโต๊ะ)</label
-            >
-          </div>
-          <div class="form-check form-check-inline checkbox-margin">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadio2"
-              value="option2"
-            />
-            <label
-              class="form-check-label"
-              style="color: #fff"
-              for="inlineRadio2"
-              >โต๊ะหลุด 22:00น. (฿2000 ต่อโต๊ะ)</label
-            >
-          </div>
-          <div class="form-check form-check-inline checkbox-margin">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadio2"
-              value="option2"
-            />
-            <label
-              class="form-check-label"
-              style="color: #fff"
-              for="inlineRadio2"
-              >โต๊ะหลุด 23:00น. (฿3000 ต่อโต๊ะ)</label
-            >
-          </div>
-          <div class="form-check form-check-inline checkbox-margin">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadio2"
-              value="option2"
-            />
-            <label
-              class="form-check-label"
-              style="color: #fff"
-              for="inlineRadio2"
-              >มาตอนไหนก็ได้ (฿4500 ต่อโต๊ะ)</label
-            >
+              {{ option.label }}
+            </label>
           </div>
         </div>
       </div>
@@ -179,31 +132,39 @@
           </div>
         </div>
         <div class="container mt-3">
-            <table class="table table-bordered">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th>Your orders</th>
-              <th style="width: 100px;">Price</th>
-              <th style="width: 20px;"></th>
+                <th style="width: 100px">Price</th>
+                <th style="width: 20px"></th>
               </tr>
             </thead>
             <tbody>
-            <tr v-for="(item,index) in items" :key="index">
+              <tr v-for="(item, index) in items" :key="index">
                 <td>{{ item.menu }}</td>
                 <td>{{ item.price }}</td>
                 <td class="d-flex">
                   <div class="input-group" style="width: 160px">
-                    <button class="decrement" @click="decrement(index)">-</button>
+                    <button class="decrement" @click="decrement(index)">
+                      -
+                    </button>
                     <div hidden>{{ counter }}</div>
                     <!-- {{ items[index].count }} -->
-                    <input class="inndeform" type="number" v-model="items[index].count" readonly/>
-                    <button class="increment" @click="increment(index)">+</button>
+                    <input
+                      class="inndeform"
+                      type="number"
+                      v-model="items[index].count"
+                      readonly
+                    />
+                    <button class="increment" @click="increment(index)">
+                      +
+                    </button>
                   </div>
-                </td>  
+                </td>
               </tr>
-          </tbody>
+            </tbody>
           </table>
-
         </div>
       </div>
     </div>
@@ -231,12 +192,56 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref } from 'vue';
+import { ref,onMounted } from "vue";
+import axios from "axios";
 
 export default {
   setup() {
     const router = useRouter();
     const counter = ref(0);
+
+    const userData = ref({});
+    onMounted(async () => {
+      localStorage.setItem('id', response.data.result)
+
+      try {
+        const response = await axios.get('http://localhost:4000/qm/getusers');
+        userData.value = response.data.data;
+        console.log("data are : ", userData.value)
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    });
+
+    //Type of reserve
+    const selectedOption = ref("");
+    const options = [
+      {
+        label: "จองฟรี โต๊ะหลุด 20:00น. (ฟรี)",
+        value: "option1",
+        color: "#fff",
+      },
+      {
+        label: "โต๊ะหลุด 21:00น. (฿1000 ต่อโต๊ะ)",
+        value: "option2",
+        color: "#fff",
+      },
+      {
+        label: "โต๊ะหลุด 22:00น. (฿2000 ต่อโต๊ะ)",
+        value: "option3",
+        color: "#fff",
+      },
+      {
+        label: "โต๊ะหลุด 23:00น. (฿3000 ต่อโต๊ะ)",
+        value: "option4",
+        color: "#fff",
+      },
+      {
+        label: "มาตอนไหนก็ได้ (฿4500 ต่อโต๊ะ)",
+        value: "option5",
+        color: "#fff",
+      },
+    ];
 
     const items = [
       { id: 1, name: "Item 1", count: 0, price: 10 },
@@ -246,19 +251,28 @@ export default {
 
     const increment = (index) => {
       counter.value++;
-        items[index].count++;
-        console.log(items[index].count)
+      items[index].count++;
+      console.log(items[index].count);
     };
 
     const decrement = (index) => {
       if (items[index].count > 0) {
         counter.value--;
         items[index].count--;
-        console.log(items[index].count)
-    }
+        console.log(items[index].count);
+      }
     };
 
-    return { router, items, counter, increment, decrement };
+    return {
+      router,
+      items,
+      counter,
+      increment,
+      decrement,
+      selectedOption,
+      options,
+      userData
+    };
   },
 };
 </script>

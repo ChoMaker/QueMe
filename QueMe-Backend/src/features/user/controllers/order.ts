@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { ReserveOrder } from "../../../models/reserveOrder";
 import { OrderService } from "../services/order";
+import { GetOrder } from "../../../models/getOrder";
 
 const ReserveData: { food_id: number; que_id: number; quantity: number }[] = [];
 
@@ -27,6 +28,24 @@ export namespace OrderController {
     } catch (error) {
       return res.status(500).json({
         message: "Can't reserve order",
+      });
+    }
+  };
+
+  export const getOrder = async (req: Request, res: Response) => {
+    const body = req.query as unknown as GetOrder;
+
+    try {
+      const result = await OrderService.getOrder(body);
+      return res.status(200).json({
+        result: {
+          order: result?.orderData2,
+          food: result?.foods,
+        },
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "No data",
       });
     }
   };

@@ -3,8 +3,15 @@
     <div class="container">
       <div class="overlay">
         <p class="text1 blankspacehead">Create your account</p>
-        <p class="text3">Name</p>
-        <div class="input-group blankspacetextfield">
+        <p :class="'text3 ' + (nameError.length > 0 ? 'error' : '')">
+          Name
+        </p>
+        <div 
+          :class="
+          'input-group blankspacetextfield ' +
+          (phoneNumberError.length > 0 ? 'error' : '')
+          "
+        >
           <input
             v-model="user.name"
             type="text"
@@ -12,6 +19,13 @@
             style="width: 495px"
             aria-label="Name"
           />
+        </div>
+        <div v-if="nameError.length > 0" class="error">
+          <ul>
+            <li v-for="txt in nameError">
+              {{ txt }}
+            </li>
+          </ul>
         </div>
         <p :class="'text3 ' + (phoneNumberError.length > 0 ? 'error' : '')">
           Phone number
@@ -26,7 +40,7 @@
             v-model="user.phoneNumber"
             type="text"
             :class="
-              'form-control' + (phoneNumberError.length > 0 ? 'error' : '')
+              'form-control ' + (phoneNumberError.length > 0 ? 'error' : '')
             "
             style="width: 495px"
             aria-label="phoneNumber"
@@ -83,14 +97,21 @@ const user = ref({
   phoneNumber: "",
   password: "",
 });
+const nameError = ref([]);
 const passwordError = ref([]);
 const phoneNumberError = ref([]);
 
 const validate = () => {
+  nameError.value = [];
   passwordError.value = [];
   phoneNumberError.value = [];
+  if (user.value.name === "") {
+    nameError.value.push("Name required");
+  } else {
+    nameError.value.pop();
+  }
   if (user.value.password === "") {
-    passwordError.value.push("password required");
+    passwordError.value.push("Password required");
   } else {
     passwordError.value.pop();
   }
@@ -99,7 +120,7 @@ const validate = () => {
   } else {
     phoneNumberError.value.pop();
   }
-  return passwordError.value.length == 0 && phoneNumberError.value.length == 0;
+  return nameError.value.length == 0 && passwordError.value.length == 0 && phoneNumberError.value.length == 0;
 };
 
 const handleSubmit = async () => {

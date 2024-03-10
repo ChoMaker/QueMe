@@ -28,11 +28,13 @@ export namespace UserService {
     try {
       const [resultUser] = await (
         await connection
-      ).query("SELECT phone_number FROM users WHERE phone_number=?", [
-        body.phoneNumber,
-      ]);
+      ).query(
+        "SELECT phone_number as phoneNumber FROM users WHERE phone_number=?",
+        [body.phoneNumber]
+      );
       const user = (resultUser as SignUpRequest[])[0];
-      if (!user) {
+      console.log(user.phoneNumber);
+      if (!user.phoneNumber) {
         const [resultInsert] = await (
           await connection
         ).query(

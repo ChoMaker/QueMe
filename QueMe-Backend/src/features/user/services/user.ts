@@ -87,7 +87,7 @@ export namespace UserService {
         await connection
       ).query("SELECT * FROM users WHERE id=?", [body.id]);
       const userData = (resulUserData as UserData[])[0];
-      return [userData.name, userData.phone_number];
+      return userData;
     } catch (error) {
       return false;
     }

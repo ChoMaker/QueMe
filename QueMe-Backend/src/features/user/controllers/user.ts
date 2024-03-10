@@ -69,7 +69,7 @@ export namespace UserController {
   };
 
   export const getUser = async (req: Request, res: Response) => {
-    const body = req.body as GetUser;
+    const body = req.query as unknown as GetUser;
     const result = await UserService.getUser(body);
 
     if (result) {

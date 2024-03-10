@@ -125,7 +125,7 @@
                     <input
                       class="inndeform"
                       type="number"
-                      v-model="food.count"
+                      v-model="food.quantity"
                       readonly
                     />
                     <button class="increment" @click="increment(food.id)">
@@ -177,26 +177,35 @@ export default {
     const resultFood = ref([]);
 
     const increment = (id) => {
-        const food = resultFood.value.find((item) => item.id === id);
+      const food = resultFood.value.find((item) => item.id === id);
       if (food) {
-        food.count++;
+        food.quantity++;
       }
     };
 
     const decrement = (id) => {
-        const food = resultFood.value.find((item) => item.id === id);
-      if (food && food.count > 0) {
-        food.count--;
+      const food = resultFood.value.find((item) => item.id === id);
+      if (food && food.quantity > 0) {
+        food.quantity--;
       }
     };
 
     const handleNextButtonClick = async () => {
       try {
-        const response = await axios.post("http://localhost:4000/qm/getMenu", {
-          items: resultFood,
-        });
+        // Filter out items with quantity greater than 0
+        const selectedItems = resultFood.value.filter(
+          (food) => food.quantity > 0
+        );
+
+        // Extract only the id and quantity properties
+        const itemsToSend = selectedItems.map(({ id, quantity }) => ({ id,quantity,}));
+        console.log("Items to Send:", itemsToSend);
+        console.log("Result Food :", resultFood.value);
+
+        // Send only the selected items to the server
+        const response = await axios.post("http://localhost:4000/qm/reserveorder",{items: itemsToSend,});
         console.log("Server response:", response.data);
-        router.push({ name: "NextPage" });
+        router.push({ name: "ConfirmReserve" });
       } catch (error) {
         console.error("Error posting data:", error);
       }
@@ -209,19 +218,21 @@ export default {
     const searchTerm = ref("");
 
     onMounted(async () => {
-  try {
-    const response = await axios.get("http://localhost:4000/qm/getfoods");
-    // Initialize resultFood as an empty array
-    resultFood.value = [];
-    // Update resultFood with the data from the server
-    resultFood.value = response.data.data[0].map((food) => ({ ...food, count: 0 }));
-    console.log(resultFood.value);
-    console.log("Response:", response);
-  } catch (error) {
-    console.error("Error fetching items:", error);
-  }
-});
-
+      try {
+        const response = await axios.get("http://localhost:4000/qm/getfoods");
+        // Initialize resultFood as an empty array
+        resultFood.value = [];
+        // Update resultFood with the data from the server
+        resultFood.value = response.data.data[0].map((food) => ({
+          ...food,
+          quantity: 0,
+        }));
+        // console.log("result foodddd:",resultFood.value);
+        console.log("Response:", response);
+      } catch (error) {
+        console.error("Error fetching items:", error);
+      }
+    });
 
     return {
       router,

@@ -33,8 +33,7 @@ export namespace UserService {
         [body.phoneNumber]
       );
       const user = (resultUser as SignUpRequest[])[0];
-      console.log(user.phoneNumber);
-      if (!user.phoneNumber) {
+      if (!user) {
         const [resultInsert] = await (
           await connection
         ).query(

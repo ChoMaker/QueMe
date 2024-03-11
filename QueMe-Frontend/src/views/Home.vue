@@ -77,7 +77,7 @@
           เท่านั้น ซึ่งจะมีค่าใช้จ่ายมากกว่าปกติ
         </p>
         <p class="textAboveTextfield">
-          How many seats (Maximum reservation: 50)
+          How many seats (Maximum reservation: )
         </p>
         <div class="input-group" style="margin-bottom: 20px">
           <input
@@ -229,8 +229,8 @@ export default {
       // Remove non-numeric characters
       seatsQuantity.value = seatsQuantity.value.replace(/\D/g, "");
       // Ensure the value is not greater than 50
-      if (seatsQuantity.value > 50) {
-        seatsQuantity.value = 50;
+      if (seatsQuantity.value > 8) {
+        seatsQuantity.value = 8;
       }
     };
 

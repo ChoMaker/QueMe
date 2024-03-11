@@ -41,15 +41,12 @@
     <div class="row">
       <div class="col-lg-6">
 
-        <p>Name: {{ userData.name }}</p>
-        <p>Phone: {{ userData.phone_number }}</p>
-
         <p class="textAboveTextfield">Name</p>
         <input
-        ref="name"
+          ref="name"
           class="form-control textfieldStyle"
           type="text"
-          value="name"
+          :value="userData.name"
           aria-label="Disabled input example"
           disabled
           readonly
@@ -58,7 +55,7 @@
         <input
           class="form-control textfieldStyle"
           type="text"
-          value="Phone number"
+          :value="userData.phone_number"
           aria-label="Disabled input example"
           disabled
           readonly
@@ -67,101 +64,72 @@
         <input
           class="form-control textfieldStyle"
           type="text"
-          value="Date picked"
+          :value="formattedDate"
           aria-label="Disabled input example"
           disabled
           readonly
         />
-        <p class="textAboveTextfield">Seats (Maximum reservation: 18)</p>
+        <p class="textAboveTextfield">Seats (Maximum reservation: 8)</p>
         <input
           class="form-control textfieldStyle"
           type="text"
-          value="Seats"
+          :value="queDataRef.seat"
           aria-label="Disabled input example"
           disabled
           readonly
         />
-        <p class="textAboveTextfield">Zone</p>
-        <input
-          class="form-control textfieldStyle"
-          type="text"
-          value="Zone"
-          aria-label="Disabled input example"
-          disabled
-          readonly
-        />
+        <p class="textAboveTextfield">Zone : Table</p>
+        <div class="d-flex">
+          <input
+            class="form-control textfieldStyle"
+            style="width: 70px; margin-right: 10px"
+            type="text"
+            :value="tableDataRef.zone"
+            aria-label="Disabled input example"
+            disabled
+            readonly
+          />
+          <input
+            class="form-control textfieldStyle"
+            style="width: 70px"
+            type="text"
+            :value="tableDataRef.name"
+            aria-label="Disabled input example"
+            disabled
+            readonly
+          />
+        </div>
 
         <div class="row description">
-          <div
-            v-for="(option, index) in options"
-            :key="index"
-            class="form-check form-check-inline checkbox-margin"
-          >
-            <input
-              class="form-check-input"
-              type="radio"
-              :id="'inlineRadio' + index"
-              :value="option.value"
-              v-model="selectedOption"
-              name="inlineRadioOptions"
-            />
-            <label
-              class="form-check-label"
-              :for="'inlineRadio' + index"
-              :style="{ color: option.color }"
-            >
-              {{ option.label }}
-            </label>
-          </div>
+
+<p >Description : {{ queDataRef.type }}</p>
         </div>
       </div>
       <div class="col-lg-6">
         <div class="container checkbox-margin">
           <div class="d-flex" style="justify-content: space-between">
             <p style="align-self: center">Order summary</p>
-            <button
-              class="btn severalbtn btn-dark"
-              @click="router.push({ name: 'Menu' })"
-              type="submit"
-            >
-              Add more order
-            </button>
           </div>
         </div>
         <div class="container mt-3">
-          <table class="table table-bordered">
+          <table class="table">
             <thead>
               <tr>
-                <th>Your orders</th>
-                <th style="width: 100px">Price</th>
-                <th style="width: 20px"></th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(item, index) in items" :key="index">
-                <td>{{ item.menu }}</td>
-                <td>{{ item.price }}</td>
-                <td class="d-flex">
-                  <div class="input-group" style="width: 160px">
-                    <button class="decrement" @click="decrement(index)">
-                      -
-                    </button>
-                    <div hidden>{{ counter }}</div>
-                    <!-- {{ items[index].count }} -->
-                    <input
-                      class="inndeform"
-                      type="number"
-                      v-model="items[index].count"
-                      readonly
-                    />
-                    <button class="increment" @click="increment(index)">
-                      +
-                    </button>
-                  </div>
-                </td>
+              <tr v-for="food in foodDataRef" :key="food.id">
+                <th scope="row">{{ food.name }}</th>
+                <td>{{ food.price }}</td>
+                <td>{{ food.quantity }}</td>
               </tr>
             </tbody>
           </table>
+
+          <p>Total: {{ totalSum }}</p>
         </div>
       </div>
     </div>
@@ -191,13 +159,14 @@
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import moment from 'moment';
 
 export default {
   setup() {
     const router = useRouter();
-    const name = ref('');
+    const name = ref("");
     const counter = ref(0);
-
+    
     const userData = ref({
       id: "",
       name: "",
@@ -205,82 +174,102 @@ export default {
       password: "",
       create_at: "",
     });
+    var queDataRef = ref({
+      id: "",
+      user_id: "",
+      table_id: "",
+      event_id: "",
+      status: "",
+      date_and_time: "",
+      seat: "",
+      type: "",
+    });
+    const tableDataRef = ref({
+      id: "",
+      zone: "",
+      name: "",
+    });
+
+    const orderDataRef = ref ({
+      id: '',
+      food_id:'',
+      que_id:'',
+      quantity:''
+    })
+
+    const foodDataRef = ref ([]);
+    var totalSum = ref(0);
+
     onMounted(async () => {
-      // localStorage.setItem('id', response.data.result)
 
       try {
-        const response = await axios.get("http://localhost:4000/qm/getusers", {
-          params:{id: localStorage.getItem("id")},
-        });
 
-        userData.value = response.data.data;
-        name.value = userData.value.name
-        console.log("Name:",name.value)
-        console.log("data are : ", userData.value);
+        const userId = parseInt(localStorage.getItem("id"));
+        const queId = parseInt(localStorage.getItem("queID"));
+
+        const userResponse = await axios.get("http://localhost:4000/qm/getusers",{params: { id: userId },});
+        userData.value = userResponse.data.data;
+
+
+        const { que, table } = (await axios.get("http://localhost:4000/qm/getque", {params: { id: userId, queID: queId },})).data.result;
+        queDataRef.value = que;
+        // queDataRef.value.date_and_time = moment(queDataRef.value.date_and_time).format('YYYY-MM-DD');
+        tableDataRef.value = table;
+
+
+        console.log("queData:", queDataRef.value);
+        console.log("tableData:", tableDataRef.value);
+
+        const { order, food } = (await axios.get("http://localhost:4000/qm/getorder", {params: { id: userId, queID: queId },})).data.result;
+        orderDataRef.value = order;
+        foodDataRef.value = food;
+        
+        console.log("queData:", orderDataRef.value);
+        console.log("tableData:", foodDataRef.value);
+
+        foodDataRef.value = food.map(food => ({ ...food }));
+        console.log("Food: ", foodDataRef.value)
+
+        console.log('test totalSum');
+        console.log(order)
+        console.log(foodDataRef.value.length);
+
+        for (let i = 0; i < foodDataRef.value.length; i++) {
+          for (let j = 0; j < order.length; j++){
+            if (order[j].food_id === foodDataRef.value[i].id) {
+              foodDataRef.value[i].quantity = order[j].quantity
+            }
+          }
+          console.log(foodDataRef.value[i]);
+        }
+
+
+        for (let i = 0; i < foodDataRef.value.length; i++) {
+          totalSum.value += foodDataRef.value[i].price;
+          console.log(totalSum.value);
+        }
+
+
+
+        
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     });
 
-    //Type of reserve
-    const selectedOption = ref("");
-    const options = [
-      {
-        label: "จองฟรี โต๊ะหลุด 20:00น. (ฟรี)",
-        value: "option1",
-        color: "#fff",
-      },
-      {
-        label: "โต๊ะหลุด 21:00น. (฿1000 ต่อโต๊ะ)",
-        value: "option2",
-        color: "#fff",
-      },
-      {
-        label: "โต๊ะหลุด 22:00น. (฿2000 ต่อโต๊ะ)",
-        value: "option3",
-        color: "#fff",
-      },
-      {
-        label: "โต๊ะหลุด 23:00น. (฿3000 ต่อโต๊ะ)",
-        value: "option4",
-        color: "#fff",
-      },
-      {
-        label: "มาตอนไหนก็ได้ (฿4500 ต่อโต๊ะ)",
-        value: "option5",
-        color: "#fff",
-      },
-    ];
-
-    const items = [
-      { id: 1, name: "Item 1", count: 0, price: 10 },
-      { id: 2, name: "Item 2", count: 0, price: 20 },
-      // ... more data from the database
-    ];
-
-    const increment = (index) => {
-      counter.value++;
-      items[index].count++;
-      console.log(items[index].count);
-    };
-
-    const decrement = (index) => {
-      if (items[index].count > 0) {
-        counter.value--;
-        items[index].count--;
-        console.log(items[index].count);
-      }
-    };
+    const formattedDate = moment(queDataRef.date_and_time).format('LL');
+    console.log(formattedDate); // Output: 2022-01-01
 
     return {
       router,
-      items,
       counter,
-      increment,
-      decrement,
-      selectedOption,
-      options,
       userData,
+      tableDataRef,
+      queDataRef,
+      orderDataRef,
+      foodDataRef,
+      totalSum,
+      formattedDate
     };
   },
 };

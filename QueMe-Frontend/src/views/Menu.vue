@@ -51,13 +51,7 @@
         >
           Food & Appetizer
         </button>
-        <!-- <button
-          class="btn btn-outline-light space"
-          @click="router.push({ name: 'MenuDrink' })"
-          type="submit"
-        >
-          Drinks & Beverages
-        </button> -->
+
       </div>
       <div class="row">
         <div class="d-flex justify-content-between">

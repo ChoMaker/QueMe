@@ -1,140 +1,332 @@
 <template>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto;">
-            </a>
-            <div>
-                <button class="btn btn-outline-light severalbtn space" @click="router.push({ name: 'ClientHome' })"
-                    type="submit">Home</button>
-                <button class="btn btn-outline-light severalbtn space" @click="router.push({ name: 'Profile' })"
-                    type="submit">Profile</button>
-                <button class="btn btn-outline-light severalbtn" @click="router.push({ name: 'Login' })"
-                    type="submit">Logout</button>
-            </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="/src/assets/logo-removebg.png"
+            alt="Logo"
+            style="width: 91px; height: auto"
+          />
+        </a>
+        <div>
+          <button
+            class="btn btn-outline-light severalbtn space"
+            @click="router.push({ name: 'ClientHome' })"
+            type="submit"
+          >
+            Home
+          </button>
+          <button
+            class="btn btn-outline-light severalbtn space"
+            @click="router.push({ name: 'Profile' })"
+            type="submit"
+          >
+            Profile
+          </button>
+          <button
+            class="btn btn-outline-light severalbtn"
+            @click="router.push({ name: 'Login' })"
+            type="submit"
+          >
+            Logout
+          </button>
         </div>
+      </div>
     </nav>
     <div class="container">
-        <div class="row">
-            <p class="headTopic">Confirm reservation</p>
+      <div class="row">
+        <p class="headTopic">Payment</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="textAboveTextfield">Name</p>
+          <input
+            ref="name"
+            class="form-control textfieldStyle"
+            type="text"
+            :value="userData.name"
+            aria-label="Disabled input example"
+            disabled
+            readonly
+          />
+          <p class="textAboveTextfield">Phone number</p>
+          <input
+            class="form-control textfieldStyle"
+            type="text"
+            :value="userData.phone_number"
+            aria-label="Disabled input example"
+            disabled
+            readonly
+          />
+          <p class="textAboveTextfield">Date picked</p>
+          <input
+            class="form-control textfieldStyle"
+            type="text"
+            :value="formattedDate"
+            aria-label="Disabled input example"
+            disabled
+            readonly
+          />
+          <p class="textAboveTextfield">Seats (Maximum reservation: 8)</p>
+          <input
+            class="form-control textfieldStyle"
+            type="text"
+            :value="queDataRef.seat"
+            aria-label="Disabled input example"
+            disabled
+            readonly
+          />
+          <p class="textAboveTextfield">Zone : Table</p>
+          <div class="d-flex">
+            <input
+              class="form-control textfieldStyle"
+              style="width: 70px; margin-right: 10px"
+              type="text"
+              :value="tableDataRef.zone"
+              aria-label="Disabled input example"
+              disabled
+              readonly
+            />
+            <input
+              class="form-control textfieldStyle"
+              style="width: 70px"
+              type="text"
+              :value="tableDataRef.name"
+              aria-label="Disabled input example"
+              disabled
+              readonly
+            />
+          </div>
+  
+          <div class="row description">
+  
+  <p >Description : {{ queDataRef.type }}</p>
+          </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <p class="textAboveTextfield">Name</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
-                <p class="textAboveTextfield">Phone number</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
-                <p class="textAboveTextfield">Date picked</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
-                <p class="textAboveTextfield">Seats (Maximum reservation: 18)</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
-                <p class="textAboveTextfield">Zone</p>
-                <div class="input-group">
-                    <input type="password" class="form-control textfieldStyle" aria-label="Password" />
-                </div>
-                <div class="row description">
-                    <div class="form-check form-check-inline checkbox-margin">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                            value="option1">
-                        <label class="form-check-label" style="color: #fff;" for="inlineRadio1">จองฟรี โต๊ะหลุด
-                            20:00น. (ฟรี)</label>
-                    </div>
-                    <div class="form-check form-check-inline checkbox-margin">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                            value="option2">
-                        <label class="form-check-label" style="color: #fff;" for="inlineRadio2">โต๊ะหลุด 21:00น.
-                            (฿1000 ต่อโต๊ะ)</label>
-                    </div>
-                    <div class="form-check form-check-inline checkbox-margin">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                            value="option2">
-                        <label class="form-check-label" style="color: #fff;" for="inlineRadio2">โต๊ะหลุด 22:00น.
-                            (฿2000 ต่อโต๊ะ)</label>
-                    </div>
-                    <div class="form-check form-check-inline checkbox-margin">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                            value="option2">
-                        <label class="form-check-label" style="color: #fff;" for="inlineRadio2">โต๊ะหลุด 23:00น.
-                            (฿3000 ต่อโต๊ะ)</label>
-                    </div>
-                    <div class="form-check form-check-inline checkbox-margin">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                            value="option2">
-                        <label class="form-check-label" style="color: #fff;" for="inlineRadio2">มาตอนไหนก็ได้ (฿4500
-                            ต่อโต๊ะ)</label>
-                    </div>
-                </div>
+        <div class="col-lg-6">
+          <div class="container checkbox-margin">
+            <div class="d-flex" style="justify-content: space-between">
             </div>
-
-
-            <div class="col-lg-6 text-center">
-                <img src="/src/assets/QR.png" class="mx-auto" style="display: flex;" alt="qr code">
-                <div class="col-7 mt-1 mx-auto">
+          </div>
+          <div class="container mt-3">
+            <div class="row d-flex justify-content-center">
+                <p class="d-flex justify-content-center" style="font-size: 20px; margin-bottom: 10px;">Total: {{ totalSum }}</p>
+                <img style="height: 400px; width: auto; margin-bottom: 3px;" src="/src/assets/QR.png" alt="Logo" />
+                
+                <div class="col-7 mt-1 mx-auto" style="margin-bottom: 80px">
                     <label for="formFile" class="form-label"></label>
                     <input class="form-control" style="display: flex;" type="file" id="formFile">
                 </div>
+
             </div>
-
-
+            
+  
+            
+          </div>
         </div>
+      </div>
     </div>
-
-    <div class="container checkbox-margin ">
-        <div class="d-flex justify-content-end">
-            <button class="btn severalbtn btn-dark space" @click="router.push({ name: 'Menu' })" type="submit">Back</button>
-            <button class="btn severalbtn btn-dark" @click="router.push({ name: 'Profile' })" type="submit">Confirm</button>
-        </div>
+  
+    <div class="container checkbox-margin">
+      <div class="d-flex justify-content-end">
+        <button
+          class="btn severalbtn btn-dark space"
+          @click="router.push({ name: 'ClientHome' })"
+          type="submit"
+        >
+          Cancel
+        </button>
+        <button
+          class="btn severalbtn btn-dark"
+          @click="router.push({ name: 'Profile' })"
+          type="submit"
+        >
+          Next
+        </button>
+      </div>
     </div>
-</template>
-
-<script>
-import { useRouter } from 'vue-router';
-
-export default {
+  </template>
+  
+  <script>
+  import { useRouter } from "vue-router";
+  import { ref, onMounted } from "vue";
+  import axios from "axios";
+  import moment from 'moment';
+  
+  export default {
     setup() {
-        const router = useRouter();
-
-        const items = [
-            { id: 1, name: 'Item 1', count: 0, price: 10 },
-            { id: 2, name: 'Item 2', count: 0, price: 20 },
-            // ... more data from the database
-        ];
-
-        const increaseCount = (item) => {
-            item.count++;
-        };
-
-        const decreaseCount = (item) => {
-            if (item.count > 0) {
-                item.count--;
+      const router = useRouter();
+      const name = ref("");
+      const counter = ref(0);
+      
+      const userData = ref({
+        id: "",
+        name: "",
+        phone_number: "",
+        password: "",
+        create_at: "",
+      });
+      var queDataRef = ref({
+        id: "",
+        user_id: "",
+        table_id: "",
+        event_id: "",
+        status: "",
+        date_and_time: "",
+        seat: "",
+        type: "",
+      });
+      const tableDataRef = ref({
+        id: "",
+        zone: "",
+        name: "",
+      });
+  
+      const orderDataRef = ref ({
+        id: '',
+        food_id:'',
+        que_id:'',
+        quantity:''
+      })
+      // const foodDataRef = ref ({
+      //   id:'',
+      //   name:'',
+      //   price:''
+      // });
+      const foodDataRef = ref ([]);
+      var totalSum = ref(0);
+  
+      onMounted(async () => {
+        // localStorage.setItem('id', response.data.result)
+  
+        try {
+  
+          const userId = parseInt(localStorage.getItem("id"));
+          const queId = parseInt(localStorage.getItem("queID"));
+  
+          const userResponse = await axios.get("http://localhost:4000/qm/getusers",{params: { id: userId },});
+          userData.value = userResponse.data.data;
+  
+  
+          const { que, table } = (await axios.get("http://localhost:4000/qm/getque", {params: { id: userId, queID: queId },})).data.result;
+          // Set the values to your refs
+          queDataRef.value = que;
+          // queDataRef.value.date_and_time = moment(queDataRef.value.date_and_time).format('YYYY-MM-DD');
+          tableDataRef.value = table;
+  
+  
+          console.log("queData:", queDataRef.value);
+          console.log("tableData:", tableDataRef.value);
+  
+          const { order, food } = (await axios.get("http://localhost:4000/qm/getorder", {params: { id: userId, queID: queId },})).data.result;
+          orderDataRef.value = order;
+          foodDataRef.value = food;
+          
+          console.log("queData:", orderDataRef.value);
+          console.log("tableData:", foodDataRef.value);
+  
+          foodDataRef.value = food.map(food => ({ ...food }));
+          console.log("Food: ", foodDataRef.value)
+  
+          console.log('test totalSum');
+          console.log(order)
+          console.log(foodDataRef.value.length);
+  
+          for (let i = 0; i < foodDataRef.value.length; i++) {
+            for (let j = 0; j < order.length; j++){
+              if (order[j].food_id === foodDataRef.value[i].id) {
+                foodDataRef.value[i].quantity = order[j].quantity
+              }
             }
-        };
-
-
-        return { router, items, increaseCount, decreaseCount };
+            console.log(foodDataRef.value[i]);
+          }
+  
+  
+          for (let i = 0; i < foodDataRef.value.length; i++) {
+            totalSum.value += foodDataRef.value[i].price;
+            console.log(totalSum.value);
+          }
+  
+  
+  
+          
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      });
+  
+      const formattedDate = moment(queDataRef.date_and_time).format('LL');
+      console.log(formattedDate); // Output: 2022-01-01
+  
+      return {
+        router,
+        counter,
+        userData,
+        tableDataRef,
+        queDataRef,
+        orderDataRef,
+        foodDataRef,
+        totalSum,
+        formattedDate
+      };
     },
-};
-</script>
-
-
-<style scoped>
-form {
+  };
+  </script>
+  
+  <style scoped>
+  .inndeform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+    height: 20px;
+    width: 70px;
+    text-align: center;
+  }
+  
+  .increment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+    height: 20px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+  
+  .decrement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    text-align: center;
+    outline: none;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+    height: 20px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+  
+  form {
     width: 300px;
     margin: 0 auto;
     text-align: center;
     padding-top: 50px;
-}
-
-.value-button {
+  }
+  
+  .value-button {
     display: inline-block;
     border: 1px solid #ddd;
     margin: 0px;
@@ -150,28 +342,28 @@ form {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-}
-
-.value-button:hover {
+  }
+  
+  .value-button:hover {
     cursor: pointer;
-}
-
-form #decrease {
+  }
+  
+  form #decrease {
     margin-right: -4px;
     border-radius: 8px 0 0 8px;
-}
-
-form #increase {
+  }
+  
+  form #increase {
     margin-left: -4px;
     border-radius: 0 8px 8px 0;
-}
-
-form #input-wrap {
+  }
+  
+  form #input-wrap {
     margin: 0px;
     padding: 0px;
-}
-
-input#number {
+  }
+  
+  input#number {
     text-align: center;
     border: none;
     border-top: 1px solid #ddd;
@@ -179,53 +371,52 @@ input#number {
     margin: 0px;
     width: 40px;
     height: 40px;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+  }
+  
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
-}
-
-.description {
+  }
+  
+  .description {
     margin-top: 30px;
     margin-bottom: 30px;
-}
-
-.textAboveTextfield {
+  }
+  
+  .textAboveTextfield {
     font-size: 16px;
     font-family: Sarabun;
     line-height: 24px;
     margin-top: 10px;
     margin-bottom: 2px;
-}
-
-.checkbox-margin {
+  }
+  
+  .checkbox-margin {
     margin-bottom: 15px;
-
-}
-
-p {
+  }
+  
+  p {
     color: #fff;
     margin-top: 0;
     margin-bottom: 0;
-}
-
-.textfieldStyle {
+  }
+  
+  .textfieldStyle {
     border-radius: 20px;
-}
-
-.severalbtn {
+  }
+  
+  .severalbtn {
     border-radius: 20px;
     min-width: 110px;
-}
-
-.inTableBtn {
+  }
+  
+  .inTableBtn {
     border-radius: 20px;
     min-width: 50px;
-}
-
-.headTopic {
+  }
+  
+  .headTopic {
     font-size: 25px;
     line-height: 24px;
     text-align: left;
@@ -233,9 +424,10 @@ p {
     margin-top: 25px;
     margin-bottom: 20px;
     color: #fff;
-}
-
-.space {
+  }
+  
+  .space {
     margin-right: 22px;
-}
-</style>
+  }
+  </style>
+  

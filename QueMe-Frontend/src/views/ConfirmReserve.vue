@@ -230,9 +230,8 @@ export default {
         foodDataRef.value = food.map(food => ({ ...food }));
         console.log("Food: ", foodDataRef.value)
 
-        console.log('test totalSum');
-        console.log(order)
-        console.log(foodDataRef.value.length);
+
+        console.log('PriceArray: ',foodDataRef.value.length);
 
         for (let i = 0; i < foodDataRef.value.length; i++) {
           for (let j = 0; j < order.length; j++){
@@ -240,16 +239,19 @@ export default {
               foodDataRef.value[i].quantity = order[j].quantity
             }
           }
-          console.log(foodDataRef.value[i]);
+          // console.log('Quantity',foodDataRef.value[i]);
+          // Calculate total for each row (price * quantity)
+      foodDataRef.value[i].rowTotal = foodDataRef.value[i].price * foodDataRef.value[i].quantity;
         }
+        // Calculate overall total
+    totalSum.value = foodDataRef.value.reduce((sum, food) => sum + food.rowTotal, 0);
+    console.log('test',totalSum.value)
 
 
-        for (let i = 0; i < foodDataRef.value.length; i++) {
-          totalSum.value += foodDataRef.value[i].price;
-          console.log(totalSum.value);
-        }
-
-
+        // for (let i = 0; i < foodDataRef.value.length; i++) {
+        //   totalSum.value += foodDataRef.value[i].price;
+        //   console.log(totalSum.value);
+        // }
 
         
       } catch (error) {

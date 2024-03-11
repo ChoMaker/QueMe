@@ -109,8 +109,7 @@
             <div class="d-grid col-5">
                 <button class="btn btn-light btnFooter" @click="router.push({ name: 'Home' })"
                     type="button">RESERVE</button>
-                <button class="btn btn-light btnFooter" @click="router.push({ name: 'ClientHome' })"
-                    type="button">Line@</button>
+                <button class="btn btn-light btnFooter" @click="openLinePage">Open Line Page</button>
             </div>
 
             <div class="col-3 text-end ms-auto">
@@ -133,6 +132,12 @@
 import { useRouter } from 'vue-router';
 
 export default {
+    methods: {
+    openLinePage() {
+      const linePageURL = "https://page.line.me/918szrut?openQrModal=true";
+      window.location.href = linePageURL;
+    },
+  },
     setup() {
         const router = useRouter()
         return { router }

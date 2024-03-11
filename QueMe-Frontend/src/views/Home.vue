@@ -77,7 +77,7 @@
           เท่านั้น ซึ่งจะมีค่าใช้จ่ายมากกว่าปกติ
         </p>
         <p class="textAboveTextfield">
-          How many seats (Maximum reservation: )
+          How many seats (Maximum reservation: 8)
         </p>
         <div class="input-group" style="margin-bottom: 20px">
           <input

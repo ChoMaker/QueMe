@@ -111,7 +111,7 @@
           </div>
           <div class="container mt-3">
             <div class="row d-flex justify-content-center">
-                <p class="d-flex justify-content-center" style="font-size: 20px; margin-bottom: 10px;">Total: {{ totalSum }}</p>
+                <p class="d-flex justify-content-center" style="font-size: 20px; margin-bottom: 10px;">Total : {{ totalSum }} Baht</p>
                 <img style="height: 400px; width: auto; margin-bottom: 3px;" src="/src/assets/QR.png" alt="Logo" />
                 
                 <div class="col-7 mt-1 mx-auto" style="margin-bottom: 80px">

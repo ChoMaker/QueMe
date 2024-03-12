@@ -60,7 +60,7 @@ export default {
         console.log('submitted');
 
         try{
-            const response = await Axios.post('http://localhost:4000/qm/sign-in', userSignin.value);
+            const response = await Axios.post(`${BASR_URL}/${RoutePath.$slots}`, userSignin.value);
             localStorage.setItem('id', response.data.result)
             router.push({name: 'ClientHome'})
         }

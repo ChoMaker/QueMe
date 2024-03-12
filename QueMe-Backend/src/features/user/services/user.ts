@@ -16,11 +16,11 @@ export namespace UserService {
       const user = (result as SignInRequest[])[0];
 
       if (!user || user.password != body.password) {
-        return false;
+        return "user incorrect";
       }
       return user.id;
     } catch (error) {
-      return false;
+      return error;
     }
   };
 

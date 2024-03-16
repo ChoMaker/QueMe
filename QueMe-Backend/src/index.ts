@@ -6,6 +6,7 @@ import { connection } from "./config/db";
 import { reserveQueRouter } from "./routes/que";
 import { foodRouter } from "./routes/food";
 import { orderRouter } from "./routes/order";
+import { eventRouter } from "./routes/event";
 
 //set up express
 
@@ -19,6 +20,7 @@ app.use("/", userRouter);
 app.use("/", reserveQueRouter);
 app.use("/", foodRouter);
 app.use("/", orderRouter);
+app.use("/", eventRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

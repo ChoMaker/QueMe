@@ -129,7 +129,7 @@ const handleSubmit = async () => {
     // Send user data to the server
     if (validate()) {
       const response = await Axios.post(
-        "http://localhost:4000/qm/sign-up",
+        "http://localhost:8000/qm/sign-up",
         user.value
       );
 

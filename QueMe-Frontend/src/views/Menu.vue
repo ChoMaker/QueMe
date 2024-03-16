@@ -1,158 +1,160 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img
-          src="/src/assets/logo-removebg.png"
-          alt="Logo"
-          style="width: 91px; height: auto"
-        />
-      </a>
-      <div class="d-flex justify-content-end">
-        <button
-          class="btn btn-outline-light space"
-          @click="router.push({ name: 'ClientHome' })"
-          type="submit"
-        >
-          Home
-        </button>
-        <button
-          class="btn btn-outline-light space"
-          @click="router.push({ name: 'Profile' })"
-          type="submit"
-        >
-          Profile
-        </button>
-        <button
-          class="btn btn-outline-light"
-          @click="router.push({ name: 'Login' })"
-          type="submit"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="flex-container">
-    <div
-      style="
-        margin-top: 40px;
-        margin-bottom: 40px;
-        display: flex;
-        justify-content: space-between;
-      "
-    >
-      <div>
-        <button
-          class="btn btn-outline-light space"
-          @click="router.push({ name: 'Menu' })"
-          type="submit"
-        >
-          Food & Appetizer
-        </button>
-
-      </div>
-      <div class="row">
-        <div class="d-flex justify-content-between">
-          <p class="align-self-center" style="margin-right: 20px">
-            หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"
-          </p>
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="/src/assets/logo-removebg.png"
+            alt="Logo"
+            style="width: 91px; height: auto"
+          />
+        </a>
+        <div class="d-flex justify-content-end">
           <button
-            class="btn btn btn-dark"
-            @click="router.push({ name: 'ConfirmReserve' })"
+            class="btn btn-outline-light space"
+            @click="router.push({ name: 'ClientHome' })"
             type="submit"
           >
-            Next
+            Home
+          </button>
+          <button
+            class="btn btn-outline-light space"
+            @click="router.push({ name: 'Profile' })"
+            type="submit"
+          >
+            Profile
+          </button>
+          <button
+            class="btn btn-outline-light"
+            @click="router.push({ name: 'Login' })"
+            type="submit"
+          >
+            Logout
           </button>
         </div>
       </div>
-    </div>
-    <!-- picture -->
-    <div class="row seperateMenu">
-      <div class="col-lg-6">
-        <img src="/src/assets/menu/food/1.png" alt="Logo" />
-        <img src="/src/assets/menu/food/2.png" alt="Logo" />
-        <img src="/src/assets/menu/food/3.png" alt="Logo" />
-        <img src="/src/assets/menu/food/4.png" alt="Logo" />
-      </div>
-
-      <!-- table -->
-      <div class="col-lg-6">
-        <div class="card">
-          <div class="container-fluid">
-            <form class="d-flex searchbar" @submit.prevent="search">
-              <input
-                v-model="searchTerm"
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
+    </nav>
+  
+    <div class="flex-container">
+      <div
+        style="
+          margin-top: 40px;
+          margin-bottom: 40px;
+          display: flex;
+          justify-content: space-between;
+        "
+      >
+        <div>
+          <button
+            class="btn btn-outline-light space"
+            @click="router.push({ name: 'Menu' })"
+            type="submit"
+          >
+            Food & Appetizer
+          </button>
+  
+        </div>
+        <div class="row">
+          <div class="d-flex justify-content-between">
+            <p class="align-self-center" style="margin-right: 20px">
+              หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"
+            </p>
+            <button
+              class="btn btn btn-dark"
+              @click="router.push({ name: 'ConfirmReserve' })"
+              type="submit"
+            >
+              Next
+            </button>
           </div>
-
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="food in resultFood" :key="food.id">
-                <th scope="row">{{ food.id }}</th>
-                <td>{{ food.name }}</td>
-                <td>{{ food.price }}</td>
-                <td class="d-flex">
-                  <div class="input-group" style="width: 160px">
-                    <button class="decrement" @click="decrement(food.id)">
-                      -
-                    </button>
-                    <input
-                      class="inndeform"
-                      type="number"
-                      v-model="food.quantity"
-                      readonly
-                    />
-                    <button class="increment" @click="increment(food.id)">
-                      +
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <!-- <div v-else>
-            <p>No results found.</p>
-          </div> -->
+        </div>
+      </div>
+      <!-- picture -->
+      <div class="row seperateMenu">
+        <div class="col-lg-6" style="text-align: center;">
+          <img src="/src/assets/menu/food/1.png" alt="Logo" />
+          <img src="/src/assets/menu/food/2.png" alt="Logo" />
+          <img src="/src/assets/menu/food/3.png" alt="Logo" />
+          <img src="/src/assets/menu/food/4.png" alt="Logo" />
+        </div>
+  
+        <!-- table -->
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="container-fluid">
+              <form class="d-flex searchbar" @submit.prevent="search">
+                <input
+                  v-model="searchTerm"
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+                <button class="btn btn-outline-success" type="submit">
+                  Search
+                </button>
+              </form>
+            </div>
+  
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="food in resultFood" :key="food.id">
+                  <th scope="row">{{ food.id }}</th>
+                  <td>{{ food.name }}</td>
+                  <td>{{ food.price }}</td>
+                  <td class="d-flex">
+                    <div class="input-group" style="width: 160px">
+                      <button class="decrement" @click="decrement(food.id)">
+                        -
+                      </button>
+                      <input
+                        class="inndeform"
+                        type="number"
+                        v-model="food.quantity"
+                        readonly
+                      />
+                      <button class="increment" @click="increment(food.id)">
+                        +
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+  
+            <!-- <div v-else>
+              <p>No results found.</p>
+            </div> -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <div class="container checkbox-margin">
-    <div class="d-flex justify-content-end">
-      <button
-        class="btn btn btn-dark space"
-        @click="router.push({ name: 'ClientHome' })"
-        type="submit"
-      >
-        Cancel
-      </button>
-      <button
-        class="btn btn btn-dark"
-        @click="handleNextButtonClick"
-        type="submit"
-      >
-        Next
-      </button>
+  
+    <div class="container checkbox-margin">
+      <div class="d-flex justify-content-end">
+        <button
+          class="btn btn btn-dark space"
+          @click="router.push({ name: 'ClientHome' })"
+          type="submit"
+        >
+          Cancel
+        </button>
+        <button
+          class="btn btn btn-dark"
+          @click="handleNextButtonClick"
+          type="submit"
+        >
+          Next
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -161,6 +163,8 @@
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { BASR_URL } from '@/config/app';
+import RoutePathUrl from '@/config/route';
 
 export default {
   setup() {
@@ -199,10 +203,7 @@ export default {
         console.log("Items to Send:", itemsToSend);
 
         // Send only the selected items to the server
-        const response = await axios.post(
-          "http://localhost:4000/qm/reserveorder",
-          itemsToSend
-        );
+        const response = await axios.post(`${BASR_URL}/${RoutePathUrl.getque}`,itemsToSend);
         console.log("Server response:", response.data);
         router.push({ name: "ConfirmReserve" });
       } catch (error) {
@@ -218,7 +219,7 @@ export default {
 
     onMounted(async () => {
       try {
-        const response = await axios.get("http://localhost:4000/qm/getfoods");
+        const response = await axios.get(`${BASR_URL}/${RoutePathUrl.getmenu}`);
         // Initialize resultFood as an empty array
         resultFood.value = [];
         // Update resultFood with the data from the server

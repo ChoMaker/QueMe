@@ -10,21 +10,21 @@
       </a>
       <div class="d-flex justify-content-end">
         <button
-          class="btn btn-outline-light space"
+          class="btn space"
           @click="router.push({ name: 'ClientHome' })"
           type="submit"
         >
           Home
         </button>
         <button
-          class="btn btn-outline-light space"
+          class="btn space"
           @click="router.push({ name: 'Profile' })"
           type="submit"
         >
           Profile
         </button>
         <button
-          class="btn btn-outline-light"
+          class="btn"
           @click="router.push({ name: 'Login' })"
           type="submit"
         >
@@ -57,7 +57,7 @@
 
       <div class="col-lg-4">
         <p class="textAboveTextfield">Pick date</p>
-        <div class="card" style="border-radius: 20px">
+        <div class="card textFieldStyle" style="border-radius: 20px">
           <div class="wrapper">
             <ejs-datepicker
               placeholder="Choose a date"
@@ -76,15 +76,14 @@
           กรุณาจองก่อนเวลา เวลา 20:00น. * การจองเลยเวลาจองฟรี ต้องจองแบบ Premium
           เท่านั้น ซึ่งจะมีค่าใช้จ่ายมากกว่าปกติ
         </p>
-        <p class="textAboveTextfield">
-          How many seats (Maximum reservation: 8)
-        </p>
+        <p class="textAboveTextfield">How many seats (Maximum reservation: 8)</p>
         <div class="input-group" style="margin-bottom: 20px">
           <input
             v-model="seatsQuantity"
             @input="validateSeatsQuantity"
             type="text"
             class="form-control textfieldStyle"
+            style="background-color: #E6E5C7;"
             aria-label="seats"
             max="50"
           />
@@ -96,7 +95,7 @@
           <div class="col-6">
             <select
               v-model="selected"
-              style="height: 28px; border-radius: 20px"
+              style="height: 28px; border-radius: 20px; background-color: #E6E5C7;"
             >
               <option disabled value="">Please selected one</option>
               <option>VVIIP</option>
@@ -118,6 +117,7 @@
                 height: 30px;
                 border-radius: 12px;
                 align-self: center;
+                background-color: #E6E5C7;
               "
               type="text"
               placeholder="0"
@@ -175,11 +175,10 @@
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Axios from "axios";
-import {
-  DatePickerComponent,
-  MaskedDateTime,
-} from "@syncfusion/ej2-vue-calendars";
+import {DatePickerComponent,MaskedDateTime,} from "@syncfusion/ej2-vue-calendars";
 import { TypeOfQue } from "@/util/util";
+import { BASR_URL } from '@/config/app';
+import RoutePathUrl from '@/config/route';
 
 export default {
   name: "Home",
@@ -256,9 +255,7 @@ export default {
       console.log("Seat Zone Number:", this.seatZoneNumber);
 
       try {
-        const response = await Axios.post(
-          "http://localhost:4000/qm/reserveque",
-          {
+        const response = await Axios.post(`${BASR_URL}/${RoutePathUrl.reserve}`,{
             event_id: null,
             user_id: localStorage.getItem("id"),
             type: this.selectedOption,
@@ -289,6 +286,19 @@ export default {
 @import "../../../node_modules/@syncfusion/ej2-inputs/styles/material.css";
 @import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
 @import "../../../node_modules/@syncfusion/ej2-vue-calendars/styles/material.css";
+
+.textFieldStyle{
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 20px;
+  border-color: transparent;
+  color: #fff;
+  background: #E6E5C7;
+  width: 416px;
+}
 .wrapper {
   max-width: 250px;
   margin: 0 auto;
@@ -315,6 +325,8 @@ select {
 .btn {
   border-radius: 20px;
   min-width: 110px;
+  background-color: #FF4E08;
+  color: #fff;
 }
 
 .checkbox-margin {

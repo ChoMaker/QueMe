@@ -1,1 +1,1 @@
-export const BASR_URL = "http://localhost:6000";
+export const BASR_URL = "http://localhost:8000";

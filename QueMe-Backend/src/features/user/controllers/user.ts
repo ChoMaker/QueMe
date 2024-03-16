@@ -9,7 +9,9 @@ import { ResponseModel } from "../../../models/response";
 
 export namespace UserController {
   export const signIn = async (req: Request, res: Response) => {
+    console.log("test");
     const body = req.body as SignInRequest;
+    console.log(body);
     const result = await UserService.signIn(body);
 
     if (typeof result == "number") {

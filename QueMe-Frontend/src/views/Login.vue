@@ -1,5 +1,5 @@
 <template>
-        <div class="container card">
+        <div class="container card" >
             <div class="container">
                 <div class="overlay">
                     <p class="text1 blankspacehead">Login to your account</p>
@@ -41,6 +41,8 @@ import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import Axios from "axios";
 import ClientHome from './ClientHome.vue';
+import { BASR_URL } from '@/config/app';
+import RoutePathUrl from '@/config/route';
 
 export default {
   setup() {
@@ -51,21 +53,21 @@ export default {
         password: ''
     })
 
-    // const phoneNumber = ref('');
-    // const password = ref('');
-
     const handleLogin = async () => {
         console.log('PhoneNumber:', userSignin.phoneNumber);
         console.log('Password:', userSignin.password);
         console.log('submitted');
+        console.log(`${BASR_URL}/${RoutePathUrl.singin}`);
 
         try{
-            const response = await Axios.post(`${BASR_URL}/${RoutePath.$slots}`, userSignin.value);
-            localStorage.setItem('id', response.data.result)
+            // const response = await Axios.post(
+            //     `${BASR_URL}/${RoutePathUrl.singin}`, userSignin.value);
+            const response = await Axios.post(`${BASR_URL}/${RoutePathUrl.singin}`, userSignin.value);
+            localStorage.setItem('id', response.data.data)
             router.push({name: 'ClientHome'})
         }
         catch(error) {
-            console.error('Sign-in failed:', error.message);
+            console.error(error);
         }
     };
 
@@ -78,8 +80,12 @@ export default {
 
 
 <style scoped>
-
-
+p{
+    color: #fff;
+}
+.card{
+    background-color: #3E3B2C;
+}
 
 li {
     display: inline;
@@ -131,14 +137,14 @@ body {
     border-radius: 20px;
     border-color: transparent;
     color: #fff;
-    background: #1b1c21;
+    background: #FF4E08;
     width: 344px;
 }
 
 .loginbtn:hover {
     cursor: pointer;
     color: #fff;
-    background: #1b1c21;
+    background: #af3606;
 }
 
 .center {
@@ -157,7 +163,7 @@ p {
 }
 
 .text3 {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 28px;
 }
 
@@ -167,7 +173,7 @@ p {
 }
 
 .text1 {
-    font-size: 24px;
+    font-size: 27px;
     line-height: 40px;
     text-align: center;
     font-family: Sarabun;

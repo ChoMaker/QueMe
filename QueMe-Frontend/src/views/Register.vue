@@ -147,11 +147,17 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped lang="scss">
+.card {
+  background-color: #3E3B2C;
+}
 .error {
   color: red;
   & input {
     border-color: red;
   }
+}
+p{
+  color: #fff;
 }
 
 body {
@@ -199,7 +205,7 @@ body {
   border-radius: 20px;
   border-color: transparent;
   color: #fff;
-  background: #1b1c21;
+  background: #FF4E08;
   width: 344px;
 }
 .returnBtn {
@@ -220,7 +226,7 @@ body {
 .loginbtn:hover {
   cursor: pointer;
   color: #fff;
-  background: #1b1c21;
+  background: #af3606;
 }
 
 .center {
@@ -240,17 +246,17 @@ p {
 }
 
 .text3 {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 28px;
 }
 
 .text2 {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 36px;
 }
 
 .text1 {
-  font-size: 24px;
+  font-size: 27px;
   line-height: 40px;
   text-align: center;
   font-family: Sarabun;

@@ -84,6 +84,8 @@ import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import moment from 'moment';
+import { BASR_URL } from '@/config/app';
+import RoutePathUrl from '@/config/route';
 
 
 export default {
@@ -119,14 +121,14 @@ export default {
             const queId = parseInt(localStorage.getItem("queID"));
       
             const userResponse = await axios.get(
-              "http://localhost:4000/qm/getusers",
+              `${BASR_URL}/${RoutePathUrl.userDetail}`,
               { params: { id: userId } }
             );
             userData.value = userResponse.data.data;
             console.log("User:", userData.value);
       
             const { que, table } = (
-              await axios.get("http://localhost:4000/qm/getque", {
+              await axios.get(`${BASR_URL}/${RoutePathUrl.getQueDetail}`, {
                 params: { id: userId, queID: queId },
               })
             ).data.result;

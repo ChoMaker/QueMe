@@ -129,7 +129,7 @@
             </tbody>
           </table>
 
-          <p>Total: {{ totalSum }}</p>
+          <p>Total : {{ totalSum }}</p>
         </div>
       </div>
     </div>
@@ -160,6 +160,8 @@ import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import moment from 'moment';
+import { BASR_URL } from '@/config/app';
+import RoutePathUrl from '@/config/route';
 
 export default {
   setup() {
@@ -207,11 +209,11 @@ export default {
         const userId = parseInt(localStorage.getItem("id"));
         const queId = parseInt(localStorage.getItem("queID"));
 
-        const userResponse = await axios.get("http://localhost:4000/qm/getusers",{params: { id: userId },});
+        const userResponse = await axios.get(`${BASR_URL}/${RoutePathUrl.userDetail}`,{params: { id: userId },});
         userData.value = userResponse.data.data;
 
 
-        const { que, table } = (await axios.get("http://localhost:4000/qm/getque", {params: { id: userId, queID: queId },})).data.result;
+        const { que, table } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getQueDetail}`, {params: { id: userId, queID: queId },})).data.result;
         queDataRef.value = que;
         // queDataRef.value.date_and_time = moment(queDataRef.value.date_and_time).format('YYYY-MM-DD');
         tableDataRef.value = table;
@@ -220,7 +222,7 @@ export default {
         console.log("queData:", queDataRef.value);
         console.log("tableData:", tableDataRef.value);
 
-        const { order, food } = (await axios.get("http://localhost:4000/qm/getorder", {params: { id: userId, queID: queId },})).data.result;
+        const { order, food } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {params: { id: userId, queID: queId },})).data.result;
         orderDataRef.value = order;
         foodDataRef.value = food;
         

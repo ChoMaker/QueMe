@@ -3,6 +3,10 @@ import { ReserveQue } from "../../../models/reserveQue";
 import { QueService } from "../services/que";
 import { GetQue } from "../../../models/getQue";
 import { UserService } from "../services/user";
+import { UploadPayslip } from "../../../models/uploadPayslip";
+import multer from "multer";
+import path from "path";
+import { ResponseModel } from "../../../models/response";
 
 export namespace QueController {
   export const reserveQue = async (req: Request, res: Response) => {
@@ -36,6 +40,22 @@ export namespace QueController {
       return res.status(500).json({
         message: "No data",
       });
+    }
+  };
+
+  export const uploadPayslip = async (req: Request, res: Response) => {
+    const body = req.body as UploadPayslip;
+    const file = req.file?.path;
+
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
+
+    try {
+      const result = await QueService.uploadPayslip(body, file!);
+      return ResponseModel(res, 200, { result }, null);
+    } catch (error) {
+      return ResponseModel(res, 500, null, { msg: "Can't upload payslip" });
     }
   };
 }

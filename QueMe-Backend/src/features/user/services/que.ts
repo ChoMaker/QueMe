@@ -2,6 +2,9 @@ import { connection } from "../../../config/db";
 import { GetQue } from "../../../models/getQue";
 import { ReserveQue } from "../../../models/reserveQue";
 import dayjs, { Dayjs } from "dayjs";
+import { UploadPayslip } from "../../../models/uploadPayslip";
+import multer from "multer";
+import path from "path";
 
 type tableData = {
   id: number;
@@ -75,5 +78,14 @@ export namespace QueService {
       return { queData2, tableData2 };
     }
     return null;
+  };
+
+  export const uploadPayslip = async (
+    body: UploadPayslip,
+    file: string | null
+  ) => {
+    const payslipData = await (
+      await connection
+    ).query("UPDATE que SET payslip_url = ? WHERE id=?", [file, body.que_id]);
   };
 }

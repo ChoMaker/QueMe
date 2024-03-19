@@ -7,32 +7,16 @@
     >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img
-            src="/src/assets/logo-removebg.png"
-            alt="Logo"
-            style="width: 91px; height: auto"
-          />
+          <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto"/>
         </a>
         <div>
-          <button
-            class="btn navbarBtn space"
-            @click="router.push({ name: 'ClientHome' })"
-            type="submit"
-          >
+          <button class="btn navbarBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
             Home
           </button>
-          <button
-            class="btn navbarBtn space"
-            @click="router.push({ name: 'Profile' })"
-            type="submit"
-          >
+          <button class="btn navbarBtn space" @click="router.push({ name: 'Profile' })" type="submit">
             Profile
           </button>
-          <button
-            class="btn navbarBtn"
-            @click="router.push({ name: 'Login' })"
-            type="submit"
-          >
+          <button class="btn navbarBtn" @click="router.push({ name: 'Login' })" type="submit">
             Logout
           </button>
         </div>

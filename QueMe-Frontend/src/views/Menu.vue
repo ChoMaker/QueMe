@@ -11,21 +11,21 @@
         </a>
         <div class="d-flex justify-content-end">
           <button
-            class="btn space"
+            class="btn navBtn space"
             @click="router.push({ name: 'ClientHome' })"
             type="submit"
           >
             Home
           </button>
           <button
-            class="btn space"
+            class="btn navBtn space"
             @click="router.push({ name: 'Profile' })"
             type="submit"
           >
             Profile
           </button>
           <button
-            class="btn"
+            class="btn navBtn"
             @click="router.push({ name: 'Login' })"
             type="submit"
           >
@@ -34,7 +34,7 @@
         </div>
       </div>
     </nav>
-  
+
     <div class="flex-container">
       <div
         style="
@@ -44,23 +44,14 @@
           justify-content: space-between;
         "
       >
-        <div>
-          <button
-            class="btn btn-outline-light space"
-            @click="router.push({ name: 'Menu' })"
-            type="submit"
-          >
-            Food & Appetizer
-          </button>
-  
-        </div>
+        <div></div>
         <div class="row">
           <div class="d-flex justify-content-between">
             <p class="align-self-center" style="margin-right: 20px">
               หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"
             </p>
             <button
-              class="btn btn btn-dark"
+              class="btn otherBtn"
               @click="router.push({ name: 'ConfirmReserve' })"
               type="submit"
             >
@@ -71,23 +62,23 @@
       </div>
       <!-- picture -->
       <div class="row seperateMenu">
-        <div class="col-lg-6" style="text-align: center;">
+        <div class="col-lg-6" style="text-align: center">
           <img src="/src/assets/menu/food/1.png" alt="Logo" />
           <img src="/src/assets/menu/food/2.png" alt="Logo" />
           <img src="/src/assets/menu/food/3.png" alt="Logo" />
           <img src="/src/assets/menu/food/4.png" alt="Logo" />
         </div>
-  
+
         <!-- table -->
         <div class="col-lg-6">
           <div class="card">
             <div class="container-fluid">
               <form class="d-flex searchbar" @submit.prevent="search">
                 <input
-                  v-model="searchTerm"
+                  v-model="input"
                   class="form-control me-2"
-                  type="search"
-                  placeholder="Search"
+                  type="text"
+                  placeholder="Search.."
                   aria-label="Search"
                 />
                 <button class="btn btn-outline-success" type="submit">
@@ -95,7 +86,7 @@
                 </button>
               </form>
             </div>
-  
+
             <table class="table">
               <thead>
                 <tr>
@@ -106,7 +97,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="food in resultFood" :key="food.id">
+                <tr v-for="food in filteredList" :key="food.id">
                   <th scope="row">{{ food.id }}</th>
                   <td>{{ food.name }}</td>
                   <td>{{ food.price }}</td>
@@ -130,21 +121,22 @@
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     </div>
-  
+
     <div class="container checkbox-margin">
       <div class="d-flex justify-content-end">
         <button
-          class="btn btn btn-dark space"
+          class="btn otherBtn space"
           @click="router.push({ name: 'ClientHome' })"
           type="submit"
         >
           Cancel
         </button>
         <button
-          class="btn btn btn-dark"
+          class="btn otherBtn"
           @click="handleNextButtonClick"
           type="submit"
         >
@@ -157,34 +149,30 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
-import { BASR_URL } from '@/config/app';
-import RoutePathUrl from '@/config/route';
+import { BASR_URL } from "@/config/app";
+import RoutePathUrl from "@/config/route";
 
 export default {
   setup() {
     const router = useRouter();
 
     const resultFood = ref([]);
-    const searchTerm = ref("");
+    const input = ref("");
 
     const search = async () => {
       try {
-        const response = await axios.get(`${BASR_URL}/${RoutePathUrl.getmenu}`, {
-          params: {
-            search: searchTerm.value
+        const response = await axios.get(`${BASR_URL}/${RoutePathUrl.getmenu}`,{
+            params: {search: input.value,},
           }
-        });
-        resultFood.value = response.data.data[0].map((food) => ({
-          ...food,
-          quantity: 0,
+        );resultFood.value = response.data.data[0].map((food) => ({...food,quantity: 0,
         }));
       } catch (error) {
         console.error("Error searching menu:", error);
       }
     };
-    
+
     const increment = (id) => {
       const food = resultFood.value.find((item) => item.id === id);
       if (food) {
@@ -212,11 +200,13 @@ export default {
           que_id: parseInt(localStorage.getItem("queID")),
           quantity: quantity,
         }));
-        console.log("Result Food :", resultFood.value);
-        console.log("Items to Send:", itemsToSend);
+        console.log("Items send:", itemsToSend);
 
         // Send only the selected items to the server
-        const response = await axios.post(`${BASR_URL}/${RoutePathUrl.getque}`,itemsToSend);
+        const response = await axios.post(
+          `${BASR_URL}/${RoutePathUrl.getque}`,
+          itemsToSend
+        );
         console.log("Server response:", response.data);
         router.push({ name: "ConfirmReserve" });
       } catch (error) {
@@ -224,18 +214,10 @@ export default {
       }
     };
 
-    const search = () => {
-      // Implement your search logic here
-    };
-
-    const searchTerm = ref("");
-
     onMounted(async () => {
       try {
         const response = await axios.get(`${BASR_URL}/${RoutePathUrl.getmenu}`);
-        // Initialize resultFood as an empty array
         resultFood.value = [];
-        // Update resultFood with the data from the server
         resultFood.value = response.data.data[0].map((food) => ({
           ...food,
           quantity: 0,
@@ -247,6 +229,12 @@ export default {
       }
     });
 
+    const filteredList = computed(() => {
+      return resultFood.value.filter((food) =>
+      food.name.toLowerCase().includes(input.value.toLocaleLowerCase())
+      );
+    });
+
     return {
       router,
       resultFood,
@@ -254,23 +242,30 @@ export default {
       decrement,
       handleNextButtonClick,
       search,
-      searchTerm,
+      input,
+      filteredList,
     };
   },
 };
 </script>
 
 <style scoped>
+.otherBtn {
+  border-radius: 20px;
+  min-width: 110px;
+  background-color: #FF4E08;
+  color: #000;
+}
+.navBtn {
+  border-radius: 20px;
+  min-width: 110px;
+  background-color: #e6e5c7;
+  color: #000;
+}
 .searchbar {
   margin: 10px;
   align-self: center;
 }
-/* form {
-  width: 300px;
-  margin: 0 auto;
-  text-align: center;
-  padding-top: 20px;
-} */
 
 .value-button {
   display: inline-block;

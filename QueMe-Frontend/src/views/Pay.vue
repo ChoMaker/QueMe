@@ -149,6 +149,8 @@
   import { ref, onMounted } from "vue";
   import axios from "axios";
   import moment from 'moment';
+  import { BASR_URL } from '@/config/app';
+  import RoutePathUrl from '@/config/route';
   
   export default {
     setup() {
@@ -185,11 +187,6 @@
         que_id:'',
         quantity:''
       })
-      // const foodDataRef = ref ({
-      //   id:'',
-      //   name:'',
-      //   price:''
-      // });
       const foodDataRef = ref ([]);
       var totalSum = ref(0);
   
@@ -201,21 +198,19 @@
           const userId = parseInt(localStorage.getItem("id"));
           const queId = parseInt(localStorage.getItem("queID"));
   
-          const userResponse = await axios.get("http://localhost:4000/qm/getusers",{params: { id: userId },});
+          const userResponse = await axios.get(`${BASR_URL}/${RoutePathUrl.userDetail}`,{params: { id: userId },});
           userData.value = userResponse.data.data;
   
   
-          const { que, table } = (await axios.get("http://localhost:4000/qm/getque", {params: { id: userId, queID: queId },})).data.result;
-          // Set the values to your refs
+          const { que, table } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getQueDetail}`, {params: { id: userId, queID: queId },})).data.result;
           queDataRef.value = que;
-          // queDataRef.value.date_and_time = moment(queDataRef.value.date_and_time).format('YYYY-MM-DD');
           tableDataRef.value = table;
   
   
           console.log("queData:", queDataRef.value);
           console.log("tableData:", tableDataRef.value);
   
-          const { order, food } = (await axios.get("http://localhost:4000/qm/getorder", {params: { id: userId, queID: queId },})).data.result;
+          const { order, food } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getOrder}`, {params: { id: userId, queID: queId },})).data.result;
           orderDataRef.value = order;
           foodDataRef.value = food;
           
@@ -225,7 +220,6 @@
           foodDataRef.value = food.map(food => ({ ...food }));
           console.log("Food: ", foodDataRef.value)
   
-          console.log('test totalSum');
           console.log(order)
           console.log(foodDataRef.value.length);
   

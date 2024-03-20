@@ -213,25 +213,13 @@ export default {
 
         const { que, table } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getQueDetail}`, {params: { id: userId, queID: queId },})).data.result;
         queDataRef.value = que;
-        // queDataRef.value.date_and_time = moment(queDataRef.value.date_and_time).format('YYYY-MM-DD');
         tableDataRef.value = table;
-
-
-        console.log("queData:", queDataRef.value);
-        console.log("tableData:", tableDataRef.value);
 
         const { order, food } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {params: { id: userId, queID: queId },})).data.result;
         orderDataRef.value = order;
         foodDataRef.value = food;
-        
-        console.log("queData:", orderDataRef.value);
-        console.log("tableData:", foodDataRef.value);
 
         foodDataRef.value = food.map(food => ({ ...food }));
-        console.log("Food: ", foodDataRef.value)
-
-
-        console.log('PriceArray: ',foodDataRef.value.length);
 
         for (let i = 0; i < foodDataRef.value.length; i++) {
           for (let j = 0; j < order.length; j++){
@@ -239,19 +227,11 @@ export default {
               foodDataRef.value[i].quantity = order[j].quantity
             }
           }
-          // console.log('Quantity',foodDataRef.value[i]);
-          // Calculate total for each row (price * quantity)
+          // Calculate (price * quantity)
       foodDataRef.value[i].rowTotal = foodDataRef.value[i].price * foodDataRef.value[i].quantity;
         }
-        // Calculate overall total
+        // Calculate total
     totalSum.value = foodDataRef.value.reduce((sum, food) => sum + food.rowTotal, 0);
-    console.log('test',totalSum.value)
-
-
-        // for (let i = 0; i < foodDataRef.value.length; i++) {
-        //   totalSum.value += foodDataRef.value[i].price;
-        //   console.log(totalSum.value);
-        // }
         
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -259,8 +239,7 @@ export default {
     });
 
     const formattedDate = moment(queDataRef.date_and_time).format('LL');
-    console.log(formattedDate);
-
+    
     return {
       router,
       counter,

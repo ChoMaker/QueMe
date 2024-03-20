@@ -203,9 +203,7 @@ export default {
     var totalSum = ref(0);
 
     onMounted(async () => {
-
       try {
-
         const userId = parseInt(localStorage.getItem("id"));
         const queId = parseInt(localStorage.getItem("queID"));
 
@@ -254,7 +252,6 @@ export default {
         //   totalSum.value += foodDataRef.value[i].price;
         //   console.log(totalSum.value);
         // }
-
         
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -262,7 +259,7 @@ export default {
     });
 
     const formattedDate = moment(queDataRef.date_and_time).format('LL');
-    console.log(formattedDate); // Output: 2022-01-01
+    console.log(formattedDate);
 
     return {
       router,

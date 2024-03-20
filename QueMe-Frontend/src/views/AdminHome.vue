@@ -1,4 +1,23 @@
 <template>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="/src/assets/logo-removebg.png"
+            alt="Logo"
+            style="width: 91px; height: auto"
+          />
+        </a>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-link space" style="color: #fff;" @click="router.push({ name: 'AdminHome' })" type="submit">
+            Event</button>
+          <button class="btn btn-link space" style="color: #fff;" @click="router.push({ name: 'AdminQue' })" type="submit">
+            Menu</button>
+          <button class="btn btnAll" @click="router.push({ name: 'Login' })" type="submit">
+            Logout</button>
+        </div>
+      </div>
+    </nav>
   <div class="container">
     <div class="row">
       <p class="reservation">Event Update</p>
@@ -21,8 +40,7 @@
               <td>Otto</td>
               <td>@mdo</td>
               <td>
-                <button class="btn" style="background-color:black;" @click="handleNextButtonClick" type="submit">Edit</button>
-                <button class="btn" style="background-color: red;" @click="handleNextButtonClick" type="submit">Delete</button>
+                <button class="btn btnAll" style="background-color: red;" @click="handleNextButtonClick" type="submit">Delete</button>
               </td>
             </tr>
           </tbody>
@@ -34,8 +52,7 @@
         <div class="input-group" style="margin-bottom: 20px; width: 420px;">
           <input
             placeholder="Fill the event name"
-            v-model="seatsQuantity"
-            @input="validateSeatsQuantity"
+            v-model="eventName"
             type="text"
             class="form-control textfieldStyle"
             style="background-color: #e6e5c7"
@@ -69,14 +86,14 @@
   <div class="container checkbox-margin">
     <div class="d-flex justify-content-end">
       <button
-        class="btn btn btn-dark space"
+        class="btn btnAll btn-dark space"
         @click="router.push({ name: 'ClientHome' })"
         type="submit"
       >
         Back
       </button>
       <button
-        class="btn btn btn-dark"
+        class="btn btnAll btn-dark"
         @click="handleNextButtonClick"
         type="submit"
       >
@@ -90,10 +107,7 @@
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 import Axios from "axios";
-import {
-  DatePickerComponent,
-  MaskedDateTime,
-} from "@syncfusion/ej2-vue-calendars";
+import { DatePickerComponent,MaskedDateTime,} from "@syncfusion/ej2-vue-calendars";
 import { TypeOfQue } from "@/util/util";
 import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
@@ -107,66 +121,27 @@ export default {
   setup() {
     const router = useRouter();
 
-    const selectedOption = ref("");
-
-    const options = [
-      { label: "จองโต๊ะก่อน 20:00 น. (ฟรี)", value: TypeOfQue.BEFORE20 },
-      {
-        label: "จองโต๊ะที่หลุดจอง 21:00 น. (฿1,000 ต่อโต๊ะ)",
-        value: TypeOfQue.IN21,
-      },
-      {
-        label: "จองโต๊ะที่หลุดจอง 22:00 น. (฿2,000 ต่อโต๊ะ)",
-        value: TypeOfQue.IN22,
-      },
-      {
-        label: "จองโต๊ะที่หลุดจอง 23:00 น. (฿3,000 ต่อโต๊ะ)",
-        value: TypeOfQue.IN23,
-      },
-      {
-        label: "จองโต๊ะแล้วมาเวลาไหนก็ได้ (฿4,500 ต่อโต๊ะ)",
-        value: TypeOfQue.ANYTIME,
-      },
-    ];
-
-    //datepicker
+    //set not to select old day
     const minDate = ref(new Date());
     minDate.value.setDate(minDate.value.getDate());
     const selectedDate = ref("");
 
-    //select dropdown and seats quantity
-    const selected = ref("");
-    const seatsQuantity = ref("");
+    const eventName = ref("");
 
-    //input seat zone number
-    const seatZoneNumber = ref("");
 
-    const validateSeatsQuantity = () => {
-      // Remove non-numeric characters
-      seatsQuantity.value = seatsQuantity.value.replace(/\D/g, "");
-      // Ensure the value is not greater than 50
-      if (seatsQuantity.value > 8) {
-        seatsQuantity.value = 8;
-      }
-    };
+
 
     return {
       router,
       selectedDate,
       minDate,
-      validateSeatsQuantity,
-      seatZoneNumber,
+      eventName
     };
   },
   methods: {
     async handleNextButtonClick() {
       // Log all the relevant values
-      console.log("Selected Option:", this.selectedOption);
       console.log("Selected Date:", this.selectedDate);
-      console.log("Selected Zone:", this.selected);
-      console.log("Seats Quantity:", this.seatsQuantity);
-      console.log("Seat Zone Number:", this.seatZoneNumber);
-
       try {
         const response = await Axios.post(
           `${BASR_URL}/${RoutePathUrl.reserve}`,
@@ -249,7 +224,8 @@ select {
   word-wrap: normal;
   height: 40px;
 }
-.btn {
+
+.btnAll {
   border-radius: 20px;
   min-width: 110px;
   background-color: #ff4e08;

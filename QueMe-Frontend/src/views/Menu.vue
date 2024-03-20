@@ -11,21 +11,21 @@
         </a>
         <div class="d-flex justify-content-end">
           <button
-            class="btn btn-outline-light space"
+            class="btn space"
             @click="router.push({ name: 'ClientHome' })"
             type="submit"
           >
             Home
           </button>
           <button
-            class="btn btn-outline-light space"
+            class="btn space"
             @click="router.push({ name: 'Profile' })"
             type="submit"
           >
             Profile
           </button>
           <button
-            class="btn btn-outline-light"
+            class="btn"
             @click="router.push({ name: 'Login' })"
             type="submit"
           >
@@ -129,10 +129,6 @@
                 </tr>
               </tbody>
             </table>
-  
-            <!-- <div v-else>
-              <p>No results found.</p>
-            </div> -->
           </div>
         </div>
       </div>
@@ -171,7 +167,24 @@ export default {
     const router = useRouter();
 
     const resultFood = ref([]);
+    const searchTerm = ref("");
 
+    const search = async () => {
+      try {
+        const response = await axios.get(`${BASR_URL}/${RoutePathUrl.getmenu}`, {
+          params: {
+            search: searchTerm.value
+          }
+        });
+        resultFood.value = response.data.data[0].map((food) => ({
+          ...food,
+          quantity: 0,
+        }));
+      } catch (error) {
+        console.error("Error searching menu:", error);
+      }
+    };
+    
     const increment = (id) => {
       const food = resultFood.value.find((item) => item.id === id);
       if (food) {

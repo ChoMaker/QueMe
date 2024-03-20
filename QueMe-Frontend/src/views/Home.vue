@@ -93,24 +93,20 @@
         </div>
 
         <div class="description">
-          <div
-            v-for="(option, index) in options"
+          <div v-for="(option, index) in options"
             :key="index"
-            class="form-check form-check-inline checkbox-margin"
-          >
+            class="form-check form-check-inline checkbox-margin">
             <input
               class="form-check-input"
               type="radio"
               :id="`inlineRadio${index}`"
               :value="option.value"
-              v-model="selectedOption"
-            />
+              v-model="selectedOption"/>
             <label
               class="form-check-label"
               :for="`inlineRadio${index}`"
               style="color: #fff"
-              >{{ option.label }}</label
-            >
+              >{{ option.label }}</label>
           </div>
         </div>
       </div>

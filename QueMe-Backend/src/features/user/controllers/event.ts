@@ -4,6 +4,7 @@ import { CreateEvent } from "../../../models/createEvent";
 import { ResponseModel } from "../../../models/response";
 import multer from "multer";
 import path from "path";
+import { DeleteEvent } from "../../../models/deleteEvent";
 
 export namespace EventController {
   export const getEvents = async (req: Request, res: Response) => {
@@ -32,6 +33,22 @@ export namespace EventController {
       return ResponseModel(res, 200, { result }, null);
     } catch (error) {
       return ResponseModel(res, 500, null, { msg: "Can't upload image" });
+    }
+  };
+
+  export const deleteEvent = async (req: Request, res: Response) => {
+    const body = req.body as DeleteEvent;
+
+    try {
+      const result = await EventService.deleteEvent(body);
+      return res.status(200).json({
+        message: "Delete successfully",
+        result: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Can't delete this event",
+      });
     }
   };
 }

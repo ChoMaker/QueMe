@@ -35,4 +35,4 @@ eventRouter.post(
   upload.single("image"),
   EventController.createEvent
 );
-// eventRouter.post("/qm/deleteevent", EventController.deleteEvents);
+eventRouter.delete("/qm/deleteevent", EventController.deleteEvent);

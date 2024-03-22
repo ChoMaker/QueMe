@@ -1,5 +1,6 @@
 import { connection } from "../../../config/db";
 import { CreateEvent } from "../../../models/createEvent";
+import { DeleteEvent } from "../../../models/deleteEvent";
 
 export namespace EventService {
   export const getEvents = async () => {
@@ -15,5 +16,11 @@ export namespace EventService {
       [body.name, body.event_start_date, body.event_end_date, file]
     );
     return true;
+  };
+
+  export const deleteEvent = async (body: DeleteEvent) => {
+    const event = await (
+      await connection
+    ).query("DELETE FROM events WHERE id=?", [body.id]);
   };
 }

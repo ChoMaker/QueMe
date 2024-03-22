@@ -11,8 +11,8 @@ export namespace EventService {
     const eventData = await (
       await connection
     ).query(
-      "INSERT INTO events (id,name,event_start_date,event_end_date,image_url) VALUES (?,?,?,?,?)",
-      [body.id, body.name, body.event_start_date, body.event_end_date, file]
+      "INSERT INTO events (name,event_start_date,event_end_date,image_url) VALUES (?,?,?,?,?)",
+      [body.name, body.event_start_date, body.event_end_date, file]
     );
     return true;
   };

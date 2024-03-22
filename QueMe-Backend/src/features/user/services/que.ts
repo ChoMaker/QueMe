@@ -88,4 +88,9 @@ export namespace QueService {
       await connection
     ).query("UPDATE que SET payslip_url = ? WHERE id=?", [file, body.que_id]);
   };
+
+  export const getAllQue = async () => {
+    const resultQue = await (await connection).query("SELECT * from que");
+    return resultQue;
+  };
 }

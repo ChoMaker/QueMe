@@ -36,5 +36,5 @@ reserveQueRouter.post(
   upload.single("image"),
   QueController.uploadPayslip
 );
-// reserveQueRouter.get("/qm/getallque", QueController.getAllQue);
+reserveQueRouter.get("/qm/getallque", QueController.getAllQue);
 // reserveQueRouter.post("/qm/updatestatus", QueController.updateStatus);

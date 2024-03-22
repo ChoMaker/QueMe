@@ -58,4 +58,17 @@ export namespace QueController {
       return ResponseModel(res, 500, null, { msg: "Can't upload payslip" });
     }
   };
+
+  export const getAllQue = async (req: Request, res: Response) => {
+    try {
+      const result = await QueService.getAllQue();
+      return res.status(200).json({
+        data: result,
+      });
+    } catch (error) {
+      return res.status(400).json({
+        message: "Can't get all que",
+      });
+    }
+  };
 }

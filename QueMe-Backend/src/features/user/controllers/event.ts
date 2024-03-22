@@ -23,8 +23,6 @@ export namespace EventController {
     const body = req.body as CreateEvent;
     const file = req.file?.path;
 
-    console.log(req.body);
-
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });
     }

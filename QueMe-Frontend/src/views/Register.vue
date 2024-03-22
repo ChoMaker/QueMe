@@ -6,19 +6,13 @@
         <p :class="'text3 ' + (nameError.length > 0 ? 'error' : '')">
           Name
         </p>
-        <div 
-          :class="
-          'input-group blankspacetextfield ' +
-          (phoneNumberError.length > 0 ? 'error' : '')
-          "
-        >
+        <div :class="'input-group blankspacetextfield ' + (phoneNumberError.length > 0 ? 'error' : '')">
           <input
             v-model="user.name"
             type="text"
             class="form-control"
             style="width: 495px"
-            aria-label="Name"
-          />
+            aria-label="Name"/>
         </div>
         <div v-if="nameError.length > 0" class="error">
           <ul>
@@ -27,15 +21,8 @@
             </li>
           </ul>
         </div>
-        <p :class="'text3 ' + (phoneNumberError.length > 0 ? 'error' : '')">
-          Phone number
-        </p>
-        <div
-          :class="
-            'input-group blankspacetextfield ' +
-            (phoneNumberError.length > 0 ? 'error' : '')
-          "
-        >
+        <p :class="'text3 ' + (phoneNumberError.length > 0 ? 'error' : '')">Phone number</p>
+        <div :class="'input-group blankspacetextfield ' + (phoneNumberError.length > 0 ? 'error' : '')">
           <input
             v-model="user.phoneNumber"
             type="text"

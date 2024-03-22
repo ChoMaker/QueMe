@@ -54,14 +54,10 @@ export default {
     })
 
     const handleLogin = async () => {
-        console.log('PhoneNumber:', userSignin.phoneNumber);
-        console.log('Password:', userSignin.password);
         console.log('submitted');
         console.log(`${BASR_URL}/${RoutePathUrl.singin}`);
 
         try{
-            // const response = await Axios.post(
-            //     `${BASR_URL}/${RoutePathUrl.singin}`, userSignin.value);
             const response = await Axios.post(`${BASR_URL}/${RoutePathUrl.singin}`, userSignin.value);
             localStorage.setItem('id', response.data.data)
             router.push({name: 'ClientHome'})

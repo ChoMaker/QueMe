@@ -7,6 +7,7 @@ import { reserveQueRouter } from "./routes/que";
 import { foodRouter } from "./routes/food";
 import { orderRouter } from "./routes/order";
 import { eventRouter } from "./routes/event";
+import { adminRouter } from "./routes/admin";
 
 //set up express
 
@@ -21,6 +22,7 @@ app.use("/", reserveQueRouter);
 app.use("/", foodRouter);
 app.use("/", orderRouter);
 app.use("/", eventRouter);
+app.use("/", adminRouter);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

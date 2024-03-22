@@ -6,16 +6,12 @@ export namespace AdminService {
     try {
       const [resultAdmin] = await (
         await connection
-      ).query("SELECT * FROM admins WHERE username=? AND password=?", [
-        body.username,
-        body.password,
-      ]);
+      ).query("SELECT * FROM admins WHERE username=?", [body.username]);
       const admin = (resultAdmin as SignInAdmin[])[0];
 
       if (!admin || admin.password != body.password) {
         return "admin incorrect";
       }
-      return admin.id;
     } catch (error) {
       return error;
     }

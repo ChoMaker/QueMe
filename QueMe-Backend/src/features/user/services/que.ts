@@ -35,6 +35,22 @@ type queData = {
   type: string;
 };
 
+type userData = {
+  id: number;
+  name: string;
+  phone_number: string;
+  password: string;
+  create_at: Date;
+};
+
+type eventData = {
+  id: number;
+  name: string;
+  event_start_date: Date;
+  event_end_date: Date;
+  image_url: string;
+};
+
 const isTableReservedForToday = async (
   tableId: number,
   dateTime: Date
@@ -123,8 +139,23 @@ export namespace QueService {
   };
 
   export const getAllQue = async () => {
-    const resultQue = await (await connection).query("SELECT * from que");
-    return resultQue;
+    const [resultQue] = await (await connection).query("SELECT * from que");
+
+    const allQue = (resultQue as queData[])[0];
+
+    if (allQue.user_id || allQue.table_id || allQue.event_id) {
+      const [userData] = await (await connection).query("SELECT * from users");
+      const userData2 = (userData as userData[])[0];
+      const [tableData] = await (
+        await connection
+      ).query("SELECT * from tables");
+      const tableData2 = (tableData as tableData[])[0];
+      const [eventData] = await (
+        await connection
+      ).query("SELECT * from events");
+      const eventData2 = (eventData as eventData[])[0];
+      return { userData2, tableData2, eventData2 };
+    }
   };
 
   export const deleteQue = async (body: DeleteQue) => {

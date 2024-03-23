@@ -67,8 +67,13 @@ export namespace QueController {
     try {
       const result = await QueService.getAllQue();
       return res.status(200).json({
-        data: result,
+        result: {
+          user: result?.userData2,
+          table: result?.tableData2,
+          event: result?.eventData2,
+        },
       });
+      console.log(result);
     } catch (error) {
       return res.status(404).json({
         message: "Can't get all que",
@@ -102,7 +107,6 @@ export namespace QueController {
         id: body.id,
         status: body.status,
       });
-      console.log(body.status);
     } catch (error) {
       return res.status(404).json({
         message: "Internal server error",

@@ -132,7 +132,6 @@ export namespace QueService {
       const tableData2 = (tableData as tableData[])[0];
       return { queData2, tableData2 };
     }
-    return null;
   };
 
   export const uploadPayslip = async (

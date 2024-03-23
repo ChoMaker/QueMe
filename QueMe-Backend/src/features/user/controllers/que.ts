@@ -8,6 +8,7 @@ import multer from "multer";
 import path from "path";
 import { ResponseModel } from "../../../models/response";
 import { DeleteQue } from "../../../models/deleteQue";
+import { UpdateStatus } from "../../../models/updateStatus";
 
 export namespace QueController {
   export const reserveQue = async (req: Request, res: Response) => {
@@ -38,7 +39,7 @@ export namespace QueController {
         },
       });
     } catch (error) {
-      return res.status(500).json({
+      return res.status(404).json({
         message: "No data",
       });
     }
@@ -56,7 +57,7 @@ export namespace QueController {
       const result = await QueService.uploadPayslip(body, file!);
       return ResponseModel(res, 200, { result }, null);
     } catch (error) {
-      return ResponseModel(res, 500, null, { msg: "Can't upload payslip" });
+      return ResponseModel(res, 404, null, { msg: "Can't upload payslip" });
     }
   };
 
@@ -67,7 +68,7 @@ export namespace QueController {
         data: result,
       });
     } catch (error) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: "Can't get all que",
       });
     }
@@ -83,8 +84,26 @@ export namespace QueController {
         result: result,
       });
     } catch (error) {
-      return res.status(500).json({
+      return res.status(404).json({
         message: "Can't delete this que",
+      });
+    }
+  };
+
+  export const updateStatus = async (req: Request, res: Response) => {
+    const body = req.body as UpdateStatus;
+
+    try {
+      const result = await QueService.updateStatus(body);
+      return res.status(200).json({
+        message: "Status updated successfully",
+        id: body.id,
+        status: body.status,
+      });
+      console.log(body.status);
+    } catch (error) {
+      return res.status(404).json({
+        message: "Internal server error",
       });
     }
   };

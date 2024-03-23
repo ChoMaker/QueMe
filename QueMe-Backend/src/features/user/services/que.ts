@@ -6,6 +6,7 @@ import { UploadPayslip } from "../../../models/uploadPayslip";
 import multer from "multer";
 import path from "path";
 import { DeleteQue } from "../../../models/deleteQue";
+import { UpdateStatus } from "../../../models/updateStatus";
 
 type tableData = {
   id: number;
@@ -47,7 +48,7 @@ export namespace QueService {
       const resultTable = await (
         await connection
       ).query(
-        "INSERT INTO que (user_id,table_id,event_id,date_and_time,seat,type) VALUES (?,?,?,?,?,?)",
+        "INSERT INTO que (user_id,table_id,event_id,status,date_and_time,seat,type) VALUES (?,?,?,?,?,?,?)",
         [
           body.user_id,
           table.id,
@@ -87,7 +88,7 @@ export namespace QueService {
   ) => {
     const payslipData = await (
       await connection
-    ).query("UPDATE que SET payslip_url = ? WHERE id=?", [file, body.que_id]);
+    ).query("UPDATE que SET payslip_url = ? WHERE id = ?", [file, body.que_id]);
   };
 
   export const getAllQue = async () => {
@@ -99,5 +100,15 @@ export namespace QueService {
     const que = await (
       await connection
     ).query("DELETE FROM que WHERE id=?", [body.queId]);
+  };
+
+  export const updateStatus = async (body: UpdateStatus) => {
+    const { id, status } = body;
+    const queStatus = await (
+      await connection
+    ).query("UPDATE que SET status = ? WHERE id = ?", [
+      status ? 1 : 0,
+      body.id,
+    ]);
   };
 }

@@ -38,4 +38,4 @@ reserveQueRouter.post(
 );
 reserveQueRouter.get("/qm/getallque", QueController.getAllQue);
 reserveQueRouter.delete("/qm/deleteque", QueController.deleteQue);
-// reserveQueRouter.post("/qm/updatestatus", QueController.updateStatus);
+reserveQueRouter.put("/qm/updatestatus", QueController.updateStatus);

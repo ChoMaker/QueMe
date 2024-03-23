@@ -9,6 +9,7 @@ import path from "path";
 import { ResponseModel } from "../../../models/response";
 import { DeleteQue } from "../../../models/deleteQue";
 import { UpdateStatus } from "../../../models/updateStatus";
+import { UpdateAmount } from "../../../models/updateAmount";
 
 export namespace QueController {
   export const reserveQue = async (req: Request, res: Response) => {
@@ -110,6 +111,22 @@ export namespace QueController {
     } catch (error) {
       return res.status(404).json({
         message: "Internal server error",
+      });
+    }
+  };
+
+  export const updateAmount = async (req: Request, res: Response) => {
+    const body = req.body as UpdateAmount;
+
+    try {
+      const result = await QueService.updateAmount(body);
+      return res.status(200).json({
+        message: "Update successfully",
+        result: result + " Bath",
+      });
+    } catch (error) {
+      return res.status(404).json({
+        message: "Can't update amount",
       });
     }
   };

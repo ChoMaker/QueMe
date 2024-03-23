@@ -7,6 +7,7 @@ import multer from "multer";
 import path from "path";
 import { DeleteQue } from "../../../models/deleteQue";
 import { UpdateStatus } from "../../../models/updateStatus";
+import { UpdateAmount } from "../../../models/updateAmount";
 
 type tableData = {
   id: number;
@@ -135,7 +136,7 @@ export namespace QueService {
   ) => {
     const payslipData = await (
       await connection
-    ).query("UPDATE que SET payslip_url = ? WHERE id = ?", [file, body.que_id]);
+    ).query("UPDATE que SET payslip_url=? WHERE id=?", [file, body.que_id]);
   };
 
   export const getAllQue = async () => {
@@ -172,5 +173,12 @@ export namespace QueService {
       status ? 1 : 0,
       body.id,
     ]);
+  };
+
+  export const updateAmount = async (body: UpdateAmount) => {
+    const queAmount = await (
+      await connection
+    ).query("UPDATE que SET amount=? WHERE id=?", [body.amount, body.queId]);
+    return body.amount;
   };
 }

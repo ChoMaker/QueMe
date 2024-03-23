@@ -143,7 +143,9 @@ export namespace QueService {
   ) => {
     const payslipData = await (
       await connection
-    ).query("UPDATE que SET payslip_url=? WHERE id=?", [file, body.que_id]);
+    ).query("UPDATE que SET payslip_url = ? WHERE id = ?", [file, body.queId]);
+
+    console.log(file);
   };
 
   export const getAllQue = async () => {

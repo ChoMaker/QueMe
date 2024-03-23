@@ -39,16 +39,15 @@ export namespace QueService {
   export const reserveQue = async (body: ReserveQue) => {
     const [resultQue] = await (
       await connection
-    ).query(
-      `SELECT * from tables WHERE zone='${body.zone}'and name='${body.name}' `
-    );
+    ).query(`
+      SELECT * from tables WHERE zone='${body.zone}'and name='${body.name}'`);
     const table = (resultQue as tableData[])[0];
 
     if (table) {
       const resultTable = await (
         await connection
       ).query(
-        "INSERT INTO que (user_id,table_id,event_id,status,date_and_time,seat,type) VALUES (?,?,?,?,?,?,?)",
+        "INSERT INTO que (user_id,table_id,event_id,date_and_time,seat,type) VALUES (?,?,?,?,?,?)",
         [
           body.user_id,
           table.id,

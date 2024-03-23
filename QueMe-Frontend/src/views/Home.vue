@@ -154,11 +154,11 @@ export default {
     const selectedOption = ref("");
 
     const options = [
-  { label: "จองโต๊ะก่อน 20:00 น. (ฟรี)", value: TypeOfQue.BEFORE20, price: 0 },
-  { label: "จองโต๊ะที่หลุดจอง 21:00 น. (฿1,000 ต่อโต๊ะ)", value: TypeOfQue.IN21, price: 1000 },
-  { label: "จองโต๊ะที่หลุดจอง 22:00 น. (฿2,000 ต่อโต๊ะ)", value: TypeOfQue.IN22, price: 2000 },
-  { label: "จองโต๊ะที่หลุดจอง 23:00 น. (฿3,000 ต่อโต๊ะ)", value: TypeOfQue.IN23, price: 3000 },
-  { label: "จองโต๊ะแล้วมาเวลาไหนก็ได้ (฿4,500 ต่อโต๊ะ)", value: TypeOfQue.ANYTIME, price: 4500 },
+  { label: "จองโต๊ะก่อน 20:00 น. (ฟรี)", value: TypeOfQue.BEFORE20},
+  { label: "จองโต๊ะที่หลุดจอง 21:00 น. (฿1,000 ต่อโต๊ะ)", value: TypeOfQue.IN21},
+  { label: "จองโต๊ะที่หลุดจอง 22:00 น. (฿2,000 ต่อโต๊ะ)", value: TypeOfQue.IN22},
+  { label: "จองโต๊ะที่หลุดจอง 23:00 น. (฿3,000 ต่อโต๊ะ)", value: TypeOfQue.IN23},
+  { label: "จองโต๊ะแล้วมาเวลาไหนก็ได้ (฿4,500 ต่อโต๊ะ)", value: TypeOfQue.ANYTIME},
 ];
 
 

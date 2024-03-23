@@ -7,4 +7,5 @@ export default {
   getOrderDetail: "qm/getorder",
   getQueDetail: "qm/getque",
   uploadPayslip: "qm/uploadpayslip",
+  uploadAmount: "qm/updateamount",
 }

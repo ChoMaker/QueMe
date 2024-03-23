@@ -113,7 +113,7 @@
               class="d-flex justify-content-center"
               style="font-size: 20px; margin-bottom: 10px"
             >
-              Total : {{ totalSum }} Baht
+
             </p>
             <img
               style="height: 400px; width: auto; margin-bottom: 3px"
@@ -165,13 +165,7 @@ import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
 
 export default {
-  //   methods: {
-  //   async handleFileUpload(event) {
-  //     const file = event.target.files[0]; // Get the first file from the list of uploaded files
-  //     // Now you can do whatever you want with the file, such as uploading it to a server
-  //     console.log("Uploaded file:", file);
-  //   }
-  // },
+
   methods: {
     async handleFileUpload(event) {
       const file = event.target.files[0]; // Get the first file from the list of uploaded files
@@ -263,7 +257,7 @@ export default {
         // console.log("tableData:", tableDataRef.value);
 
         const { order, food } = (
-          await axios.get(`${BASR_URL}/${RoutePathUrl.getOrder}`, {
+          await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {
             params: { id: userId, queID: queId },
           })
         ).data.result;

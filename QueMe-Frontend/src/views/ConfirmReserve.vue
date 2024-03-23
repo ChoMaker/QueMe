@@ -40,7 +40,6 @@
     </div>
     <div class="row">
       <div class="col-lg-6">
-
         <p class="textAboveTextfield">Name</p>
         <input
           ref="name"
@@ -101,8 +100,7 @@
         </div>
 
         <div class="row description">
-
-<p >Description : {{ queDataRef.type }}</p>
+          <p>Description : {{ queDataRef.type }}</p>
         </div>
       </div>
       <div class="col-lg-6">
@@ -129,7 +127,7 @@
             </tbody>
           </table>
 
-          <p>Total : {{ totalSum }}</p>
+          <p>Total : {{ foodTotal }}</p>
         </div>
       </div>
     </div>
@@ -146,7 +144,7 @@
       </button>
       <button
         class="btn severalbtn btn-dark"
-        @click="router.push({ name: 'Pay' })"
+        @click="handleNextButtonClick"
         type="submit"
       >
         Next
@@ -159,16 +157,17 @@
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import moment from 'moment';
-import { BASR_URL } from '@/config/app';
-import RoutePathUrl from '@/config/route';
+import moment from "moment";
+import { BASR_URL } from "@/config/app";
+import RoutePathUrl from "@/config/route";
+import { TypeOfQue } from "@/util/util";
 
 export default {
   setup() {
     const router = useRouter();
     const name = ref("");
     const counter = ref(0);
-    
+
     const userData = ref({
       id: "",
       name: "",
@@ -192,64 +191,90 @@ export default {
       name: "",
     });
 
-    const orderDataRef = ref ({
-      id: '',
-      food_id:'',
-      que_id:'',
-      quantity:''
-    })
+    const orderDataRef = ref({
+      id: "",
+      food_id: "",
+      que_id: "",
+      quantity: "",
+    });
 
-
-    const foodDataRef = ref ([]);
+    const foodDataRef = ref([]);
     var totalSum = ref(0);
+    let foodTotal = ref(0);
 
     onMounted(async () => {
       try {
         const userId = parseInt(localStorage.getItem("id"));
         const queId = parseInt(localStorage.getItem("queID"));
 
-        const userResponse = await axios.get(`${BASR_URL}/${RoutePathUrl.userDetail}`,{params: { id: userId },});
+        const userResponse = await axios.get(
+          `${BASR_URL}/${RoutePathUrl.userDetail}`,
+          { params: { id: userId } }
+        );
         userData.value = userResponse.data.data;
 
-
-        const { que, table } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getQueDetail}`, {params: { id: userId, queID: queId },})).data.result;
+        const { que, table } = (
+          await axios.get(`${BASR_URL}/${RoutePathUrl.getQueDetail}`, {
+            params: { id: userId, queID: queId },
+          })
+        ).data.result;
         queDataRef.value = que;
         tableDataRef.value = table;
 
-        const { order, food } = (await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {params: { id: userId, queID: queId },})).data.result;
+        const { order, food } = (
+          await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {
+            params: { id: userId, queID: queId },
+          })
+        ).data.result;
         orderDataRef.value = order;
         foodDataRef.value = food;
 
-        foodDataRef.value = food.map(food => ({ ...food }));
+        foodDataRef.value = food.map((food) => ({ ...food }));
 
         for (let i = 0; i < foodDataRef.value.length; i++) {
-          for (let j = 0; j < order.length; j++){
+          for (let j = 0; j < order.length; j++) {
             if (order[j].food_id === foodDataRef.value[i].id) {
-              foodDataRef.value[i].quantity = order[j].quantity
+              foodDataRef.value[i].quantity = order[j].quantity;
             }
           }
           // Calculate (price * quantity)
-      foodDataRef.value[i].rowTotal = foodDataRef.value[i].price * foodDataRef.value[i].quantity;
+          foodDataRef.value[i].rowTotal =
+            foodDataRef.value[i].price * foodDataRef.value[i].quantity;
         }
         // Calculate total
-    totalSum.value = foodDataRef.value.reduce((sum, food) => sum + food.rowTotal, 0);
-    console.log (totalSum.value)
-  const calculateTotalSum = () => {
-    const foodTotal = foodDataRef.value.reduce((sum, food) => sum + food.rowTotal, 0);
-    const selectedOptionPrice = selectedOption.value.price || 0; // Ensure price is not null
-    console.log (totalSum.value)
-    totalSum.value = foodTotal + selectedOptionPrice;
-};
+        totalSum.value = foodDataRef.value.reduce(
+          (sum, food) => sum + food.rowTotal,
+          0
+        );
 
+        foodTotal.value = totalSum.value; // Set the initial value of foodTotal
 
-        
+        // Calculate foodTotal based on queDataRef.type
+        switch (queDataRef.value.type) {
+          case TypeOfQue.BEFORE20:
+            // No additional charge
+            break;
+          case TypeOfQue.IN21:
+            foodTotal.value += 1000;
+            break;
+          case TypeOfQue.IN22:
+            foodTotal.value += 2000;
+            break;
+          case TypeOfQue.IN23:
+            foodTotal.value += 3000;
+            break;
+          case TypeOfQue.ANYTIME:
+            foodTotal.value += 4500;
+            break;
+        }
+        console.log("FoodAfter", foodTotal.value);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     });
 
-    const formattedDate = moment(queDataRef.date_and_time).format('LL');
-    
+    const formattedDate = moment(queDataRef.date_and_time).format("LL");
+
     return {
       router,
       counter,
@@ -259,8 +284,29 @@ export default {
       orderDataRef,
       foodDataRef,
       totalSum,
-      formattedDate
+      formattedDate,
+      foodTotal,
     };
+  },
+  methods: { async handleNextButtonClick() {
+      try {
+        const response = await axios.post(
+          `${BASR_URL}/${RoutePathUrl.uploadAmount}`,
+          {
+            queID: localStorage.getItem("queID"),
+            amount: this.foodTotal,
+          }
+        );
+        localStorage.setItem("queID", response.data.result);
+
+        console.log("Server response:", response.data);
+
+        // Now you can perform the router push
+        this.router.push({ name: "Pay" });
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    },
   },
 };
 </script>

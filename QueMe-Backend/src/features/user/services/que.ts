@@ -81,7 +81,14 @@ export namespace QueService {
       await connection
     ).query(`
       SELECT * from tables WHERE zone='${body.zone}'and name='${body.name}'`);
+
     const table = (resultQue as tableData[])[0];
+
+    console.log(table);
+
+    if (!table) {
+      throw new Error("Table not found for the given zone and name");
+    }
 
     const isTableAlreadyReserved = await isTableReservedForToday(
       table.id,

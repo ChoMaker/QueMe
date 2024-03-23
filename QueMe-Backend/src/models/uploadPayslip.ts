@@ -1,3 +1,3 @@
 export interface UploadPayslip {
-  queId: number;
+  queID: number;
 }

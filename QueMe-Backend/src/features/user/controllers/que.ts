@@ -7,6 +7,7 @@ import { UploadPayslip } from "../../../models/uploadPayslip";
 import multer from "multer";
 import path from "path";
 import { ResponseModel } from "../../../models/response";
+import { DeleteQue } from "../../../models/deleteQue";
 
 export namespace QueController {
   export const reserveQue = async (req: Request, res: Response) => {
@@ -68,6 +69,22 @@ export namespace QueController {
     } catch (error) {
       return res.status(400).json({
         message: "Can't get all que",
+      });
+    }
+  };
+
+  export const deleteQue = async (req: Request, res: Response) => {
+    const body = req.body as DeleteQue;
+
+    try {
+      const result = await QueService.deleteQue(body);
+      return res.status(200).json({
+        message: "Delete successfully",
+        result: result,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Can't delete this que",
       });
     }
   };

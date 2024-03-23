@@ -5,6 +5,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { UploadPayslip } from "../../../models/uploadPayslip";
 import multer from "multer";
 import path from "path";
+import { DeleteQue } from "../../../models/deleteQue";
 
 type tableData = {
   id: number;
@@ -92,5 +93,11 @@ export namespace QueService {
   export const getAllQue = async () => {
     const resultQue = await (await connection).query("SELECT * from que");
     return resultQue;
+  };
+
+  export const deleteQue = async (body: DeleteQue) => {
+    const que = await (
+      await connection
+    ).query("DELETE FROM que WHERE id=?", [body.queId]);
   };
 }

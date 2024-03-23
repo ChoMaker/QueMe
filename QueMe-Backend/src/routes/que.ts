@@ -37,4 +37,5 @@ reserveQueRouter.post(
   QueController.uploadPayslip
 );
 reserveQueRouter.get("/qm/getallque", QueController.getAllQue);
+reserveQueRouter.delete("/qm/deleteque", QueController.deleteQue);
 // reserveQueRouter.post("/qm/updatestatus", QueController.updateStatus);

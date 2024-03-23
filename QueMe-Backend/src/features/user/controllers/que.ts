@@ -13,6 +13,7 @@ import { UpdateStatus } from "../../../models/updateStatus";
 export namespace QueController {
   export const reserveQue = async (req: Request, res: Response) => {
     const body = req.body as ReserveQue;
+    const error: Error = new Error("Error message");
 
     try {
       const result = await QueService.reserveQue(body);
@@ -21,8 +22,9 @@ export namespace QueController {
         result: result,
       });
     } catch (error) {
-      return res.status(404).json({
+      return res.status(500).json({
         message: "Can't reserve que",
+        error: (error as any).message,
       });
     }
   };

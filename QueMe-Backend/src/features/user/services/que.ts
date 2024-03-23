@@ -35,6 +35,29 @@ type queData = {
   type: string;
 };
 
+const isTableReservedForToday = async (
+  tableId: number,
+  dateTime: Date
+): Promise<boolean> => {
+  const onlyDate = dateTime.toLocaleString().split("T")[0];
+  const a = new Date(onlyDate);
+  const dateAdd = a.setDate(a.getDate() + 1);
+  const [existingReservation] = await (
+    await connection
+  ).query(
+    "SELECT * FROM que WHERE table_id = ? AND date_and_time BETWEEN ? AND ? AND status = 1",
+    [tableId, onlyDate, new Date(dateAdd)]
+  );
+
+  const test = existingReservation as queData[];
+
+  if (test.length) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export namespace QueService {
   export const reserveQue = async (body: ReserveQue) => {
     const [resultQue] = await (
@@ -43,23 +66,32 @@ export namespace QueService {
       SELECT * from tables WHERE zone='${body.zone}'and name='${body.name}'`);
     const table = (resultQue as tableData[])[0];
 
-    if (table) {
-      const resultTable = await (
-        await connection
-      ).query(
-        "INSERT INTO que (user_id,table_id,event_id,date_and_time,seat,type) VALUES (?,?,?,?,?,?)",
-        [
-          body.user_id,
-          table.id,
-          body.event_id,
-          new Date(body.date_and_time),
-          body.seat,
-          body.type,
-        ]
-      );
-      const insertId = (resultTable[0] as ResultSetHeader).insertId;
-      return insertId;
+    const isTableAlreadyReserved = await isTableReservedForToday(
+      table.id,
+      body.date_and_time
+    );
+
+    if (isTableAlreadyReserved) {
+      throw new Error("The table is already reserved for today");
     }
+
+    const resultTable = await (
+      await connection
+    ).query(
+      "INSERT INTO que (user_id,table_id,event_id,status,date_and_time,seat,type) VALUES (?,?,?,?,?,?,?)",
+      [
+        body.user_id,
+        table.id,
+        body.event_id,
+        true,
+        new Date(body.date_and_time),
+        body.seat,
+        body.type,
+      ]
+    );
+
+    const insertId = (resultTable[0] as ResultSetHeader).insertId;
+    return insertId;
   };
 
   export const getQue = async (body: GetQue) => {

@@ -199,6 +199,7 @@ export default {
       quantity:''
     })
 
+
     const foodDataRef = ref ([]);
     var totalSum = ref(0);
 
@@ -232,6 +233,15 @@ export default {
         }
         // Calculate total
     totalSum.value = foodDataRef.value.reduce((sum, food) => sum + food.rowTotal, 0);
+    console.log (totalSum.value)
+  const calculateTotalSum = () => {
+    const foodTotal = foodDataRef.value.reduce((sum, food) => sum + food.rowTotal, 0);
+    const selectedOptionPrice = selectedOption.value.price || 0; // Ensure price is not null
+    console.log (totalSum.value)
+    totalSum.value = foodTotal + selectedOptionPrice;
+};
+
+
         
       } catch (error) {
         console.error("Error fetching user data:", error);

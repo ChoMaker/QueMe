@@ -12,7 +12,7 @@
           <button class="btn btn-link space" style="color: #fff;" @click="router.push({ name: 'AdminHome' })" type="submit">
             Event</button>
           <button class="btn btn-link space" style="color: #fff;" @click="router.push({ name: 'AdminQue' })" type="submit">
-            Menu</button>
+            Que</button>
           <button class="btn btnAll" @click="router.push({ name: 'Login' })" type="submit">
             Logout</button>
         </div>
@@ -22,32 +22,7 @@
     <div class="row">
       <p class="reservation">Event Update</p>
 
-      <div class="col-lg-6">
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Event</th>
-              <th scope="col">Date</th>
-              <th scope="col">Photo</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>
-                <button class="btn btnAll" style="background-color: red;" @click="handleNextButtonClick" type="submit">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="col-lg-6 align-item-center">
+      <div class="col-lg-4 align-item-center">
         <p class="textAboveTextfield">Event</p>
         <div class="input-group" style="margin-bottom: 20px; width: 420px;">
           <input
@@ -80,6 +55,33 @@
                 </div>
 
       </div>
+
+      <div class="col-lg-7">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Event</th>
+              <th scope="col">Date</th>
+              <th scope="col">Photo</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"></th>
+              <td>{{name}}</td>
+              <td>{{event_end_date}}</td>
+              <td>{{file}}</td>
+              <td>
+                <button class="btn btnAll" style="background-color: red;" @click="handleNextButtonClick" type="submit">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      
     </div>
   </div>
 
@@ -105,7 +107,7 @@
 
 <script>
 import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Axios from "axios";
 import { DatePickerComponent,MaskedDateTime,} from "@syncfusion/ej2-vue-calendars";
 import { TypeOfQue } from "@/util/util";
@@ -128,14 +130,20 @@ export default {
 
     const eventName = ref("");
 
-
+    const eventUpdate = ref({
+      name: "",
+      event_start_date: "",
+      event_end_date: "",
+      file: "",
+    });
 
 
     return {
       router,
       selectedDate,
       minDate,
-      eventName
+      eventName,
+      eventUpdate
     };
   },
   methods: {

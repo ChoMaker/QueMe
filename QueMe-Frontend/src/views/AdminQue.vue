@@ -68,12 +68,12 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col" style="width: 5%;">#</th>
-          <th scope="col" style="width: 20%;">Name</th>
-          <th scope="col" style="width: 15%;">Table</th>
-          <th scope="col" style="width: 15%;">Phone number</th>
-          <th scope="col" style="width: 25%;">Menu</th>
-          <th scope="col" style="width: 20%;">Status</th>
+          <th scope="col" style="width: 5%">#</th>
+          <th scope="col" style="width: 20%">Name</th>
+          <th scope="col" style="width: 15%">Table</th>
+          <th scope="col" style="width: 15%">Event</th>
+          <th scope="col" style="width: 25%">Menu</th>
+          <th scope="col" style="width: 20%">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -83,8 +83,15 @@
           <td>{{ tableDataRef.zone }}{{ tableDataRef.name }}</td>
           <td>{{ userData.phone_number }}</td>
           <td>{{ orderDataRef.food_id }}{{ orderDataRef.quantity }}</td>
-          <td><div type="button" class="btn btn-success" style="width: 130px;margin-right: 20px;">Approve</div>
-            <div type="button" class="btn btn-danger" style="width: 130px;">Deny</div></td>
+          <td>
+            <button class="btn btnAll" @click="openModal">Reservation failed</button>
+            <ModalComponent
+              :isOpen="isModalOpened"
+              @modal-close="closeModal"
+              @submit="submitHandler"
+              name="first-modal"
+            />
+          </td>
         </tr>
       </tbody>
     </table>
@@ -95,10 +102,15 @@
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { defineProps, defineEmits } from "vue";
+import { onClickOutside } from "@vueuse/core";
 import moment from "moment";
 import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
-import { DatePickerComponent,MaskedDateTime } from "@syncfusion/ej2-vue-calendars";
+import {
+  DatePickerComponent,
+  MaskedDateTime,
+} from "@syncfusion/ej2-vue-calendars";
 
 export default {
   name: "Home",
@@ -108,6 +120,22 @@ export default {
 
   setup() {
     const router = useRouter();
+
+    const props = defineProps({ isOpen: Boolean });
+    const emit = defineEmits(["modal-close"]);
+    const isModalOpened = ref(false);
+
+    const openModal = () => {
+      isModalOpened.value = true;
+    };
+
+    const closeModal = () => {
+      isModalOpened.value = false;
+    };
+
+    const submitHandler = () => {
+      // Handle form submission
+    };
 
     const userData = ref({
       id: "",
@@ -142,8 +170,8 @@ export default {
 
     onMounted(async () => {
       try {
-        const userId = parseInt(localStorage.getItem("id"));
-        const queId = parseInt(localStorage.getItem("queID"));
+        // const userId = parseInt(localStorage.getItem("id"));
+        // const queId = parseInt(localStorage.getItem("queID"));
 
         const userResponse = await axios.get(
           `${BASR_URL}/${RoutePathUrl.userDetail}`,
@@ -166,7 +194,6 @@ export default {
           })
         ).data.result;
         queDataRef.value = que;
-        // queDataRef.value.date_and_time = moment(queDataRef.value.date_and_time).format('YYYY-MM-DD');
         tableDataRef.value = table;
         console.log("queData:", queDataRef.value);
         console.log("tableData:", tableDataRef.value);
@@ -176,7 +203,7 @@ export default {
     });
 
     const formattedDate = moment(queDataRef.date_and_time).format("LL");
-    console.log(formattedDate); // Output: 2022-01-01
+    console.log(formattedDate);
 
     const minDate = ref(new Date());
     minDate.value.setDate(minDate.value.getDate());
@@ -191,13 +218,30 @@ export default {
       queDataRef,
       formattedDate,
       foodDataRef,
-      orderDataRef
+      orderDataRef,
     };
   },
 };
 </script>
 
 <style scoped>
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-container {
+  width: 300px;
+  margin: 150px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+}
 .btnAll {
   border-radius: 20px;
   min-width: 110px;

@@ -6,4 +6,5 @@ export default {
   userDetail: "qm/getusers",
   getOrderDetail: "qm/getorder",
   getQueDetail: "qm/getque",
+  uploadPayslip: "qm/uploadpayslip",
 }

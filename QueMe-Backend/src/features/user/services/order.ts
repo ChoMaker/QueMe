@@ -56,7 +56,6 @@ export namespace OrderService {
       await connection
     ).query("SELECT * from orders WHERE que_id=?", [body.queID]);
     const orderData2 = orderData as orderData[];
-    //console.log(orderData2);
 
     const ids = orderData2.map(({ food_id }) => food_id);
     const filtered = orderData2.filter(

@@ -89,7 +89,6 @@ export namespace UserService {
       ).query("SELECT * FROM users WHERE id=?", [body.id]);
       const userData = (resulUserData as UserData[])[0];
       return userData;
-      console.log(userData);
     } catch (error) {
       return false;
     }

@@ -74,7 +74,6 @@ export namespace QueController {
           event: result?.eventData2,
         },
       });
-      console.log(result);
     } catch (error) {
       return res.status(404).json({
         message: "Can't get all que",

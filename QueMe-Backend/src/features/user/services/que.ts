@@ -84,8 +84,6 @@ export namespace QueService {
 
     const table = (resultQue as tableData[])[0];
 
-    console.log(table);
-
     if (!table) {
       throw new Error("Table not found for the given zone and name");
     }
@@ -185,7 +183,7 @@ export namespace QueService {
   export const updateAmount = async (body: UpdateAmount) => {
     const queAmount = await (
       await connection
-    ).query("UPDATE que SET amount=? WHERE id=?", [body.amount, body.queId]);
+    ).query("UPDATE que SET amount=? WHERE id=?", [body.amount, body.queID]);
     return body.amount;
   };
 }

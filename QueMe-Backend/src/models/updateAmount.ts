@@ -1,4 +1,4 @@
 export interface UpdateAmount {
-  queId: number;
+  queID: number;
   amount: number;
 }

@@ -8,4 +8,6 @@ export default {
   getQueDetail: "qm/getque",
   uploadPayslip: "qm/uploadpayslip",
   uploadAmount: "qm/updateamount",
+  adminTable: "qm/getallque",
+  updateStatus: "qm/updatestatus"
 }

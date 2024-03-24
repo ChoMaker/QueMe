@@ -207,10 +207,7 @@ export default {
         const userId = parseInt(localStorage.getItem("id"));
         const queId = parseInt(localStorage.getItem("queID"));
 
-        const userResponse = await axios.get(
-          `${BASR_URL}/${RoutePathUrl.userDetail}`,
-          { params: { id: userId } }
-        );
+        const userResponse = await axios.get(`${BASR_URL}/${RoutePathUrl.userDetail}`,{ params: { id: userId } });
         userData.value = userResponse.data.data;
 
         const { que, table } = (

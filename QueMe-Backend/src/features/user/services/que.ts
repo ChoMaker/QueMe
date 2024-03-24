@@ -159,7 +159,7 @@ export namespace QueService {
         await connection
       ).query("SELECT * from events");
       const eventData2 = (eventData as eventData[])[0];
-      return { userData2, tableData2, eventData2 };
+      return { allQue, userData2, tableData2, eventData2 };
     }
   };
 

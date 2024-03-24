@@ -69,6 +69,7 @@ export namespace QueController {
       const result = await QueService.getAllQue();
       return res.status(200).json({
         result: {
+          que: result?.allQue,
           user: result?.userData2,
           table: result?.tableData2,
           event: result?.eventData2,

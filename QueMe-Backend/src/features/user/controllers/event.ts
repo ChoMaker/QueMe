@@ -30,9 +30,14 @@ export namespace EventController {
 
     try {
       const result = await EventService.createEvent(body, file!);
-      return ResponseModel(res, 200, { result }, null);
+      return res.status(200).json({
+        message: "Create event successfully",
+        result: result,
+      });
     } catch (error) {
-      return ResponseModel(res, 500, null, { msg: "Can't upload image" });
+      return res.status(500).json({
+        message: "Can't create event",
+      });
     }
   };
 

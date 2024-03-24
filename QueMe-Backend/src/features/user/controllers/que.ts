@@ -70,9 +70,9 @@ export namespace QueController {
       return res.status(200).json({
         result: {
           que: result?.allQue,
-          user: result?.userData2,
-          table: result?.tableData2,
-          event: result?.eventData2,
+          user: result?.userData,
+          table: result?.tableData,
+          event: result?.eventData,
         },
       });
     } catch (error) {

@@ -146,20 +146,18 @@ export namespace QueService {
   export const getAllQue = async () => {
     const [resultQue] = await (await connection).query("SELECT * from que");
 
-    const allQue = (resultQue as queData[])[0];
+    const allQue = resultQue as queData[];
 
-    if (allQue.user_id || allQue.table_id || allQue.event_id) {
-      const [userData] = await (await connection).query("SELECT * from users");
-      const userData2 = (userData as userData[])[0];
+    if (allQue.length > 0) {
+      const [userData] = await (await connection).query("SELECT * FROM users");
       const [tableData] = await (
         await connection
-      ).query("SELECT * from tables");
-      const tableData2 = (tableData as tableData[])[0];
+      ).query("SELECT * FROM tables");
       const [eventData] = await (
         await connection
-      ).query("SELECT * from events");
-      const eventData2 = (eventData as eventData[])[0];
-      return { allQue, userData2, tableData2, eventData2 };
+      ).query("SELECT * FROM events");
+
+      return { allQue, userData, tableData, eventData };
     }
   };
 

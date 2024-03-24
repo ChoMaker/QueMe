@@ -25,9 +25,8 @@ export namespace EventService {
       "INSERT INTO events (name,event_start_date,event_end_date,image_url) VALUES (?,?,?,?)",
       [body.name, body.event_start_date, body.event_end_date, file]
     );
-
-    const insertId = (eventData[0] as ResultSetHeader).insertId;
-    return insertId;
+    console.log(body.event_start_date);
+    console.log(body.event_end_date);
   };
 
   export const deleteEvent = async (body: DeleteEvent) => {

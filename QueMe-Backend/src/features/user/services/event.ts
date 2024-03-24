@@ -23,7 +23,12 @@ export namespace EventService {
       await connection
     ).query(
       "INSERT INTO events (name,event_start_date,event_end_date,image_url) VALUES (?,?,?,?)",
-      [body.name, body.event_start_date, body.event_end_date, file]
+      [
+        body.name,
+        new Date(body.event_start_date),
+        new Date(body.event_end_date),
+        file,
+      ]
     );
     const insertId = (eventData[0] as ResultSetHeader).insertId;
     return insertId;

@@ -12,7 +12,7 @@
         <button
           class="btn btn-link "
           style="color: #fff"
-          @click="router.push({ name: 'AdminHome' })"
+          @click="router.push({ name: 'AdminEvent' })"
           type="submit"
         >
           Event
@@ -20,7 +20,7 @@
         <button
           class="btn btn-link "
           style="color: #fff"
-          @click="router.push({ name: 'AdminMenu' })"
+          @click="router.push({ name: 'AdminQue' })"
           type="submit"
         >
           Que

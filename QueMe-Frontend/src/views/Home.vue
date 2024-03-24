@@ -78,13 +78,7 @@
             <input
               v-model="seatZoneNumber"
               class="form-control"
-              style="
-                width: 50px;
-                height: 30px;
-                border-radius: 12px;
-                align-self: center;
-                background-color: #E6E5C7;
-              "
+              style="width: 50px; height: 30px; border-radius: 12px; align-self: center; background-color: #E6E5C7;"
               type="text"
               placeholder="0"
               aria-label="default input example"

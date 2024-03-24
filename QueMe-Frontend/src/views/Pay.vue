@@ -122,7 +122,6 @@
             />
 
             <div class="col-7 mt-1 mx-auto" style="margin-bottom: 80px">
-              <!-- <label for="formFile" class="form-label">Choose a file:</label> -->
               <input
                 class="form-control"
                 type="file"
@@ -253,9 +252,6 @@ export default {
         queDataRef.value = que;
         tableDataRef.value = table;
 
-        // console.log("queData:", queDataRef.value);
-        // console.log("tableData:", tableDataRef.value);
-
         const { order, food } = (
           await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {
             params: { id: userId, queID: queId },
@@ -264,14 +260,8 @@ export default {
         orderDataRef.value = order;
         foodDataRef.value = food;
 
-        // console.log("queData:", orderDataRef.value);
-        // console.log("tableData:", foodDataRef.value);
-
         foodDataRef.value = food.map((food) => ({ ...food }));
         console.log("Food: ", foodDataRef.value);
-
-        // console.log(order)
-        // console.log(foodDataRef.value.length);
 
         for (let i = 0; i < foodDataRef.value.length; i++) {
           for (let j = 0; j < order.length; j++) {

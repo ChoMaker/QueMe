@@ -9,5 +9,8 @@ export default {
   uploadPayslip: "qm/uploadpayslip",
   uploadAmount: "qm/updateamount",
   adminTable: "qm/getallque",
-  updateStatus: "qm/updatestatus"
+  updateStatus: "qm/updatestatus",
+  postEvent: "qm/createevent",
+  getEvent: "qm/getevent",
+  deleteEvent: "qm/deleteevent",
 }

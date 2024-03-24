@@ -222,7 +222,7 @@ export default {
           ...food,
           quantity: 0,
         }));
-        // console.log("result foodddd:",resultFood.value);
+        
         console.log("Response:", response);
       } catch (error) {
         console.error("Error fetching items:", error);

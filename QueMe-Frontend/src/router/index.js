@@ -52,9 +52,9 @@ const router = createRouter({
       component: () => import("../views/Register.vue"),
     },
     {
-      path: "/admin-home",
-      name: "AdminHome",
-      component: () => import("../views/AdminHome.vue"),
+      path: "/admin-event",
+      name: "AdminEvent",
+      component: () => import("../views/AdminEvent.vue"),
     },
     {
       path: "/admin-que",

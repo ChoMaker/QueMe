@@ -3,20 +3,41 @@
     <!-- Navbar -->
     <nav
       class="navbar navbar-expand-lg navbar-light"
-      style="position: relative; z-index: 1; padding-left: 10px; padding-right: 10px;"
+      style="
+        position: relative;
+        z-index: 1;
+        padding-left: 10px;
+        padding-right: 10px;
+      "
     >
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto"/>
+          <img
+            src="/src/assets/logo-removebg.png"
+            alt="Logo"
+            style="width: 91px; height: auto"
+          />
         </a>
         <div>
-          <button class="btn navbarBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
+          <button
+            class="btn navbarBtn space"
+            @click="router.push({ name: 'ClientHome' })"
+            type="submit"
+          >
             Home
           </button>
-          <button class="btn navbarBtn space" @click="router.push({ name: 'Profile' })" type="submit">
+          <button
+            class="btn navbarBtn space"
+            @click="router.push({ name: 'Profile' })"
+            type="submit"
+          >
             Profile
           </button>
-          <button class="btn navbarBtn" @click="router.push({ name: 'Login' })" type="submit">
+          <button
+            class="btn navbarBtn"
+            @click="router.push({ name: 'Login' })"
+            type="submit"
+          >
             Logout
           </button>
         </div>
@@ -35,30 +56,55 @@
     "
   >
     <div>
-      <b style="font-size: 96px">Banpeun</b><br/>
-      <b style="font-size: 96px; padding-left: 100px; line-height: 0.1%">Bangkok</b>
+      <b style="font-size: 96px">Banpeun</b><br />
+      <b style="font-size: 96px; padding-left: 100px; line-height: 0.1%"
+        >Bangkok</b
+      >
       <p style="text-align: left; margin-top: 18px">
         Banpuen Bangkok, a chill-out restaurant in the Kaset area with live
-        music, free concerts, and many more promotions.</p>
-      <button class="btn reserveBtn justify-content-center" @click="router.push({ name: 'Home' })" type="button">RESERVE</button>
+        music, free concerts, and many more promotions.
+      </p>
+      <button
+        class="btn reserveBtn justify-content-center"
+        @click="router.push({ name: 'Home' })"
+        type="button"
+      >
+        RESERVE
+      </button>
     </div>
-    <img src="/src/assets/cola.png" style="width: 620px; margin-bottom: 80px;" />
+    <img src="/src/assets/cola.png" style="width: 620px; margin-bottom: 80px" />
   </div>
 
-
   <!-- UPCOMING EVENTS -->
-  <div class="row" style="background-color: #3E3B2C;">
+  <div class="row" style="background-color: #3e3b2c">
     <div class="container">
       <p class="upcomingText">UPCOMING EVENTS</p>
       <div class="row">
         <div class="col-lg-3">
-          <div class="card">
+          <div>
+            <div class="card">
             <!-- picture -->
             <img src="/src/assets/smlCard/LazyLoxy.png" class="card-img-top" />
             <div class="card-body">
-              <p class="card-title">Lazy Loxy & Samblack</p>
-              <p class="card-text">7 January 2024</p>
+              <p class="card-title">LazyLoxy</p>
+              <p class="card-text">26 March 2024</p>
             </div>
+          </div>
+
+            <!-- Getter -->
+            <!-- <div class="card" v-for="event in eventDataRef" :key="event.id">
+              
+              <img
+                :src="getImageUrl(event.image_url)"
+                class="card-img-top"
+                style="height: 263px; width: auto"
+              />
+              <div class="card-body">
+                <p class="card-title">{{ event.name }}</p>
+                <p class="card-text">{{ formatDate(event.event_end_date) }}</p>
+               
+              </div>
+            </div> -->
           </div>
         </div>
         <div class="col-lg-3">
@@ -67,7 +113,7 @@
             <img src="/src/assets/smlCard/Polycat.png" class="card-img-top" />
             <div class="card-body">
               <p class="card-title">Polycat</p>
-              <p class="card-text">15 January 2024</p>
+              <p class="card-text">31 March 2024</p>
             </div>
           </div>
         </div>
@@ -77,7 +123,7 @@
             <img src="/src/assets/smlCard/Loey.png" class="card-img-top" />
             <div class="card-body">
               <p class="card-title">Joey Phuwasit</p>
-              <p class="card-text">17 January 2024</p>
+              <p class="card-text">2 April 2024</p>
             </div>
           </div>
         </div>
@@ -87,7 +133,7 @@
             <img src="/src/assets/smlCard/MEAN.png" class="card-img-top" />
             <div class="card-body">
               <p class="card-title">MEAN</p>
-              <p class="card-text">21 January 2024</p>
+              <p class="card-text">7 April 2024</p>
             </div>
           </div>
         </div>
@@ -102,7 +148,7 @@
             />
             <div class="card-body">
               <p class="card-title">Three man down</p>
-              <p class="card-text">25 January 2024</p>
+              <p class="card-text">12 April 2024</p>
             </div>
           </div>
         </div>
@@ -112,7 +158,7 @@
             <img src="/src/assets/smlCard/KwanJai.png" class="card-img-top" />
             <div class="card-body">
               <p class="card-title">Kwanjai (คณะขวัญใจ)</p>
-              <p class="card-text">31 January 2024</p>
+              <p class="card-text">18 April 2024</p>
             </div>
           </div>
         </div>
@@ -121,7 +167,7 @@
   </div>
 
   <!-- footer -->
-  <div class="container" style="margin-top: 20px;">
+  <div class="container" style="margin-top: 20px">
     <div class="flex-container">
       <p class="btmtext">banpuenbangkok</p>
       <p class="btmtext">Contact banpuenbangkok</p>
@@ -142,63 +188,102 @@
 
 <script>
 import { useRouter } from "vue-router";
+import axios from "axios";
+import moment from "moment";
+import { onMounted, ref } from "vue";
+import { BASR_URL, imageUrl } from "@/config/app";
+import RoutePathUrl from "@/config/route";
+import { DatePickerComponent } from "@syncfusion/ej2-vue-calendars";
 
 export default {
+  name: "Home",
+  components: {
+    "ejs-datepicker": DatePickerComponent,
+  },
   methods: {
     openLinePage() {
       const linePageURL = "https://page.line.me/918szrut?openQrModal=true";
       window.location.href = linePageURL;
     },
+    // getImageUrl(imageUrl) {
+    //   // Assuming the image URL is relative to the root of the server
+    //   return `${process.env.VUE_APP_BASR_URL}/${imageUrl}`;
+    // },
+     
   },
+
   setup() {
     const router = useRouter();
-    return { router };
+    const minDate = ref(new Date());
+    minDate.value.setDate(minDate.value.getDate());
+    const selectedDate = ref("");
+    const eventDataRef = ref([]);
+
+    const fetchEventData = async () => {
+      try {
+        const response = await axios.get(
+          `${BASR_URL}/${RoutePathUrl.getEvent}`
+        );
+        eventDataRef.value = response.data.data[0];
+        console.log("Event data fetched successfully");
+
+      } catch (error) {
+        console.error("Error fetching event data:", error);
+      }
+    };
+
+    onMounted(() => {
+      fetchEventData(); // Fetch event data when the component is mounted
+    });
+
+    const formatDate = (date) => {
+      return moment(date).format("LL");
+    };
+
+    return { router, selectedDate, minDate, eventDataRef, formatDate };
   },
-  name: "ClientHome",
 };
 </script>
 
 <style scoped>
 .navbarBtn {
-    width: 100px;
-    height: 35px;
-    background-color: #E6E5C7;
-    color: #3E3B2C;
-    text-align: center;
-    padding-inline: 0.5px;
-    font-weight: 550;
-
+  width: 100px;
+  height: 35px;
+  background-color: #e6e5c7;
+  color: #3e3b2c;
+  text-align: center;
+  padding-inline: 0.5px;
+  font-weight: 550;
 }
 .navbarBtn:hover {
-    width: 100px;
-    height: 35px;
-    background-color: #acab93;
-    color: #3E3B2C;
-    text-align: center;
-    padding-inline: 0.5px;
-    font-weight: 550;
-
+  width: 100px;
+  height: 35px;
+  background-color: #acab93;
+  color: #3e3b2c;
+  text-align: center;
+  padding-inline: 0.5px;
+  font-weight: 550;
 }
 
 .reserveBtn {
-    align-items: center;
-    width: 250px;
-    height: 45px;
-    margin-top: 10px;
-    background-color: #FF4E08;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 650;
+  align-items: center;
+  width: 250px;
+  height: 45px;
+  margin-top: 10px;
+  background-color: #ff4e08;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 650;
 }
-.reserveBtn:hover{
-    align-items: center;
-    width: 250px;
-    height: 45px;
-    margin-top: 10px;
-    background-color: #af3606;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 650;
+.reserveBtn:hover {
+  align-items: center;
+  width: 250px;
+  height: 45px;
+  margin-top: 10px;
+  background-color: #af3606;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 650;
 }
 .btn {
   border-radius: 20px;

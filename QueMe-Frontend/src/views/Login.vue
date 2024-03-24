@@ -28,7 +28,7 @@
                         </div>
     
                         <div class="right-align ml-5">
-                            <a href="https://example.com">Forget password</a>
+                            <router-link to="/admin-login">Login as admin</router-link>
                         </div>
                     </div>
                 </div>

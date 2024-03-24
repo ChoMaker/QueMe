@@ -185,20 +185,20 @@ export default {
     const selectedDate = ref("");
     const eventDataRef = ref([]);
 
-    onMounted(async () => {
+    const fetchEventData = async () => {
       try {
         const response = await axios.get(
           `${BASR_URL}/${RoutePathUrl.getEvent}`
         );
-        eventDataRef.value = response.data.data[0]; // Update eventDataRef with fetched data
-        console.log("Response:", response);
-        console.log("Array of Event Names:");
-        eventDataRef.value.forEach((event) => {
-          console.log(event.name);
-        });
+        eventDataRef.value = response.data.data[0];
+        console.log("Event data fetched successfully");
       } catch (error) {
-        console.error("Error fetching items:", error);
+        console.error("Error fetching event data:", error);
       }
+    };
+
+    onMounted(() => {
+      fetchEventData(); // Fetch event data when the component is mounted
     });
 
     const formatDate = (date) => {
@@ -211,7 +211,7 @@ export default {
           data: { id: eventId },
         });
         console.log('Event deleted successfully');
-        await fetchEventData();
+        fetchEventData(); // Fetch event data after deleting an event
       } catch (error) {
         console.error('Error deleting event:', error);
       }

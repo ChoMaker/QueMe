@@ -59,11 +59,11 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col" style="width: 5%">#</th>
+          <th scope="col" style="width: 10%">Que No.</th>
           <th scope="col" style="width: 20%">Name</th>
           <th scope="col" style="width: 15%">Table</th>
           <th scope="col" style="width: 15%">Status</th>
-          <th scope="col" style="width: 25%">Phone number</th>
+          <th scope="col" style="width: 20%">Phone number</th>
           <th scope="col" style="width: 20%"></th>
         </tr>
       </thead>

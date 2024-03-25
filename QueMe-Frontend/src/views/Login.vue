@@ -2,7 +2,7 @@
         <div class="container card" >
             <div class="container">
                 <div class="overlay">
-                    <p class="text1 blankspacehead">Login to your account</p>
+                    <p class="text1 blankspacehead">Login with your account</p>
                     <p class="text3">Phone number</p>
                     <div class="input-group blankspacetextfield">
                         <input v-model="userSignin.phoneNumber" type="text" class="form-control" aria-label="Phone number" />

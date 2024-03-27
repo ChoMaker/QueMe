@@ -1,81 +1,108 @@
 <template>
-        <div class="container card" >
-            <div class="container">
-                <div class="overlay">
-                    <p class="text1 blankspacehead">Login</p>
-                    <p class="text3">Phone number</p>
-                    <div class="input-group blankspacetextfield">
-                        <input v-model="userSignin.phoneNumber" type="text" class="form-control" aria-label="Phone number" />
-                    </div>
-                    <p class="text3">Password</p>
-                    <div class="input-group blankspacetextfield">
-                        <input v-model="userSignin.password" type="password" class="form-control" aria-label="Password" />
-                    </div>
-                    <div class="center">
-                        <button class="btn loginbtn" @click="handleLogin" type="submit">Login</button>
-                    </div>
-                    <div class="flex-container">
-                        <div class="flex-container">
-                            <p>
-                                Don’t have an account?
-                            <ul style="list-style: none; padding: 0; margin: 0; display: inline;">
-                                <li style="display: inline; margin-left: 2px;">
-                                    <router-link to="/register">Register</router-link>
-                                </li>
-                            </ul>
-                            </p>
-    
-                        </div>
-    
-                        <div class="right-align ml-5">
-                            <router-link to="/admin-login">Login as admin</router-link>
-                        </div>
-                    </div>
-                </div>
+    <div class="container card">
+      <div class="container">
+        <div class="overlay">
+          <p class="text1 blankspacehead">Login</p>
+  
+          <!-- Phone number input -->
+          <p class="text3">Phone number</p>
+          <div class="input-group blankspacetextfield">
+            <input v-model="userSignin.phoneNumber" type="text" class="form-control" aria-label="Phone number" />
+          </div>
+          <p class="error">{{ phoneError }}</p>
+  
+          <!-- Password input -->
+          <p class="text3">Password</p>
+          <div class="input-group">
+            <input v-model="userSignin.password" type="password" class="form-control" aria-label="Password" />
+          </div>
+          <p class="error">{{ passwordError }}</p>
+  
+          <!-- Login button -->
+          <div class="center" style="margin-top: 30px;" >
+            <button class="btn loginbtn" @click="handleLogin" type="submit">Login</button>
+          </div>
+  
+          <!-- Register and admin login links -->
+          <div class="flex-container">
+            <div class="flex-container">
+              <p>
+                Don’t have an account?
+                <ul style="list-style: none; padding: 0; margin: 0; display: inline;">
+                  <li style="display: inline; margin-left: 2px;">
+                    <router-link to="/register">Register</router-link>
+                  </li>
+                </ul>
+              </p>
             </div>
+            <div class="right-align ml-5">
+              <router-link to="/admin-login">Login as admin</router-link>
+            </div>
+          </div>
         </div>
-</template>
-
-<script>
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import Axios from "axios";
-import ClientHome from './ClientHome.vue';
-import { BASR_URL } from '@/config/app';
-import RoutePathUrl from '@/config/route';
-
-export default {
-  setup() {
-    const router = useRouter();
-
-    const userSignin = ref({
-        phoneNumber: '',
-        password: ''
-    })
-
-    const handleLogin = async () => {
-        console.log('submitted');
-        console.log(`${BASR_URL}/${RoutePathUrl.singin}`);
-
-        try{
-            const response = await Axios.post(`${BASR_URL}/${RoutePathUrl.singin}`, userSignin.value);
-            localStorage.setItem('id', response.data.data)
-            router.push({name: 'ClientHome'})
-        }
-        catch(error) {
-            console.error(error);
-        }
-    };
-
-    return { router, userSignin, handleLogin };
-  },
-};
-</script>
-
-
+      </div>
+    </div>
+  </template>
+  
+  <script lang="ts" setup>
+  import { useRouter } from 'vue-router';
+  import { ref } from 'vue';
+  import Axios from "axios";
+  import { BASR_URL } from '@/config/app';
+  import RoutePathUrl from '@/config/route';
+  
+  const router = useRouter();
+  
+  const userSignin = ref({
+    phoneNumber: '',
+    password: ''
+  });
+  
+  // Error variables to track error messages
+  const phoneError = ref('');
+  const passwordError = ref('');
+  
+  const handleLogin = async () => {
+    // Reset error messages
+    phoneError.value = '';
+    passwordError.value = '';
+  
+    // Validate phone number
+    if (!userSignin.value.phoneNumber) {
+      phoneError.value = 'Please fill the phone number';
+    }
+  
+    // Validate password
+    if (!userSignin.value.password) {
+      passwordError.value = 'Please fill the password';
+    }
+  
+    // Check if any error occurred
+    if (phoneError.value || passwordError.value) {
+      return; // Stop further execution if there are errors
+    }
+  
+    try {
+      const response = await Axios.post(`${BASR_URL}/${RoutePathUrl.singin}`, userSignin.value);
+      localStorage.setItem('id', response.data.data);
+      router.push({ name: 'ClientHome' });
+    } catch (error) {
+      console.error(error);
+      // Display error message if login fails
+      phoneError.value = 'Invalid Phone number or password';
+      passwordError.value = 'Invalid Phone number or password';
+    }
+  };
+  </script>
+  
 
 
 <style scoped>
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
 p{
     color: #fff;
 }
@@ -118,7 +145,7 @@ body {
 
 .blankspacetextfield {
     margin-top: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .loginbtn {

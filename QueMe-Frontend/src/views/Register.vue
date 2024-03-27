@@ -3,44 +3,47 @@
     <div class="container">
       <div class="overlay">
         <p class="text1 blankspacehead">Create your account</p>
-        <p :class="'text3 ' + (nameError.length > 0 ? 'error' : '')">
+
+        <!-- Name input -->
+        <p class="text3">
           Name
         </p>
-        <div :class="'input-group blankspacetextfield ' + (phoneNumberError.length > 0 ? 'error' : '')">
+        <div :class="'input-group blankspacetextfield ' + (nameError.length > 0 ? 'error' : '')">
           <input
             v-model="user.name"
             type="text"
             class="form-control"
             style="width: 495px"
-            aria-label="Name"/>
+            aria-label="Name"
+          />
         </div>
         <div v-if="nameError.length > 0" class="error">
-          <ul>
-            <li v-for="txt in nameError">
-              {{ txt }}
-            </li>
+          <ul class="list-unstyled d-flex justify-content-end"> <!-- Remove bullet points -->
+            <li v-for="txt in nameError">{{ txt }}</li>
           </ul>
         </div>
-        <p :class="'text3 ' + (phoneNumberError.length > 0 ? 'error' : '')">Phone number</p>
+
+        <!-- Phone number input -->
+        <p class="text3">
+          Phone number
+        </p>
         <div :class="'input-group blankspacetextfield ' + (phoneNumberError.length > 0 ? 'error' : '')">
           <input
             v-model="user.phoneNumber"
             type="text"
-            :class="
-              'form-control ' + (phoneNumberError.length > 0 ? 'error' : '')
-            "
+            class="form-control"
             style="width: 495px"
-            aria-label="phoneNumber"
+            aria-label="Phone number"
           />
         </div>
         <div v-if="phoneNumberError.length > 0" class="error">
-          <ul>
-            <li v-for="txt in phoneNumberError">
-              {{ txt }}
-            </li>
+          <ul class="list-unstyled d-flex justify-content-end"> <!-- Remove bullet points -->
+            <li v-for="txt in phoneNumberError">{{ txt }}</li>
           </ul>
         </div>
-        <p :class="'text3 ' + (passwordError.length > 0 ? 'error' : '')">
+
+        <!-- Password input -->
+        <p class="text3">
           Password
         </p>
         <div :class="'input-group blankspacetextfield ' + (passwordError.length > 0 ? 'error' : '')">
@@ -49,22 +52,21 @@
             type="password"
             class="form-control"
             style="width: 495px"
-            aria-label="password"
+            aria-label="Password"
           />
         </div>
         <div v-if="passwordError.length > 0" class="error">
-          <ul>
-            <li v-for="txt in passwordError">
-              {{ txt }}
-            </li>
+          <ul class="list-unstyled d-flex justify-content-end"> <!-- Remove bullet points -->
+            <li v-for="txt in passwordError">{{ txt }}</li>
           </ul>
         </div>
+
+        <!-- Error message -->
+        <p class="error d-flex justify-content-end" style="margin-bottom: 10px;">{{ errorMessage }}</p>
+
+        <!-- Submit button -->
         <div class="row center">
-          <button
-            class="btn loginbtn col-6"
-            @click="handleSubmit"
-            type="submit"
-          >
+          <button class="btn loginbtn col-6" @click="handleSubmit" type="submit">
             Register
           </button>
         </div>
@@ -74,8 +76,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
-import { ref } from "vue";
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 import Axios from "axios";
 
 const router = useRouter();
@@ -87,62 +89,57 @@ const user = ref({
 const nameError = ref([]);
 const passwordError = ref([]);
 const phoneNumberError = ref([]);
+const errorMessage = ref(''); // Error message variable
 
 const validate = () => {
   nameError.value = [];
   passwordError.value = [];
   phoneNumberError.value = [];
-  if (user.value.name === "") {
-    nameError.value.push("Name required");
-  } else {
-    nameError.value.pop();
+
+  if (!user.value.name) {
+    nameError.value.push("Please fill the name");
   }
-  if (user.value.password === "") {
-    passwordError.value.push("Password required");
-  } else {
-    passwordError.value.pop();
+  if (!user.value.phoneNumber) {
+    phoneNumberError.value.push("Please fill the phone number");
   }
-  if (user.value.phoneNumber === "") {
-    phoneNumberError.value.push("Phone Number required");
-  } else {
-    phoneNumberError.value.pop();
+  if (!user.value.password) {
+    passwordError.value.push("Please fill the password");
   }
+
   return nameError.value.length == 0 && passwordError.value.length == 0 && phoneNumberError.value.length == 0;
 };
 
 const handleSubmit = async () => {
   try {
+    errorMessage.value = ''; // Reset error message
     console.log(user.value, validate());
-    // Send user data to the server
+
     if (validate()) {
       const response = await Axios.post(
         "http://localhost:8000/qm/sign-up",
         user.value
       );
-
-      // Log the server response (you can handle it based on your needs)
       console.log(response.data);
-
-      // Redirect to the login page after successful registration
       router.push({ name: "Login" });
     }
   } catch (error) {
-    // Handle registration error (e.g., display an error message)
     console.error("Registration failed:", error.message);
+    errorMessage.value = 'Registration failed. Please try again.';
   }
 };
 </script>
 
+
 <style scoped lang="scss">
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
 .card {
   background-color: #3E3B2C;
 }
-.error {
-  color: red;
-  & input {
-    border-color: red;
-  }
-}
+
 p{
   color: #fff;
 }
@@ -177,7 +174,7 @@ body {
 
 .blankspacetextfield {
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .loginbtn {

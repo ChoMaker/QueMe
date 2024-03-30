@@ -10,7 +10,7 @@
       </a>
       <div class="d-flex justify-content-end">
         <button
-          class="btn btn-link "
+          class="btn btn-link"
           style="color: #fff"
           @click="router.push({ name: 'AdminEvent' })"
           type="submit"
@@ -18,7 +18,7 @@
           Event
         </button>
         <button
-          class="btn btn-link "
+          class="btn btn-link"
           style="color: #fff"
           @click="router.push({ name: 'AdminQue' })"
           type="submit"
@@ -37,54 +37,50 @@
   </nav>
 
   <div class="container">
-    <div class="row">
-      <p class="profileText">Que Mangement</p>
-    </div>
-    <div class="row">
+    <div
+      data-bs-spy="scroll"
+      data-bs-target="#list-example"
+      data-bs-offset="0"
+      class="scrollspy-example"
+      tabindex="0"
+    >
       <div
-        class="card"
-        style="border-radius: 20px; width: 420px; margin-bottom: 30px"
+        class="table-container"
+        style="height: 700px; width: 1200px; overflow-y: auto; margin: 0 auto"
       >
-        <div class="wrapper"></div>
-      </div>
-      <div
-        type="button"
-        class="btn btn-success"
-        style="width: 130px; margin-bottom: 30px; margin-left: 20px"
-      >
-        Search
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center;">Date</th>
+              <th scope="col" style="text-align: center;">Name</th>
+              <th scope="col" style="text-align: center;">Table</th>
+              <th scope="col" style="text-align: center;">Status</th>
+              <th scope="col" style="text-align: center;">Phone number</th>
+              <th scope="col" style="text-align: center;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in queDataRef" :key="index">
+              <td scope="row" style="text-align: center;">{{ formatDate(item.date_and_time) }}</td>
+              <td style="text-align: center;">{{ getUserById(item.user_id).name }}</td>
+              <td style="text-align: center;">{{ getTableById(item.table_id).zone}}{{ getTableById(item.table_id).name }}</td>
+              <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
+              <td style="text-align: center;">{{ getUserById(item.user_id).phone_number }}</td>
+              <td style="text-align: center;">
+                <button
+                  :class="
+                    item.status === 0 ? 'btn btn-success' : 'btn btn-danger'
+                  "
+                  @click="handleClick(item.id, item.status)"
+                >
+                  {{ item.status === 0 ? "Confirm" : "Cancel" }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col" style="width: 10%">Que No.</th>
-          <th scope="col" style="width: 20%">Name</th>
-          <th scope="col" style="width: 15%">Table</th>
-          <th scope="col" style="width: 15%">Status</th>
-          <th scope="col" style="width: 20%">Phone number</th>
-          <th scope="col" style="width: 20%"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in queDataRef" :key="index">
-          <th scope="row">{{ item.id }}</th>
-          <td>{{ getUserById(item.user_id).name }}</td>
-          <td>
-            {{ getTableById(item.table_id).zone
-            }}{{ getTableById(item.table_id).name }}
-          </td>
-          <td>{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
-          <td>{{ getUserById(item.user_id).phone_number }}</td>
-          <td>
-            <button :class="item.status === 0 ? 'btn btn-success' : 'btn btn-danger'" @click="handleClick(item.id, item.status)">
-              {{ item.status === 0 ? "Confirm" : "Cancel" }}
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 </template>
 
@@ -111,6 +107,18 @@ export default {
     const tableDataRef = ref([]);
     const eventDataRef = ref([]);
 
+    const sortByDate = () => {
+      queDataRef.value.sort((a, b) => {
+        const dateA = new Date(a.date_and_time);
+        const dateB = new Date(b.date_and_time);
+        return dateA - dateB;
+      });
+    };
+
+    const formatDate = (date) => {
+      return moment(date).format("LL");
+    };
+
     const getUserById = (userId) => {
       return userData.value.find((user) => user.id === userId) || {};
     };
@@ -118,7 +126,6 @@ export default {
     const getTableById = (tableId) => {
       return tableDataRef.value.find((table) => table.id === tableId) || {};
     };
-    console.log("Que Status", queDataRef.value.status);
 
     const showButtonLabel = computed(() => {
       return queDataRef.value.status ? "Cancel" : "Confirm";
@@ -130,18 +137,14 @@ export default {
         const newStatus = status === 0 ? 1 : 0;
 
         // Update the status in the local array
-        const rowToUpdate = queDataRef.value.find(row => row.id === id);
+        const rowToUpdate = queDataRef.value.find((row) => row.id === id);
         if (rowToUpdate) rowToUpdate.status = newStatus;
 
         // Update the status in the database
         const response = await axios.put(
           `${BASR_URL}/${RoutePathUrl.updateStatus}`,
-          {
-            id: id,
-            status: newStatus,
-          }
+          { id: id, status: newStatus }
         );
-
         console.log("Status updated successfully:", response.data);
       } catch (error) {
         console.error("Error handling que:", error);
@@ -160,17 +163,21 @@ export default {
         userData.value = user || [];
         tableDataRef.value = table || [];
         eventDataRef.value = event || [];
+
+        sortByDate();
+        console.log(eventDataRef.value);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     });
 
-    const formattedDate = moment(queDataRef.date_and_time).format("LL");
-    console.log(formattedDate);
-
     const minDate = ref(new Date());
     minDate.value.setDate(minDate.value.getDate());
     const selectedDate = ref("");
+
+    const sortedQueDataRef = computed(() => {
+      return queDataRef.value;
+    });
 
     return {
       router,
@@ -180,17 +187,22 @@ export default {
       userData,
       tableDataRef,
       eventDataRef,
-      formattedDate,
+      formatDate,
       getUserById,
       getTableById,
       showButtonLabel,
       handleClick,
+      sortByDate,
+      sortedQueDataRef,
     };
   },
 };
 </script>
 
 <style scoped>
+.table {
+  border-radius: 10px;
+}
 .btnAll {
   border-radius: 20px;
   min-width: 110px;

@@ -249,7 +249,6 @@ export default {
         // Calculate foodTotal based on queDataRef.type
         switch (queDataRef.value.type) {
           case TypeOfQue.BEFORE20:
-            // No additional charge
             break;
           case TypeOfQue.IN21:
             foodTotal.value += 1000;

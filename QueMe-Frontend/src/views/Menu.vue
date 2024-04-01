@@ -87,7 +87,8 @@
               </form>
             </div>
 
-            <table class="table">
+            <div class="tableFixHead">
+              <table> 
               <thead>
                 <tr>
                   <th>ID</th>
@@ -119,7 +120,7 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table></div>
           </div>
 
         </div>
@@ -402,4 +403,12 @@ p {
 .space {
   margin-right: 22px;
 }
+.tableFixHead          { overflow: auto; height: 750px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
 </style>
+

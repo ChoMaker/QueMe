@@ -257,4 +257,11 @@ export default {
 .space {
   margin-right: 22px;
 }
+.table-container        { overflow: auto; height: 750px; }
+.table-container thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
 </style>

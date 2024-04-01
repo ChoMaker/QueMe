@@ -102,7 +102,7 @@
         <button class="btn btnAll" @click="postData" type="button">Post</button>
       </div>
 
-      <div class="col-lg-7">
+      <div class="col-lg-7 tableFixHead">
         <table class="table">
           <thead>
             <tr>
@@ -335,4 +335,11 @@ p {
 .space {
   margin-right: 22px;
 }
+.tableFixHead          { overflow: auto; height: 500px; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
 </style>

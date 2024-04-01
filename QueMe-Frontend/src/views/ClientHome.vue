@@ -82,6 +82,7 @@
       <div class="">
         <div class="d-flex flex-lg-wrap">
             <!-- Getter -->
+            <a :href="getLinkWithDate(event)" localStorage.setItem("myCat", "Tom");>
             <div class="card col-md-3" v-for="event in eventDataRef" :key="event.id">
               <img
                 :src="getImageUrl(event.image_url)"
@@ -94,6 +95,7 @@
                
               </div>
             </div>
+            </a>
           </div>
         </div>
       </div>

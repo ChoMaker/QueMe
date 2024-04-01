@@ -50,6 +50,7 @@
             style="background-color: #e6e5c7"
             aria-label="seats"
             max="50"
+            id="name"
           />
         </div>
         <p class="textAboveTextfield">Start Date</p>
@@ -64,6 +65,7 @@
               v-model="event_start_date"
               :min="minDate"
               format="dd-MMM-yyyy"
+              id="start_date"
             >
             </ejs-datepicker>
           </div>
@@ -80,6 +82,7 @@
               v-model="event_end_date"
               :min="minDate"
               format="dd-MMM-yyyy"
+              id="end_date"
             >
             </ejs-datepicker>
           </div>
@@ -170,8 +173,11 @@ export default {
             },
           }
         );
-
-        console.log("Response:", response.data);
+        document.getElementById("name").value = "";
+        document.getElementById("start_date").value = "";
+        document.getElementById("end_date").value = "";
+        document.getElementById("formFile").value = "";
+        window.location.reload();
       } catch (error) {
         console.error("Error posting data:", error);
       }

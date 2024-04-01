@@ -80,86 +80,16 @@
     <div class="container">
       <p class="upcomingText">UPCOMING EVENTS</p>
       <div class="row">
-        <div class="col-lg-3">
-          <div>
-            <div class="card">
-            <!-- picture -->
-            <img src="/src/assets/smlCard/LazyLoxy.png" class="card-img-top" />
-            <div class="card-body">
-              <p class="card-title">LazyLoxy</p>
-              <p class="card-text">26 March 2024</p>
-            </div>
-          </div>
-
-            <!-- Getter -->
-            <!-- <div class="card" v-for="event in eventDataRef" :key="event.id">
-              
-              <img
-                :src="getImageUrl(event.image_url)"
-                class="card-img-top"
-                style="height: 263px; width: auto"
-              />
-              <div class="card-body">
-                <p class="card-title">{{ event.name }}</p>
-                <p class="card-text">{{ formatDate(event.event_end_date) }}</p>
-               
-              </div>
-            </div> -->
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card">
-            <!-- picture -->
-            <img src="/src/assets/smlCard/Polycat.png" class="card-img-top" />
-            <div class="card-body">
-              <p class="card-title">Polycat</p>
-              <p class="card-text">31 March 2024</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card">
-            <!-- picture -->
-            <img src="/src/assets/smlCard/Loey.png" class="card-img-top" />
-            <div class="card-body">
-              <p class="card-title">Joey Phuwasit</p>
-              <p class="card-text">2 April 2024</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card">
-            <!-- picture -->
-            <img src="/src/assets/smlCard/MEAN.png" class="card-img-top" />
-            <div class="card-body">
-              <p class="card-title">MEAN</p>
-              <p class="card-text">7 April 2024</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="card">
-            <!-- picture -->
-            <img
-              src="/src/assets/smlCard/ThreeManDown.png"
-              class="card-img-top"
-            />
-            <div class="card-body">
-              <p class="card-title">Three man down</p>
-              <p class="card-text">12 April 2024</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="card">
-            <!-- picture -->
-            <img src="/src/assets/smlCard/KwanJai.png" class="card-img-top" />
-            <div class="card-body">
-              <p class="card-title">Kwanjai (คณะขวัญใจ)</p>
-              <p class="card-text">18 April 2024</p>
-            </div>
+        <!-- Getter -->
+        <div class="card" v-for="event in eventDataRef" :key="event.id">
+          <img
+            :src="getImageUrl(event.image_url)"
+            class="card-img-top"
+            style="height: 263px; width: auto"
+          />
+          <div class="card-body">
+            <p class="card-title">{{ event.name }}</p>
+            <p class="card-text">{{ formatDate(event.event_end_date) }}</p>
           </div>
         </div>
       </div>
@@ -183,7 +113,6 @@
     </div>
   </div>
 
-  <div class="container"></div>
 </template>
 
 <script>
@@ -205,11 +134,10 @@ export default {
       const linePageURL = "https://page.line.me/918szrut?openQrModal=true";
       window.location.href = linePageURL;
     },
-    // getImageUrl(imageUrl) {
-    //   // Assuming the image URL is relative to the root of the server
-    //   return `${process.env.VUE_APP_BASR_URL}/${imageUrl}`;
-    // },
-     
+    getImageUrl(imageUrl) {
+      // Assuming the image URL is relative to the root of the server
+      return `${process.env.VUE_APP_BASR_URL}/${imageUrl}`;
+    },
   },
 
   setup() {
@@ -226,14 +154,13 @@ export default {
         );
         eventDataRef.value = response.data.data[0];
         console.log("Event data fetched successfully");
-
       } catch (error) {
         console.error("Error fetching event data:", error);
       }
     };
 
     onMounted(() => {
-      fetchEventData(); // Fetch event data when the component is mounted
+      fetchEventData();
     });
 
     const formatDate = (date) => {

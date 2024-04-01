@@ -164,6 +164,7 @@
   </div>
 </template>
 
+
 <script>
 import { useRouter } from "vue-router";
 import { ref } from "vue";
@@ -274,7 +275,7 @@ export default {
 
         this.router.push({ name: "Menu" });
       } catch (error) {
-        console.error("Error:", error);
+        alert(error.response.data.error)
       }
     },
   },

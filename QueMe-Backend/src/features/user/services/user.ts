@@ -16,7 +16,7 @@ export namespace UserService {
       const user = (result as SignInRequest[])[0];
 
       if (!user || user.password != body.password) {
-        return "user or password is incorrect";
+        return "User or password is incorrect";
       }
       return user.id;
     } catch (error) {

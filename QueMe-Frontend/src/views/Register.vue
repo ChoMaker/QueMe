@@ -18,7 +18,7 @@
           />
         </div>
         <div v-if="nameError.length > 0" class="error">
-          <ul class="list-unstyled d-flex justify-content-end"> <!-- Remove bullet points -->
+          <ul class="list-unstyled d-flex justify-content-start"> <!-- Remove bullet points -->
             <li v-for="txt in nameError">{{ txt }}</li>
           </ul>
         </div>
@@ -37,7 +37,7 @@
           />
         </div>
         <div v-if="phoneNumberError.length > 0" class="error">
-          <ul class="list-unstyled d-flex justify-content-end"> <!-- Remove bullet points -->
+          <ul class="list-unstyled d-flex justify-content-start"> <!-- Remove bullet points -->
             <li v-for="txt in phoneNumberError">{{ txt }}</li>
           </ul>
         </div>
@@ -56,7 +56,7 @@
           />
         </div>
         <div v-if="passwordError.length > 0" class="error">
-          <ul class="list-unstyled d-flex justify-content-end"> <!-- Remove bullet points -->
+          <ul class="list-unstyled d-flex justify-content-start"> <!-- Remove bullet points -->
             <li v-for="txt in passwordError">{{ txt }}</li>
           </ul>
         </div>
@@ -97,13 +97,13 @@ const validate = () => {
   phoneNumberError.value = [];
 
   if (!user.value.name) {
-    nameError.value.push("Please fill the name");
+    nameError.value.push("Please fill in name");
   }
   if (!user.value.phoneNumber) {
-    phoneNumberError.value.push("Please fill the phone number");
+    phoneNumberError.value.push("Please fill in phonenumber");
   }
   if (!user.value.password) {
-    passwordError.value.push("Please fill the password");
+    passwordError.value.push("Please fill in password");
   }
 
   return nameError.value.length == 0 && passwordError.value.length == 0 && phoneNumberError.value.length == 0;

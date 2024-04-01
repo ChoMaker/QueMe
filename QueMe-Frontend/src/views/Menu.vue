@@ -1,94 +1,71 @@
 <template>
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img
-            src="/src/assets/logo-removebg.png"
-            alt="Logo"
-            style="width: 91px; height: auto"
-          />
-        </a>
-        <div class="d-flex justify-content-end">
-          <button
-            class="btn navBtn space"
-            @click="router.push({ name: 'ClientHome' })"
-            type="submit"
-          >
-            Home
-          </button>
-          <button
-            class="btn navBtn space"
-            @click="router.push({ name: 'Profile' })"
-            type="submit"
-          >
-            Profile
-          </button>
-          <button
-            class="btn navBtn"
-            @click="router.push({ name: 'Login' })"
-            type="submit"
-          >
-            Logout
-          </button>
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
+      </a>
+      <div class="d-flex justify-content-end">
+        <button class="btn navBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
+          Home
+        </button>
+        <button class="btn navBtn space" @click="router.push({ name: 'Profile' })" type="submit">
+          Profile
+        </button>
+        <button class="btn navBtn" @click="router.push({ name: 'Login' })" type="submit">
+          Logout
+        </button>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <div class="flex-container">
-      <div
-        style="
+  <div class="container">
+    <div style="
           margin-top: 40px;
-          margin-bottom: 40px;
+          margin-bottom: 20px;
           display: flex;
           justify-content: space-between;
-        "
-      >
-        <div></div>
-        <div class="row">
-          <div class="d-flex justify-content-between">
-            <p class="align-self-center" style="margin-right: 20px">
-              หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"
-            </p>
-            <button
-              class="btn otherBtn"
-              @click="router.push({ name: 'ConfirmReserve' })"
-              type="submit"
-            >
-              Next
-            </button>
-          </div>
+        ">
+      <div></div>
+      <div class="row">
+        <div class="d-flex justify-content-between">
+          <p class="align-self-center" style="margin-right: 20px">
+            หากไม่ต้องการสั่งอาหารล่วงหน้าสามารถคลิกปุ่ม "Next"
+          </p>
+          <button style="color: #fff;" class="btn otherBtn" @click="router.push({ name: 'ConfirmReserve' })"
+            type="submit">
+            Next
+          </button>
         </div>
       </div>
-      <!-- picture -->
-      <div class="row seperateMenu">
-        <div class="col-lg-6" style="text-align: center">
-          <img src="/src/assets/menu/food/1.png" alt="Logo" />
-          <img src="/src/assets/menu/food/2.png" alt="Logo" />
-          <img src="/src/assets/menu/food/3.png" alt="Logo" />
-          <img src="/src/assets/menu/food/4.png" alt="Logo" />
-        </div>
+    </div>
 
-        <!-- table -->
-        <div class="col-lg-6">
-          <div class="card">
-            <div class="container-fluid">
-              <form class="d-flex searchbar" @submit.prevent="search">
-                <input
-                  v-model="input"
-                  class="form-control me-2"
-                  type="text"
-                  placeholder="Search.."
-                  aria-label="Search"
-                />
-                <button class="btn btn-outline-success" type="submit">
-                  Search
-                </button>
-              </form>
-            </div>
+    <!-- picture -->
+    <div class="row seperateMenu">
+      <div class="col-lg-6" style="text-align: center; overflow-x: auto; white-space: nowrap;">
+        <img src="/src/assets/menu/food/1.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+        <img src="/src/assets/menu/food/2.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+        <img src="/src/assets/menu/food/3.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+        <img src="/src/assets/menu/food/4.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+        <img src="/src/assets/menu/drink/1.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+        <img src="/src/assets/menu/drink/2.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+        <img src="/src/assets/menu/drink/3.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+        <img src="/src/assets/menu/drink/4.png" alt="Logo" style="display: inline-block; margin-right: 10px;" />
+      </div>
 
-            <div class="tableFixHead">
-              <table> 
+      <!-- table -->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="container-fluid">
+            <form class="d-flex searchbar" @submit.prevent="search">
+              <input v-model="input" class="form-control me-2" type="text" placeholder="Search.." aria-label="Search" />
+              <button class="btn btn-outline-success" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+
+          <div class="tableFixHead">
+            <table>
               <thead>
                 <tr>
                   <th>ID</th>
@@ -107,12 +84,7 @@
                       <button class="decrement" @click="decrement(food.id)">
                         -
                       </button>
-                      <input
-                        class="inndeform"
-                        type="number"
-                        v-model="food.quantity"
-                        readonly
-                      />
+                      <input class="inndeform" type="number" v-model="food.quantity" readonly />
                       <button class="increment" @click="increment(food.id)">
                         +
                       </button>
@@ -120,32 +92,24 @@
                   </td>
                 </tr>
               </tbody>
-            </table></div>
+            </table>
           </div>
-
         </div>
-      </div>
-    </div>
 
-    <div class="container checkbox-margin">
-      <div class="d-flex justify-content-end">
-        <button
-          class="btn otherBtn space"
-          @click="router.push({ name: 'ClientHome' })"
-          type="submit"
-        >
-          Cancel
-        </button>
-        <button
-          class="btn otherBtn"
-          @click="handleNextButtonClick"
-          type="submit"
-        >
-          Next
-        </button>
+        <div class="d-flex justify-content-end" style="margin-top: 20px">
+          <button style="color: #fff;" class="btn otherBtn space" @click="router.push({ name: 'ClientHome' })"
+            type="submit">
+            Cancel
+          </button>
+          <button style="color: #fff;" class="btn otherBtn" @click="handleNextButtonClick" type="submit">
+            Next
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -164,10 +128,11 @@ export default {
 
     const search = async () => {
       try {
-        const response = await axios.get(`${BASR_URL}/${RoutePathUrl.getmenu}`,{
-            params: {search: input.value,},
-          }
-        );resultFood.value = response.data.data[0].map((food) => ({...food,quantity: 0,
+        const response = await axios.get(`${BASR_URL}/${RoutePathUrl.getmenu}`, {
+          params: { search: input.value, },
+        }
+        ); resultFood.value = response.data.data[0].map((food) => ({
+          ...food, quantity: 0,
         }));
       } catch (error) {
         console.error("Error searching menu:", error);
@@ -223,7 +188,7 @@ export default {
           ...food,
           quantity: 0,
         }));
-        
+
         console.log("Response:", response);
       } catch (error) {
         console.error("Error fetching items:", error);
@@ -232,7 +197,7 @@ export default {
 
     const filteredList = computed(() => {
       return resultFood.value.filter((food) =>
-      food.name.toLowerCase().includes(input.value.toLocaleLowerCase())
+        food.name.toLowerCase().includes(input.value.toLocaleLowerCase())
       );
     });
 
@@ -257,12 +222,14 @@ export default {
   background-color: #FF4E08;
   color: #000;
 }
+
 .navBtn {
   border-radius: 20px;
   min-width: 110px;
   background-color: #e6e5c7;
   color: #000;
 }
+
 .searchbar {
   margin: 10px;
   align-self: center;
@@ -320,6 +287,7 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .inndeform {
   display: flex;
   justify-content: center;
@@ -363,6 +331,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-bottom-left-radius: 15px;
   border-top-left-radius: 15px;
 }
+
 .seperateMenu {
   margin-bottom: 40px;
 }
@@ -370,10 +339,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .btn {
   border-radius: 20px;
   min-width: 110px;
-}
-
-.checkbox-margin {
-  margin-bottom: 15px;
 }
 
 p {
@@ -403,12 +368,30 @@ p {
 .space {
   margin-right: 22px;
 }
-.tableFixHead          { overflow: auto; height: 750px; }
-.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+.tableFixHead {
+  overflow: auto;
+  height: 750px;
+}
+
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 
 /* Just common table stuff. Really. */
-table  { border-collapse: collapse; width: 100%; }
-th, td { padding: 8px 16px; }
-th     { background:#eee; }
-</style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
 
+th,
+td {
+  padding: 8px 16px;
+}
+
+th {
+  background: #eee;
+}
+</style>

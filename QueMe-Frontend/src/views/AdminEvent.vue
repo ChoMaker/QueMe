@@ -2,34 +2,16 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img
-          src="/src/assets/logo-removebg.png"
-          alt="Logo"
-          style="width: 91px; height: auto"
-        />
+        <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
       </a>
       <div class="d-flex justify-content-end">
-        <button
-          class="btn btn-link"
-          style="color: #fff"
-          @click="router.push({ name: 'AdminEvent' })"
-          type="submit"
-        >
+        <button class="btn btn-link" style="color: #fff" @click="router.push({ name: 'AdminEvent' })" type="submit">
           Event
         </button>
-        <button
-          class="btn btn-link"
-          style="color: #fff"
-          @click="router.push({ name: 'AdminQue' })"
-          type="submit"
-        >
+        <button class="btn btn-link" style="color: #fff" @click="router.push({ name: 'AdminQue' })" type="submit">
           Que
         </button>
-        <button
-          class="btn btnAll"
-          @click="router.push({ name: 'Login' })"
-          type="submit"
-        >
+        <button class="btn btnAll" @click="router.push({ name: 'Login' })" type="submit">
           Logout
         </button>
       </div>
@@ -42,64 +24,33 @@
       <div class="col-lg-4 align-item-center">
         <p class="textAboveTextfield">Event</p>
         <div class="input-group" style="margin-bottom: 20px; width: 420px">
-          <input
-            placeholder="Fill the event name"
-            v-model="name"
-            type="text"
-            class="form-control textfieldStyle"
-            style="background-color: #e6e5c7"
-            aria-label="seats"
-            max="50"
-            id="name"
-          />
+          <input placeholder="Fill the event name" v-model="name" type="text" class="form-control textfieldStyle"
+            style="background-color: #e6e5c7" aria-label="seats" max="50" id="name" />
         </div>
         <p class="textAboveTextfield">Start Date</p>
-        <div
-          class="card textFieldStyle"
-          style="border-radius: 20px; width: 420px"
-        >
+        <div class="card textFieldStyle" style="border-radius: 20px; width: 420px">
           <div class="wrapper">
-            <ejs-datepicker
-              placeholder="Choose start date"
-              style="color: #000"
-              v-model="event_start_date"
-              :min="minDate"
-              format="dd-MMM-yyyy"
-              id="start_date"
-            >
+            <ejs-datepicker placeholder="Choose start date" style="color: #000" v-model="event_start_date"
+              :min="minDate" format="dd-MMM-yyyy" id="start_date">
             </ejs-datepicker>
           </div>
         </div>
         <p class="textAboveTextfield">End Date</p>
-        <div
-          class="card textFieldStyle"
-          style="border-radius: 20px; width: 420px"
-        >
+        <div class="card textFieldStyle" style="border-radius: 20px; width: 420px">
           <div class="wrapper">
-            <ejs-datepicker
-              placeholder="Choose end date"
-              style="color: #000"
-              v-model="event_end_date"
-              :min="minDate"
-              format="dd-MMM-yyyy"
-              id="end_date"
-            >
+            <ejs-datepicker placeholder="Choose end date" style="color: #000" v-model="event_end_date" :min="minDate"
+              format="dd-MMM-yyyy" id="end_date">
             </ejs-datepicker>
           </div>
         </div>
 
         <div style="margin-bottom: 20px; margin-top: 20px">
-          <input
-            class="form-control"
-            style="
+          <input class="form-control" style="
               display: flex;
               border-radius: 20px;
               background-color: #e6e5c7;
               width: 420px;
-            "
-            type="file"
-            id="formFile"
-          />
+            " type="file" id="formFile" />
         </div>
 
         <button class="btn btnAll" @click="postData" type="button">Post</button>
@@ -222,7 +173,7 @@ export default {
         console.error('Error deleting event:', error);
       }
     };
-    
+
 
     return {
       router,
@@ -246,6 +197,7 @@ export default {
   padding-inline: 0.5px;
   font-weight: 550;
 }
+
 .navbarBtn:hover {
   width: 100px;
   height: 35px;
@@ -255,6 +207,7 @@ export default {
   padding-inline: 0.5px;
   font-weight: 550;
 }
+
 .textFieldStyle {
   justify-content: center;
   display: flex;
@@ -267,19 +220,23 @@ export default {
   background: #e6e5c7;
   width: 416px;
 }
+
 .wrapper {
   max-width: 250px;
   margin: 0 auto;
 }
+
 #ej2-datepicker_0 {
   color: #000;
 }
+
 .e-input-group input.e-input,
 .e-input-group.e-control-wrapper input.e-input {
   height: 25px;
   font-size: 18px;
   color: #000;
 }
+
 .e-input-group .e-input-group-icon:last-child,
 .e-input-group.e-control-wrapper .e-input-group-icon:last-child {
   font-size: 12px;
@@ -334,18 +291,39 @@ p {
   margin-bottom: 20px;
   color: #fff;
 }
+
 .btn {
   border-radius: 20px;
   min-width: 110px;
 }
+
 .space {
   margin-right: 22px;
 }
-.tableFixHead          { overflow: auto; height: 500px; }
-.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+.tableFixHead {
+  overflow: auto;
+  height: 500px;
+}
+
+.tableFixHead thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 
 /* Just common table stuff. Really. */
-table  { border-collapse: collapse; width: 100%; }
-th, td { padding: 8px 16px; }
-th     { background:#eee; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px 16px;
+}
+
+th {
+  background: #eee;
+}
 </style>

@@ -1,43 +1,24 @@
 <template>
   <div class="row">
     <!-- Navbar -->
-    <nav
-      class="navbar navbar-expand-lg navbar-light"
-      style="
+    <nav class="navbar navbar-expand-lg navbar-light" style="
         position: relative;
         z-index: 1;
         padding-left: 10px;
         padding-right: 10px;
-      "
-    >
+      ">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
-          <img
-            src="/src/assets/logo-removebg.png"
-            alt="Logo"
-            style="width: 91px; height: auto"
-          />
+          <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
         </a>
         <div>
-          <button
-            class="btn navbarBtn space"
-            @click="router.push({ name: 'ClientHome' })"
-            type="submit"
-          >
+          <button class="btn navbarBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
             Home
           </button>
-          <button
-            class="btn navbarBtn space"
-            @click="router.push({ name: 'Profile' })"
-            type="submit"
-          >
+          <button class="btn navbarBtn space" @click="router.push({ name: 'Profile' })" type="submit">
             Profile
           </button>
-          <button
-            class="btn navbarBtn"
-            @click="router.push({ name: 'Login' })"
-            type="submit"
-          >
+          <button class="btn navbarBtn" @click="router.push({ name: 'Login' })" type="submit">
             Logout
           </button>
         </div>
@@ -46,29 +27,20 @@
   </div>
 
   <!-- Main -->
-  <div
-    class="container"
-    style="
+  <div class="container" style="
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
       color: #fff;
-    "
-  >
+    ">
     <div>
       <b style="font-size: 96px">Banpeun</b><br />
-      <b style="font-size: 96px; padding-left: 100px; line-height: 0.1%"
-        >Bangkok</b
-      >
+      <b style="font-size: 96px; padding-left: 100px; line-height: 0.1%">Bangkok</b>
       <p style="text-align: left; margin-top: 18px">
         Banpuen Bangkok, a chill-out restaurant in the Kaset area with live
         music, free concerts, and many more promotions.
       </p>
-      <button
-        class="btn reserveBtn justify-content-center"
-        @click='reserve'
-        type="button"
-      >
+      <button class="btn reserveBtn justify-content-center" @click='reserve' type="button">
         RESERVE
       </button>
     </div>
@@ -85,11 +57,7 @@
 
           <div class="card col-3" v-for="event in eventDataRef" :key="event.id">
             <a href="/home" @click="sendDate(event.event_end_date, event.id)">
-              <img
-                :src="getImageUrl(event.image_url)"
-                class="card-img-top"
-                style="height: 263px"
-              />
+              <img :src="getImageUrl(event.image_url)" class="img-fluid" style="height: 263px" />
             </a>
             <div class="card-body">
               <p class="card-title">{{ event.name }}</p>
@@ -101,7 +69,7 @@
     </div>
   </div>
   <!-- footer -->
-  <div class="container" style="margin-top: 20px">
+  <div style="margin-top: 20px">
     <div class="flex-container">
       <p class="btmtext">banpuenbangkok</p>
       <p class="btmtext">Contact banpuenbangkok</p>
@@ -167,14 +135,14 @@ export default {
     };
 
     const sendDate = (end_date, event_id) => {
-          router.push({ name: 'Home' });
-       localStorage.setItem("end_date", end_date);
-       localStorage.setItem("event_id", event_id);
+      router.push({ name: 'Home' });
+      localStorage.setItem("end_date", end_date);
+      localStorage.setItem("event_id", event_id);
     };
 
     const reserve = () => {
-          router.push({ name: 'Home' });
-       localStorage.setItem("end_date", "");
+      router.push({ name: 'Home' });
+      localStorage.setItem("end_date", "");
     };
 
     onMounted(() => {
@@ -202,20 +170,21 @@ export default {
 .navbarBtn {
   width: 100px;
   height: 35px;
-  background-color: #e6e5c7;
-  color: #3e3b2c;
+  background-color: #ff4e08;
+  color: #fff;
   text-align: center;
   padding-inline: 0.5px;
-  font-weight: 550;
+  font-weight: 450;
 }
+
 .navbarBtn:hover {
   width: 100px;
   height: 35px;
-  background-color: #acab93;
-  color: #3e3b2c;
+  background-color: #af3606;
+  color: #fff;
   text-align: center;
   padding-inline: 0.5px;
-  font-weight: 550;
+  font-weight: 450;
 }
 
 .reserveBtn {
@@ -226,8 +195,9 @@ export default {
   background-color: #ff4e08;
   color: #fff;
   font-size: 18px;
-  font-weight: 650;
+  font-weight: 450;
 }
+
 .reserveBtn:hover {
   align-items: center;
   width: 250px;
@@ -236,8 +206,9 @@ export default {
   background-color: #af3606;
   color: #fff;
   font-size: 18px;
-  font-weight: 650;
+  font-weight: 450;
 }
+
 .btn {
   border-radius: 20px;
   min-width: 110px;
@@ -250,18 +221,6 @@ export default {
 .btnFooter {
   border-radius: 50px;
   height: 45px;
-}
-
-.bgcard {
-  background-color: aliceblue;
-}
-
-.box-black02 {
-  background-color: #373743;
-}
-
-.box-black01 {
-  background-color: #434552;
 }
 
 .herizontal-line {
@@ -284,12 +243,8 @@ export default {
 .card {
   margin-right: 30px;
   margin-bottom: 30px;
-  width: 100%;
   position: relative;
-}
-
-.card-body {
-  background-color: aliceblue;
+  border: none;
 }
 
 .card-title {

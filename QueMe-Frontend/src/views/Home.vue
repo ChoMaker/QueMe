@@ -2,32 +2,17 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img
-          src="/src/assets/logo-removebg.png"
-          alt="Logo"
-          style="width: 91px; height: auto"
-        />
+        <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
       </a>
       <div class="d-flex justify-content-end">
-        <button
-          class="btn space"
-          @click='router.push({ name: "ClientHome" }); localStorage.setItem("end_date", "")'
-          type="submit"
-        >
+        <button class="btn space" @click='router.push({ name: "ClientHome" }); localStorage.setItem("end_date", "")'
+          type="submit">
           Home
         </button>
-        <button
-          class="btn space"
-          @click="router.push({ name: 'Profile' })"
-          type="submit"
-        >
+        <button class="btn space" @click="router.push({ name: 'Profile' })" type="submit">
           Profile
         </button>
-        <button
-          class="btn"
-          @click="router.push({ name: 'Login' })"
-          type="submit"
-        >
+        <button class="btn" @click="router.push({ name: 'Login' })" type="submit">
           Logout
         </button>
       </div>
@@ -46,14 +31,8 @@
         <p class="textAboveTextfield">Pick date</p>
         <div class="card textFieldStyle" style="border-radius: 20px">
           <div class="wrapper">
-            <ejs-datepicker
-              placeholder="Choose a date"
-              style="color: #000"
-              v-model="selectedDate"
-              :min="minDate"
-              format="dd-MMM-yyyy"
-              id="endDate"
-            >
+            <ejs-datepicker placeholder="Choose a date" style="color: #000" v-model="selectedDate" :min="minDate"
+              format="dd-MMM-yyyy" id="endDate">
             </ejs-datepicker>
           </div>
         </div>
@@ -68,29 +47,17 @@
           How many seats (Maximum reservation: 8)
         </p>
         <div class="input-group" style="margin-bottom: 20px">
-          <input
-            v-model="seatsQuantity"
-            @input="validateSeatsQuantity"
-            type="text"
-            class="form-control textfieldStyle"
-            style="background-color: #e6e5c7"
-            aria-label="seats"
-            max="50"
-          />
+          <input v-model="seatsQuantity" @input="validateSeatsQuantity" type="text" class="form-control textfieldStyle"
+            style="background-color: #e6e5c7" aria-label="seats" max="50" />
         </div>
-        <span class="textAboveTextfield" style="color: #fff"
-          >Zone: {{ selected }}</span
-        >
+        <span class="textAboveTextfield" style="color: #fff">Zone: {{ selected }}</span>
         <div class="row">
           <div class="col-6">
-            <select
-              v-model="selected"
-              style="
+            <select v-model="selected" style="
                 height: 28px;
                 border-radius: 20px;
                 background-color: #e6e5c7;
-              "
-            >
+              ">
               <option disabled value="">Please selected one</option>
               <option>VVIIP</option>
               <option>A</option>
@@ -103,42 +70,21 @@
             </select>
           </div>
           <div class="col-6">
-            <input
-              v-model="seatZoneNumber"
-              class="form-control"
-              style="
+            <input v-model="seatZoneNumber" class="form-control" style="
                 width: 50px;
                 height: 30px;
                 border-radius: 12px;
                 align-self: center;
                 background-color: #e6e5c7;
-              "
-              type="text"
-              placeholder="0"
-              aria-label="default input example"
-            />
+              " type="text" placeholder="0" aria-label="default input example" />
           </div>
         </div>
 
         <div class="description">
-          <div
-            v-for="(option, index) in options"
-            :key="index"
-            class="form-check form-check-inline checkbox-margin"
-          >
-            <input
-              class="form-check-input"
-              type="radio"
-              :id="`inlineRadio${index}`"
-              :value="option.value"
-              v-model="selectedOption"
-            />
-            <label
-              class="form-check-label"
-              :for="`inlineRadio${index}`"
-              style="color: #fff"
-              >{{ option.label }}</label
-            >
+          <div v-for="(option, index) in options" :key="index" class="form-check form-check-inline checkbox-margin">
+            <input class="form-check-input" type="radio" :id="`inlineRadio${index}`" :value="option.value"
+              v-model="selectedOption" />
+            <label class="form-check-label" :for="`inlineRadio${index}`" style="color: #fff">{{ option.label }}</label>
           </div>
         </div>
       </div>
@@ -147,18 +93,10 @@
 
   <div class="container checkbox-margin">
     <div class="d-flex justify-content-end">
-      <button
-        class="btn btn btn-dark space"
-        @click="router.push({ name: 'ClientHome' })"
-        type="submit"
-      >
+      <button class="btn btn btn-dark space" @click="router.push({ name: 'ClientHome' })" type="submit">
         Back
       </button>
-      <button
-        class="btn btn btn-dark"
-        @click="handleNextButtonClick"
-        type="submit"
-      >
+      <button class="btn btn btn-dark" @click="handleNextButtonClick" type="submit">
         Next
       </button>
     </div>
@@ -267,11 +205,11 @@ export default {
           }
         );
 
-        if (response.status === 500 || 
+        if (response.status === 500 ||
           (response.data.error && response.data.error === "The table is already reserved for today")) {
-        this.errorMessage = "Please select a new table. This table is already reserved.";
-        return;
-      }
+          this.errorMessage = "Please select a new table. This table is already reserved.";
+          return;
+        }
 
         localStorage.setItem("queID", response.data.result);
 
@@ -305,19 +243,23 @@ export default {
   background: #e6e5c7;
   width: 416px;
 }
+
 .wrapper {
   max-width: 250px;
   margin: 0 auto;
 }
+
 #ej2-datepicker_0 {
   color: #000;
 }
+
 .e-input-group input.e-input,
 .e-input-group.e-control-wrapper input.e-input {
   height: 25px;
   font-size: 18px;
   color: #000;
 }
+
 .e-input-group .e-input-group-icon:last-child,
 .e-input-group.e-control-wrapper .e-input-group-icon:last-child {
   font-size: 12px;
@@ -328,18 +270,21 @@ select {
   word-wrap: normal;
   height: 40px;
 }
+
 .btn {
   border-radius: 20px;
   min-width: 110px;
   background-color: #ff4e08;
   color: #fff;
 }
+
 .btn :hover {
   border-radius: 20px;
   min-width: 110px;
   background-color: #bd3905;
   color: #fff;
 }
+
 .checkbox-margin {
   margin-bottom: 15px;
 }

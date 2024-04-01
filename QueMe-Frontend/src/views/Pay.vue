@@ -3,32 +3,16 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img
-          src="/src/assets/logo-removebg.png"
-          alt="Logo"
-          style="width: 91px; height: auto"
-        />
+        <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
       </a>
       <div>
-        <button
-          class="btn btn-outline-light severalbtn space"
-          @click="router.push({ name: 'ClientHome' })"
-          type="submit"
-        >
+        <button class="btn navbarBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
           Home
         </button>
-        <button
-          class="btn btn-outline-light severalbtn space"
-          @click="router.push({ name: 'Profile' })"
-          type="submit"
-        >
+        <button class="btn navbarBtn space" @click="router.push({ name: 'Profile' })" type="submit">
           Profile
         </button>
-        <button
-          class="btn btn-outline-light severalbtn"
-          @click="router.push({ name: 'Login' })"
-          type="submit"
-        >
+        <button class="btn navbarBtn" @click="router.push({ name: 'Login' })" type="submit">
           Logout
         </button>
       </div>
@@ -41,62 +25,25 @@
     <div class="row">
       <div class="col-lg-6">
         <p class="textAboveTextfield">Name</p>
-        <input
-          ref="name"
-          class="form-control textfieldStyle"
-          type="text"
-          :value="userData.name"
-          aria-label="Disabled input example"
-          disabled
-          readonly
-        />
+        <input ref="name" style="background-color: #e6e5c7; border: none; margin-bottom: 20px;"
+          class="form-control textfieldStyle" type="text" :value="userData.name" aria-label="Disabled input example"
+          disabled readonly />
         <p class="textAboveTextfield">Phone number</p>
-        <input
-          class="form-control textfieldStyle"
-          type="text"
-          :value="userData.phone_number"
-          aria-label="Disabled input example"
-          disabled
-          readonly
-        />
+        <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
+          type="text" :value="userData.phone_number" aria-label="Disabled input example" disabled readonly />
         <p class="textAboveTextfield">Date picked</p>
-        <input
-          class="form-control textfieldStyle"
-          type="text"
-          :value="formattedDate"
-          aria-label="Disabled input example"
-          disabled
-          readonly
-        />
+        <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
+          type="text" :value="formattedDate" aria-label="Disabled input example" disabled readonly />
         <p class="textAboveTextfield">Seats (Maximum reservation: 8)</p>
-        <input
-          class="form-control textfieldStyle"
-          type="text"
-          :value="queDataRef.seat"
-          aria-label="Disabled input example"
-          disabled
-          readonly
-        />
+        <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
+          type="text" :value="queDataRef.seat" aria-label="Disabled input example" disabled readonly />
         <p class="textAboveTextfield">Zone : Table</p>
         <div class="d-flex">
-          <input
-            class="form-control textfieldStyle"
-            style="width: 70px; margin-right: 10px"
-            type="text"
-            :value="tableDataRef.zone"
-            aria-label="Disabled input example"
-            disabled
-            readonly
-          />
-          <input
-            class="form-control textfieldStyle"
-            style="width: 70px"
-            type="text"
-            :value="tableDataRef.name"
-            aria-label="Disabled input example"
-            disabled
-            readonly
-          />
+          <input class="form-control textfieldStyle"
+            style="width: 70px; margin-right: 10px; background-color: #e6e5c7; border: none;" type="text"
+            :value="tableDataRef.zone" aria-label="Disabled input example" disabled readonly />
+          <input class="form-control textfieldStyle" style="width: 70px; background-color: #e6e5c7; border: none;"
+            type="text" :value="tableDataRef.name" aria-label="Disabled input example" disabled readonly />
         </div>
 
         <div class="row description">
@@ -109,25 +56,13 @@
         </div>
         <div class="container mt-3">
           <div class="row d-flex justify-content-center">
-            <p
-              class="d-flex justify-content-center"
-              style="font-size: 20px; margin-bottom: 10px"
-            >
+            <p class="d-flex justify-content-center" style="font-size: 20px; margin-bottom: 10px">
 
             </p>
-            <img
-              style="height: 400px; width: auto; margin-bottom: 3px"
-              src="/src/assets/QR.png"
-              alt="Logo"
-            />
+            <img style="height: 400px; width: auto; margin-bottom: 3px" src="/src/assets/QR.png" alt="Logo" />
 
             <div class="col-7 mt-1 mx-auto" style="margin-bottom: 80px">
-              <input
-                class="form-control"
-                type="file"
-                id="formFile"
-                @change="handleFileUpload"
-              />
+              <input class="form-control" type="file" id="formFile" @change="handleFileUpload" />
             </div>
           </div>
         </div>
@@ -137,18 +72,10 @@
 
   <div class="container checkbox-margin">
     <div class="d-flex justify-content-end">
-      <button
-        class="btn severalbtn btn-dark space"
-        @click="router.push({ name: 'ClientHome' })"
-        type="submit"
-      >
+      <button class="btn navbarBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
         Cancel
       </button>
-      <button
-        class="btn severalbtn btn-dark"
-        @click="router.push({ name: 'Profile' })"
-        type="submit"
-      >
+      <button class="btn navbarBtn" @click="router.push({ name: 'Profile' })" type="submit">
         Next
       </button>
     </div>
@@ -300,6 +227,31 @@ export default {
 </script>
 
 <style scoped>
+.btn {
+  border-radius: 20px;
+  min-width: 110px;
+}
+
+.navbarBtn {
+  width: 100px;
+  height: 35px;
+  background-color: #ff4e08;
+  color: #fff;
+  text-align: center;
+  padding-inline: 0.5px;
+  font-weight: 450;
+}
+
+.navbarBtn:hover {
+  width: 100px;
+  height: 35px;
+  background-color: #af3606;
+  color: #fff;
+  text-align: center;
+  padding-inline: 0.5px;
+  font-weight: 450;
+}
+
 .inndeform {
   display: flex;
   justify-content: center;

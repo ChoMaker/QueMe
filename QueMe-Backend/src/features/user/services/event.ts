@@ -27,7 +27,7 @@ export namespace EventService {
         body.name,
         new Date(body.event_start_date),
         new Date(body.event_end_date),
-        file,
+        "src/assets/smlCard/" + file?.replace("events_image/", ""),
       ]
     );
     const insertId = (eventData[0] as ResultSetHeader).insertId;

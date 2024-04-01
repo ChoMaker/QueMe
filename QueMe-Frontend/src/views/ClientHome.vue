@@ -79,23 +79,25 @@
   <div class="row" style="background-color: #3e3b2c">
     <div class="container">
       <p class="upcomingText">UPCOMING EVENTS</p>
-      <div class="row">
-        <!-- Getter -->
-        <div class="card" v-for="event in eventDataRef" :key="event.id">
-          <img
-            :src="getImageUrl(event.image_url)"
-            class="card-img-top"
-            style="height: 263px; width: auto"
-          />
-          <div class="card-body">
-            <p class="card-title">{{ event.name }}</p>
-            <p class="card-text">{{ formatDate(event.event_end_date) }}</p>
+      <div class="">
+        <div class="d-flex flex-lg-wrap">
+            <!-- Getter -->
+            <div class="card col-md-3" v-for="event in eventDataRef" :key="event.id">
+              <img
+                :src="getImageUrl(event.image_url)"
+                class="card-img-top"
+                style="height: 263px; width: auto"
+              />
+              <div class="card-body">
+                <p class="card-title">{{ event.name }}</p>
+                <p class="card-text">{{ formatDate(event.event_end_date) }}</p>
+               
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
   <!-- footer -->
   <div class="container" style="margin-top: 20px">
     <div class="flex-container">
@@ -113,6 +115,7 @@
     </div>
   </div>
 
+  <div class="container"></div>
 </template>
 
 <script>
@@ -136,8 +139,11 @@ export default {
     },
     getImageUrl(imageUrl) {
       // Assuming the image URL is relative to the root of the server
-      return `${process.env.VUE_APP_BASR_URL}/${imageUrl}`;
+      // return `${VUE_APP_BASR_URL}/${imageUrl}`;
+      console.log("This is image: ", imageUrl);
+      return `${imageUrl}`;
     },
+     
   },
 
   setup() {
@@ -153,14 +159,15 @@ export default {
           `${BASR_URL}/${RoutePathUrl.getEvent}`
         );
         eventDataRef.value = response.data.data[0];
-        console.log("Event data fetched successfully");
+        console.log("Event data fetched successfully", eventDataRef.value);
+
       } catch (error) {
         console.error("Error fetching event data:", error);
       }
     };
 
     onMounted(() => {
-      fetchEventData();
+      fetchEventData(); // Fetch event data when the component is mounted
     });
 
     const formatDate = (date) => {

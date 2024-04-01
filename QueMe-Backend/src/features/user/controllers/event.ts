@@ -22,7 +22,7 @@ export namespace EventController {
 
   export const createEvent = async (req: Request, res: Response) => {
     const body = req.body as CreateEvent;
-    const file = req.file?.path;
+    const file = req.file?.originalname;
 
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });

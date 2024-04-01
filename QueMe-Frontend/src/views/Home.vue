@@ -11,7 +11,7 @@
       <div class="d-flex justify-content-end">
         <button
           class="btn space"
-          @click="router.push({ name: 'ClientHome' })"
+          @click='router.push({ name: "ClientHome" }); localStorage.setItem("end_date", "")'
           type="submit"
         >
           Home
@@ -52,6 +52,7 @@
               v-model="selectedDate"
               :min="minDate"
               format="dd-MMM-yyyy"
+              id="endDate"
             >
             </ejs-datepicker>
           </div>
@@ -177,6 +178,9 @@ import { TypeOfQue } from "@/util/util";
 import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
 
+console.log("sentDate", localStorage.getItem("end_date"))
+// document.getElementById("endDate").value = localStorage.getItem("end_date");
+
 export default {
   name: "Home",
   components: {
@@ -210,7 +214,7 @@ export default {
     //datepicker
     const minDate = ref(new Date());
     minDate.value.setDate(minDate.value.getDate());
-    const selectedDate = ref("");
+    const selectedDate = ref(localStorage.getItem("end_date"));
 
     //select dropdown and seats quantity
     const selected = ref("");
@@ -253,7 +257,7 @@ export default {
         const response = await Axios.post(
           `${BASR_URL}/${RoutePathUrl.reserve}`,
           {
-            event_id: null,
+            event_id: localStorage.getItem("event_id"),
             user_id: localStorage.getItem("id"),
             type: this.selectedOption,
             date_and_time: this.selectedDate,
@@ -330,7 +334,12 @@ select {
   background-color: #ff4e08;
   color: #fff;
 }
-
+.btn :hover {
+  border-radius: 20px;
+  min-width: 110px;
+  background-color: #bd3905;
+  color: #fff;
+}
 .checkbox-margin {
   margin-bottom: 15px;
 }

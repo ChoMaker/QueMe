@@ -66,7 +66,7 @@
       </p>
       <button
         class="btn reserveBtn justify-content-center"
-        @click="router.push({ name: 'Home' })"
+        @click='reserve'
         type="button"
       >
         RESERVE
@@ -79,27 +79,27 @@
   <div class="row" style="background-color: #3e3b2c">
     <div class="container">
       <p class="upcomingText">UPCOMING EVENTS</p>
-      <div class="">
-        <div class="d-flex flex-lg-wrap">
-            <!-- Getter -->
-            <a :href="getLinkWithDate(event)" localStorage.setItem("myCat", "Tom");>
-            <div class="card col-md-3" v-for="event in eventDataRef" :key="event.id">
+      <div class="row">
+        <div class="d-flex justify-content-center flex-lg-wrap">
+          <!-- Getter -->
+
+          <div class="card col-3" v-for="event in eventDataRef" :key="event.id">
+            <a href="/home" @click="sendDate(event.event_end_date, event.id)">
               <img
                 :src="getImageUrl(event.image_url)"
                 class="card-img-top"
-                style="height: 263px; width: auto"
+                style="height: 263px"
               />
-              <div class="card-body">
-                <p class="card-title">{{ event.name }}</p>
-                <p class="card-text">{{ formatDate(event.event_end_date) }}</p>
-               
-              </div>
-            </div>
             </a>
+            <div class="card-body">
+              <p class="card-title">{{ event.name }}</p>
+              <p class="card-text">{{ formatDate(event.event_end_date) }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   <!-- footer -->
   <div class="container" style="margin-top: 20px">
     <div class="flex-container">
@@ -145,7 +145,6 @@ export default {
       console.log("This is image: ", imageUrl);
       return `${imageUrl}`;
     },
-     
   },
 
   setup() {
@@ -162,10 +161,20 @@ export default {
         );
         eventDataRef.value = response.data.data[0];
         console.log("Event data fetched successfully", eventDataRef.value);
-
       } catch (error) {
         console.error("Error fetching event data:", error);
       }
+    };
+
+    const sendDate = (end_date, event_id) => {
+          router.push({ name: 'Home' });
+       localStorage.setItem("end_date", end_date);
+       localStorage.setItem("event_id", event_id);
+    };
+
+    const reserve = () => {
+          router.push({ name: 'Home' });
+       localStorage.setItem("end_date", "");
     };
 
     onMounted(() => {
@@ -176,7 +185,15 @@ export default {
       return moment(date).format("LL");
     };
 
-    return { router, selectedDate, minDate, eventDataRef, formatDate };
+    return {
+      router,
+      selectedDate,
+      minDate,
+      eventDataRef,
+      formatDate,
+      sendDate,
+      reserve,
+    };
   },
 };
 </script>

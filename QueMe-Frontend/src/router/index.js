@@ -1,7 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import Login from "../views/Login.vue";
 import ClientHome from "../views/ClientHome.vue";
 import Home from "../views/Home.vue";
+import Menu from "../views/Menu.vue";
+import ConfirmReservation from "../views/ConfirmReserve.vue";
+import Pay from "../views/Pay.vue";
+import MenuDrink from "../views/MenuDrink.vue";
+import Profile from "../views/Profile.vue";
+import Register from "../views/Register.vue";
+
+import AdminEvent from "../views/AdminEvent.vue";
+import AdminLogin from "../views/AdminLogin.vue";
+import AdminQue from "../views/AdminQue.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -9,65 +20,105 @@ const router = createRouter({
     {
       path: "/",
       name: "Login",
-      component: () => import("../views/Login.vue"),
+      component: Login,
+      meta: {
+        title: 'Login',
+      },
     },
     {
       path: "/home",
       name: "Home",
-      component: () => import("../views/Home.vue"),
+      component: Home,
+      meta: {
+        title: 'Reservation',
+      },
     },
     {
       path: "/client-home",
       name: "ClientHome",
-      component: () => import("../views/ClientHome.vue"),
+      component: ClientHome,
+      meta: {
+        title: 'Home Page',
+      },
     },
     {
       path: "/menu",
       name: "Menu",
-      component: () => import("../views/Menu.vue"),
+      component: Menu,
+      meta: {
+        title: 'Menu Page',
+      },
     },
     {
       path: "/confirm-reserve",
       name: "ConfirmReserve",
-      component: () => import("../views/ConfirmReserve.vue"),
+      component: ConfirmReservation,
+      meta: {
+        title: 'Confirm Reservation',
+      },
     },
     {
       path: "/pay",
       name: "Pay",
-      component: () => import("../views/Pay.vue"),
+      component: Pay,
+      meta: {
+        title: 'Payment Page',
+      },
     },
     {
       path: "/menu-drink",
       name: "MenuDrink",
-      component: () => import("../views/MenuDrink.vue"),
+      component: MenuDrink,
+      meta: {
+        title: 'Menu Drink',
+      },
     },
     {
       path: "/profile",
       name: "Profile",
-      component: () => import("../views/Profile.vue"),
+      component: Profile,
+      meta: {
+        title: 'Profile',
+      },
     },
     {
       path: "/register",
       name: "Register",
-      component: () => import("../views/Register.vue"),
+      component: Register,
+      meta: {
+        title: 'Register',
+      },
     },
     {
       path: "/admin-event",
       name: "AdminEvent",
-      component: () => import("../views/AdminEvent.vue"),
+      component: AdminEvent,
+      meta: {
+        title: 'Admin Event',
+      },
     },
     {
       path: "/admin-que",
       name: "AdminQue",
-      component: () => import("../views/AdminQue.vue"),
+      component: AdminQue,
+      meta: {
+        title: 'Admin Que',
+      },
     },
     {
       path: "/admin-login",
       name: "AdminLogin",
-      component: () => import("../views/AdminLogin.vue"),
+      component: AdminLogin,
+      meta: {
+        title: 'Admin Login',
+      },
     },
 
   ],
+});
+
+router.beforeEach((to, from) => {
+  document.title = to.meta?.title ?? 'Default Title';
 });
 
 export default router;

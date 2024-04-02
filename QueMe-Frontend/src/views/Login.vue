@@ -58,12 +58,10 @@
     password: ''
   });
   
-  // Error variables to track error messages
   const phoneError = ref('');
   const passwordError = ref('');
   
   const handleLogin = async () => {
-    // Reset error messages
     phoneError.value = '';
     passwordError.value = '';
   
@@ -95,8 +93,6 @@
   };
   </script>
   
-
-
 <style scoped>
 .error {
   color: red;

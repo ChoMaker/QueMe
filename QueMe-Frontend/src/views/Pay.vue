@@ -105,22 +105,20 @@ export default {
 
   methods: {
     async handleFileUpload(event) {
-      const file = event.target.files[0]; // Get the first file from the list of uploaded files
+      const file = event.target.files[0];
 
-      // Create a FormData object
       const formData = new FormData();
-      formData.append("image", file); // Append the file to the FormData object
+      formData.append("image", file);
       const queID = localStorage.getItem("queID");
       formData.append("queID", queID);
 
       try {
-        // Send a POST request to the backend API endpoint
         const response = await axios.post(
           `${BASR_URL}/${RoutePathUrl.uploadPayslip}`,
           formData,
           {
             headers: {
-              "Content-Type": "multipart/form-data", // Set the Content-Type header to multipart/form-data
+              "Content-Type": "multipart/form-data",
             },
           }
         );
@@ -170,7 +168,6 @@ export default {
     var totalSum = ref(0);
 
     onMounted(async () => {
-      // localStorage.setItem('id', response.data.result)
 
       try {
         const userId = parseInt(localStorage.getItem("id"));
@@ -220,7 +217,7 @@ export default {
     });
 
     const formattedDate = moment(queDataRef.date_and_time).format("LL");
-    console.log(formattedDate); // Output: 2022-01-01
+    console.log(formattedDate);
 
     return {
       router,

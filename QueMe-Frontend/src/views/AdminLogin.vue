@@ -52,9 +52,6 @@ return { router, adminSignin, handleLogin };
 };
 </script>
 
-
-
-
 <style scoped>
 p{
 color: #fff;
@@ -171,6 +168,5 @@ margin-top: 125px;
 display: flex;
 justify-content: center;
 align-items: center;
-/* Optional: Set the container's height to the full viewport height */
 }
 </style>

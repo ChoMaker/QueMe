@@ -157,7 +157,6 @@ export default {
           `${BASR_URL}/${RoutePathUrl.adminTable}`
         );
         const { que, user, table, event } = response.data.result;
-        // console.log("Response.data", response.data.result);
 
         queDataRef.value = que || [];
         userData.value = user || [];
@@ -165,7 +164,6 @@ export default {
         eventDataRef.value = event || [];
 
         sortByDate();
-        console.log(eventDataRef.value);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

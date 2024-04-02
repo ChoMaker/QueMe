@@ -117,7 +117,6 @@ import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
 
 console.log("sentDate", localStorage.getItem("end_date"))
-// document.getElementById("endDate").value = localStorage.getItem("end_date");
 
 export default {
   name: "Home",
@@ -186,7 +185,7 @@ export default {
   methods: {
     async handleNextButtonClick() {
       // console.log("Selected Option:", this.selectedOption);
-      console.log("Selected Date:", this.selectedDate);
+      // console.log("Selected Date:", this.selectedDate);
       // console.log("Selected Zone:", this.selected);
       // console.log("Seats Quantity:", this.seatsQuantity);
       // console.log("Seat Zone Number:", this.seatZoneNumber);

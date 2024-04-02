@@ -131,7 +131,6 @@ export default {
           })
         ).data.result;
         queDataRef.value = que;
-        // queDataRef.value.date_and_time = moment(queDataRef.value.date_and_time).format('YYYY-MM-DD');
         tableDataRef.value = table;
         console.log("queData:", queDataRef.value);
         console.log("tableData:", tableDataRef.value);
@@ -141,7 +140,7 @@ export default {
     });
 
     const formattedDate = moment(queDataRef.date_and_time).format('LL');
-    console.log(formattedDate); // Output: 2022-01-01
+    console.log(formattedDate);
 
     return { router, userData, tableDataRef, queDataRef, formattedDate };
   },

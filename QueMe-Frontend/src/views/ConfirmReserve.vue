@@ -161,9 +161,6 @@ export default {
         queDataRef.value = que;
         tableDataRef.value = table;
 
-        console.log("datePicked", queDataRef.selectedDate);
-        console.log("array", queDataRef.value)
-
         const { order, food } = (
           await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {
             params: { id: userId, queID: queId },
@@ -211,14 +208,11 @@ export default {
             foodTotal.value += 4500;
             break;
         }
-        console.log("FoodAfter", foodTotal.value);
 
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     });
-
-    // const formattedDate = moment(queDataRef.date_and_time).format("LL");
 
     return {
       router,
@@ -248,7 +242,6 @@ export default {
 
         console.log("Server response:", response.data);
 
-        // Now you can perform the router push
         this.router.push({ name: "Pay" });
       } catch (error) {
         console.error("Error:", error);

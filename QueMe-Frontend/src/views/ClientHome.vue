@@ -108,9 +108,6 @@ export default {
       window.location.href = linePageURL;
     },
     getImageUrl(imageUrl) {
-      // Assuming the image URL is relative to the root of the server
-      // return `${VUE_APP_BASR_URL}/${imageUrl}`;
-      console.log("This is image: ", imageUrl);
       return `${imageUrl}`;
     },
   },

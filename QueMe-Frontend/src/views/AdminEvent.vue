@@ -100,13 +100,13 @@ export default {
   methods: {
     async postData() {
       try {
-        const fileInput = document.getElementById("formFile"); // Get the file input element
+        const fileInput = document.getElementById("formFile");
         if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
           console.error("No file selected");
           return;
         }
 
-        const file = fileInput.files[0]; // Get the first file from the input
+        const file = fileInput.files[0];
         console.log("Selected File:", file.name);
 
         const formData = new FormData();
@@ -117,7 +117,7 @@ export default {
 
         const response = await axios.post(
           `${BASR_URL}/${RoutePathUrl.postEvent}`,
-          formData, // Send formData directly as the request body
+          formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -155,7 +155,7 @@ export default {
     };
 
     onMounted(() => {
-      fetchEventData(); // Fetch event data when the component is mounted
+      fetchEventData();
     });
 
     const formatDate = (date) => {
@@ -168,12 +168,11 @@ export default {
           data: { id: eventId },
         });
         console.log('Event deleted successfully');
-        fetchEventData(); // Fetch event data after deleting an event
+        fetchEventData();
       } catch (error) {
         console.error('Error deleting event:', error);
       }
     };
-
 
     return {
       router,
@@ -312,7 +311,6 @@ p {
   z-index: 1;
 }
 
-/* Just common table stuff. Really. */
 table {
   border-collapse: collapse;
   width: 100%;

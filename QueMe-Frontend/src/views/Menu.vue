@@ -166,7 +166,6 @@ export default {
           que_id: parseInt(localStorage.getItem("queID")),
           quantity: quantity,
         }));
-        console.log("Items send:", itemsToSend);
 
         // Send only the selected items to the server
         const response = await axios.post(

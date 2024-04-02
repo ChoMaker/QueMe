@@ -95,13 +95,11 @@ import RoutePathUrl from "@/config/route";
 export default {
   data() {
     return {
-      totalAmount: 0, // Initialize the variable
+      totalAmount: 0,
     };
   },
   created() {
-    // Retrieve the total amount from localStorage
     const amountToPay = localStorage.getItem("amountToPay");
-    // Convert the retrieved string to a number
     this.totalAmount = parseFloat(amountToPay) || 0;
   },
 

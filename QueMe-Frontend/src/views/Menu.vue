@@ -371,7 +371,7 @@ p {
 
 .tableFixHead {
   overflow: auto;
-  height: 750px;
+  height: 580px;
 }
 
 .tableFixHead thead th {

@@ -53,7 +53,11 @@
                   <p class="col-6">{{ tableDataRef.zone }}{{ tableDataRef.name }}</p>
                   <p class="col-6 text-end">{{ queDataRef.seat }} people</p>
                 </div>
-                <p class="text-end mb-0">Reserve no. {{ queDataRef.id }}</p>
+                <div class="row">
+                  <p class="col-6">Total : {{ totalAmount }}</p>
+                <p class="col-6 text-end">Reserve no. {{ queDataRef.id }}</p>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -73,6 +77,16 @@ import RoutePathUrl from '@/config/route';
 
 
 export default {
+  data() {
+    return {
+      totalAmount: 0,
+    };
+  },
+  created() {
+    const amountToPay = localStorage.getItem("amountToPay");
+    this.totalAmount = parseFloat(amountToPay) || 0;
+  },
+
   setup() {
     const router = useRouter();
 

@@ -24,7 +24,7 @@
       <p class="reservation">Reservation</p>
       <p v-if="errorMessage">{{ errorMessage }}</p>
       <div class="col-lg-8">
-        <img src="/src/assets/map.png" />
+        <img src="/src/assets/seats.png" style="width: 850px; height: auto;"/>
       </div>
 
       <div class="col-lg-4">

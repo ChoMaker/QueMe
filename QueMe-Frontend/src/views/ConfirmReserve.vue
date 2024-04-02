@@ -31,8 +31,8 @@
         <p class="textAboveTextfield">Phone number</p>
         <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
           type="text" :value="userData.phone_number" aria-label="Disabled input example" disabled readonly />
-        <p class="textAboveTextfield">Date picked</p>
-        <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
+          <p class="textAboveTextfield">Date picked</p>
+    <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
           type="text" :value="formattedDate" aria-label="Disabled input example" disabled readonly />
         <p class="textAboveTextfield">Seats (Maximum reservation: 8)</p>
         <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
@@ -52,14 +52,14 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="container checkbox-margin">
+        <div class="container">
           <div class="d-flex" style="justify-content: space-between">
             <p style="align-self: center">Order summary</p>
           </div>
         </div>
 
 
-        <div class="container mt-3">
+        <div class="container mt-3" style="height: 400px; overflow-y: auto;">
           <table class="table">
             <thead>
               <tr>
@@ -109,6 +109,7 @@ export default {
     const router = useRouter();
     const name = ref("");
     const counter = ref(0);
+    var formattedDate = ref("");
 
     const userData = ref({
       id: "",
@@ -160,6 +161,9 @@ export default {
         queDataRef.value = que;
         tableDataRef.value = table;
 
+        console.log("datePicked", queDataRef.selectedDate);
+        console.log("array", queDataRef.value)
+
         const { order, food } = (
           await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {
             params: { id: userId, queID: queId },
@@ -188,6 +192,8 @@ export default {
 
         foodTotal.value = totalSum.value; // Set the initial value of foodTotal
 
+        formattedDate.value = moment(queDataRef.value.date_and_time).format("LL");
+
         // Calculate foodTotal based on queDataRef.type
         switch (queDataRef.value.type) {
           case TypeOfQue.BEFORE20:
@@ -206,12 +212,13 @@ export default {
             break;
         }
         console.log("FoodAfter", foodTotal.value);
+
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     });
 
-    const formattedDate = moment(queDataRef.date_and_time).format("LL");
+    // const formattedDate = moment(queDataRef.date_and_time).format("LL");
 
     return {
       router,
@@ -237,6 +244,7 @@ export default {
           }
         );
         localStorage.setItem("queID", response.data.result);
+        localStorage.setItem("amountToPay", this.foodTotal);
 
         console.log("Server response:", response.data);
 

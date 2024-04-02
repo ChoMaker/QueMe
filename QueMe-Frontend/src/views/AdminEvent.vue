@@ -22,13 +22,13 @@
       <p class="reservation">Event Update</p>
 
       <div class="col-lg-4 align-item-center">
-        <p class="textAboveTextfield">Event</p>
-        <div class="input-group" style="margin-bottom: 20px; width: 420px">
+        <p class="">Event</p>
+        <div class="input-group" style="width: 420px; margin-bottom: 15px;">
           <input placeholder="Fill the event name" v-model="name" type="text" class="form-control textfieldStyle"
             style="background-color: #e6e5c7" aria-label="seats" max="50" id="name" />
         </div>
         <p class="textAboveTextfield">Start Date</p>
-        <div class="card textFieldStyle" style="border-radius: 20px; width: 420px">
+        <div class="card textFieldStyle" style="border-radius: 20px; width: 420px; margin-bottom: 15px;">
           <div class="wrapper">
             <ejs-datepicker placeholder="Choose start date" style="color: #000" v-model="event_start_date"
               :min="minDate" format="dd-MMM-yyyy" id="start_date">
@@ -36,7 +36,7 @@
           </div>
         </div>
         <p class="textAboveTextfield">End Date</p>
-        <div class="card textFieldStyle" style="border-radius: 20px; width: 420px">
+        <div class="card textFieldStyle" style="border-radius: 20px; width: 420px; margin-bottom: 15px;">
           <div class="wrapper">
             <ejs-datepicker placeholder="Choose end date" style="color: #000" v-model="event_end_date" :min="minDate"
               format="dd-MMM-yyyy" id="end_date">
@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div style="margin-bottom: 20px; margin-top: 20px">
+        <div style="margin-bottom: 30px; margin-top: 30px">
           <input class="form-control" style="
               display: flex;
               border-radius: 20px;
@@ -56,20 +56,20 @@
         <button class="btn btnAll" @click="postData" type="button">Post</button>
       </div>
 
-      <div class="col-lg-7 tableFixHead">
+      <div class="col-lg-8 tableFixHead">
         <table class="table">
           <thead>
             <tr>
-              <th>Event Name</th>
-              <th>Date</th>
-              <th>Action</th>
+              <th class="text-center">Event Name</th>
+              <th class="text-center">Date</th>
+              <th class="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="event in eventDataRef" :key="index">
-              <td>{{ event.name }}</td>
-              <td>{{ formatDate(event.event_end_date) }}</td>
-              <td>
+              <td class="text-center">{{ event.name }}</td>
+              <td class="text-center">{{ formatDate(event.event_end_date) }}</td>
+              <td class="text-center">
                 <button class="btn btn-danger" @click="deleteEvent(event.id)">
                   Delete
                 </button>

@@ -186,7 +186,7 @@ export default {
   methods: {
     async handleNextButtonClick() {
       // console.log("Selected Option:", this.selectedOption);
-      // console.log("Selected Date:", this.selectedDate);
+      console.log("Selected Date:", this.selectedDate);
       // console.log("Selected Zone:", this.selected);
       // console.log("Seats Quantity:", this.seatsQuantity);
       // console.log("Seat Zone Number:", this.seatZoneNumber);

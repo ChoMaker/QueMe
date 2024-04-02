@@ -58,6 +58,8 @@
           <div class="row d-flex justify-content-center">
             <p class="d-flex justify-content-center" style="font-size: 20px; margin-bottom: 10px">
 
+              <p>Total : {{ totalAmount }}</p>
+
             </p>
             <img style="height: 400px; width: auto; margin-bottom: 3px" src="/src/assets/QR.png" alt="Logo" />
 
@@ -91,6 +93,17 @@ import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
 
 export default {
+  data() {
+    return {
+      totalAmount: 0, // Initialize the variable
+    };
+  },
+  created() {
+    // Retrieve the total amount from localStorage
+    const amountToPay = localStorage.getItem("amountToPay");
+    // Convert the retrieved string to a number
+    this.totalAmount = parseFloat(amountToPay) || 0;
+  },
 
   methods: {
     async handleFileUpload(event) {

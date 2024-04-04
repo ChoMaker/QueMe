@@ -142,7 +142,6 @@ export namespace QueService {
       await connection
     ).query("UPDATE que SET payslip_url = ? WHERE id = ?", [
       "src/assets/smlCard/" + file?.replace("uploads/", ""),
-      ,
       body.queID,
     ]);
   };

@@ -128,6 +128,13 @@ export default {
         console.error("Error uploading file:", error);
       }
     },
+
+    handleFileUpload(event) {
+      if (event.target.files.length > 0) {
+        alert("Payment successfully");
+        // event.target.value = "";
+      }
+    }
   },
 
   setup() {

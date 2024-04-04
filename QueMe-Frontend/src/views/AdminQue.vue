@@ -54,8 +54,10 @@
               <th scope="col" style="text-align: center;">Date</th>
               <th scope="col" style="text-align: center;">Name</th>
               <th scope="col" style="text-align: center;">Table</th>
-              <th scope="col" style="text-align: center;">Status</th>
               <th scope="col" style="text-align: center;">Phone number</th>
+              <th scope="col" style="text-align: center;">PaySlip</th>
+              <th scope="col" style="text-align: center;">Amount</th>
+              <th scope="col" style="text-align: center;">Status</th>
               <th scope="col" style="text-align: center;"></th>
             </tr>
           </thead>
@@ -64,8 +66,11 @@
               <td scope="row" style="text-align: center;">{{ formatDate(item.date_and_time) }}</td>
               <td style="text-align: center;">{{ getUserById(item.user_id).name }}</td>
               <td style="text-align: center;">{{ getTableById(item.table_id).zone}}{{ getTableById(item.table_id).name }}</td>
-              <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
               <td style="text-align: center;">{{ getUserById(item.user_id).phone_number }}</td>
+              <td style="text-align: center;">{{ getUserById(item.user_id).payslip_url }}</td>
+              <td style="text-align: center;">{{ item.amount !== null ? item.amount : 0 }}</td>
+              <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
+
               <td style="text-align: center;">
                 <button
                   :class="
@@ -106,6 +111,7 @@ export default {
     const userData = ref([]);
     const tableDataRef = ref([]);
     const eventDataRef = ref([]);
+    const orderDataRef = ref([]);
 
     const sortByDate = () => {
       queDataRef.value.sort((a, b) => {
@@ -156,14 +162,22 @@ export default {
         const response = await axios.get(
           `${BASR_URL}/${RoutePathUrl.adminTable}`
         );
-        const { que, user, table, event } = response.data.result;
-
+        const { que, user, table, event, order} = response.data.result;
         queDataRef.value = que || [];
         userData.value = user || [];
         tableDataRef.value = table || [];
-        eventDataRef.value = event || [];
+        eventDataRef.value = event || [];    
+        orderDataRef.value = order || [];      
+
 
         sortByDate();
+        console.log("queDataRef", queDataRef.value)
+        // console.log("userData", userData.value)
+        // console.log("tableDataRef", tableDataRef.value)
+        // console.log("eventDataRef", eventDataRef.value)
+        // console.log("orderDataRef", orderDataRef.value)
+
+
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

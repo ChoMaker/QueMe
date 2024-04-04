@@ -39,9 +39,15 @@
             <p class="textInCard mb-2" style="color: #000;">My reserve</p>
             <div class="card" style="background-color: #fff">
               <div class="card-body">
+
                 <div class="row">
-                  <p>{{ formattedDate }}</p>
+                  <div class="col-6">
+                    <p>Date: {{ formattedDate }}</p>
+                  </div>
+                  <div class="col-6 text-end">
+                    <p class="card-text" :class="{ 'text-danger': queDataRef.status === 0, 'text-success': queDataRef.status === 1 }">{{ reservationMessage }}</p>                  </div>
                 </div>
+
                 <div class="row">
                   <div class="herizontal-line"></div>
                 </div>
@@ -50,12 +56,48 @@
                   <p class="col-6 text-end">{{ userData.phone_number }}</p>
                 </div>
                 <div class="row">
-                  <p class="col-6">{{ tableDataRef.zone }}{{ tableDataRef.name }}</p>
+                  <p class="col-6">Table {{ tableDataRef.zone }}{{ tableDataRef.name }}</p>
                   <p class="col-6 text-end">{{ queDataRef.seat }} people</p>
                 </div>
                 <div class="row">
-                  <p class="col-6">Total : {{ totalAmount }}</p>
+                  <p class="col-6">Amount {{ totalAmount }}฿</p>
                 <p class="col-6 text-end">Reserve no. {{ queDataRef.id }}</p>
+                </div>
+                <div class="row justify-content-end">
+                  <button type="button" class="btn btnInCard" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Order detail
+                </button>
+              </div>
+                
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">You order</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <template v-for="(food, index) in foodDataRef" :key="food.id">
+                          <!-- Make sure orderDataRef has the same length as foodDataRef -->
+                          <tr>
+                            <!-- Food name and quantity -->
+                            <td style="text-align: left;">{{ food.name }}</td>
+                            <td style="text-align: left;">{{ food.quantity }}</td>
+
+                            <div class="space"></div>
+                            
+                            <!-- Order name and quantity -->
+                            <td style="text-align: right;">{{ orderDataRef[index].quantity }}</td>
+                          </tr>
+                        </template>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn navbarBtn" data-bs-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 
               </div>
@@ -87,6 +129,18 @@ export default {
     this.totalAmount = parseFloat(amountToPay) || 0;
   },
 
+  computed: {
+    reservationStatus() {
+      return this.queDataRef.status === 1 ? "Reservation confirmed" : "Reservation denied";
+    },
+    reservationMessage() {
+      return this.queDataRef.status === 1 ? "Your reservation has been confirmed." : "Your reservation has been denied.";
+    },
+    cardClass() {
+      return this.queDataRef.status === 1 ? "card text-white bg-success mb-3" : "card text-white bg-danger mb-3";
+    }
+  },
+
   setup() {
     const router = useRouter();
 
@@ -112,6 +166,13 @@ export default {
       zone: "",
       name: "",
     });
+    const orderDataRef = ref({
+      id: "",
+      food_id: "",
+      que_id: "",
+      quantity: "",
+    });
+    const foodDataRef = ref([]);
 
     onMounted(async () => {
       try {
@@ -125,6 +186,14 @@ export default {
         userData.value = userResponse.data.data;
         console.log("User:", userData.value);
 
+        const { order, food } = (
+          await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {
+            params: { id: userId, queID: queId },
+          })
+        ).data.result;
+        orderDataRef.value = order;
+        foodDataRef.value = food;
+
         const { que, table } = (
           await axios.get(`${BASR_URL}/${RoutePathUrl.getQueDetail}`, {
             params: { id: userId, queID: queId },
@@ -134,6 +203,8 @@ export default {
         tableDataRef.value = table;
         console.log("queData:", queDataRef.value);
         console.log("tableData:", tableDataRef.value);
+        console.log("foodDataRef:", foodDataRef.value);
+        console.log("oraderDataRef", orderDataRef.value);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -142,12 +213,23 @@ export default {
     const formattedDate = moment(queDataRef.date_and_time).format('LL');
     console.log(formattedDate);
 
-    return { router, userData, tableDataRef, queDataRef, formattedDate };
+    return { router, userData, tableDataRef, queDataRef, formattedDate, orderDataRef, foodDataRef, };
   },
 };
 </script>
 
 <style scoped>
+.statusCard{
+  border-radius: 50px;
+}
+.btnInCard{
+  width: 120px;
+  height: 35px;
+  background-color: #ff4e08;
+  color: #fff;
+  font-weight: 450;
+
+}
 .card {
   background-color: #e6e5c7;
 }

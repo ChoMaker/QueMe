@@ -73,6 +73,7 @@ export namespace QueController {
           user: result?.userData,
           table: result?.tableData,
           event: result?.eventData,
+          order: result?.orderData,
         },
       });
     } catch (error) {

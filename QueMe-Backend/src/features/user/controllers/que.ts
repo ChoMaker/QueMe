@@ -50,7 +50,7 @@ export namespace QueController {
 
   export const uploadPayslip = async (req: Request, res: Response) => {
     const body = req.body as UploadPayslip;
-    const file = req.file?.path;
+    const file = req.file?.originalname;
 
     if (!req.file) {
       return res.status(400).json({ error: "No file uploaded" });

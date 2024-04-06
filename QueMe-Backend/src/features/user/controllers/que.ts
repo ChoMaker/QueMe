@@ -74,6 +74,7 @@ export namespace QueController {
           table: result?.tableData,
           event: result?.eventData,
           order: result?.orderData,
+          food: result?.foodData,
         },
       });
     } catch (error) {

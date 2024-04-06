@@ -162,9 +162,8 @@ export namespace QueService {
       const [orderData] = await (
         await connection
       ).query("SELECT * FROM orders");
-      const [foodData] = await (await connection).query("SELECT * FROM foods");
 
-      return { allQue, userData, tableData, eventData, orderData, foodData };
+      return { allQue, userData, tableData, eventData, orderData };
     }
   };
 

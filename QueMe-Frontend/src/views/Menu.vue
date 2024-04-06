@@ -5,13 +5,13 @@
         <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
       </a>
       <div class="d-flex justify-content-end">
-        <button class="btn navBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
+        <button class="btn otherBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
           Home
         </button>
-        <button class="btn navBtn space" @click="router.push({ name: 'Profile' })" type="submit">
+        <button class="btn otherBtn space" @click="router.push({ name: 'Profile' })" type="submit">
           Profile
         </button>
-        <button class="btn navBtn" @click="router.push({ name: 'Login' })" type="submit">
+        <button class="btn otherBtn" @click="router.push({ name: 'Login' })" type="submit">
           Logout
         </button>
       </div>
@@ -219,7 +219,13 @@ export default {
   border-radius: 20px;
   min-width: 110px;
   background-color: #FF4E08;
-  color: #000;
+  color: #fff;
+}
+.otherBtn :hover {
+  border-radius: 20px;
+  min-width: 110px;
+  background-color: #af3606;
+  color: #fff;
 }
 
 .navBtn {
@@ -232,28 +238,6 @@ export default {
 .searchbar {
   margin: 10px;
   align-self: center;
-}
-
-.value-button {
-  display: inline-block;
-  border: 1px solid #ddd;
-  margin: 0px;
-  width: 40px;
-  height: 20px;
-  text-align: center;
-  vertical-align: middle;
-  padding: 11px 0;
-  background: #eee;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.value-button:hover {
-  cursor: pointer;
 }
 
 form #decrease {
@@ -340,6 +324,7 @@ input[type="number"]::-webkit-outer-spin-button {
   min-width: 110px;
 }
 
+
 p {
   color: #fff;
   margin-top: 0;
@@ -379,7 +364,6 @@ p {
   z-index: 1;
 }
 
-/* Just common table stuff. Really. */
 table {
   border-collapse: collapse;
   width: 100%;

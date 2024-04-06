@@ -24,9 +24,10 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col" style="text-align: center;">Date</th>
-              <th scope="col" style="text-align: center;">Name</th>
-              <th scope="col" style="text-align: center;">Table</th>
+              <th scope="col" style="text-align: start;">Date</th>
+              <th scope="col" style="text-align: start;">Name</th>
+              <th scope="col" style="text-align: start;">Table</th>
+              <th scope="col" style="text-align: start;">Type</th>
               <th scope="col" style="text-align: center;">Phone number</th>
               <th scope="col" style="text-align: center;">PaySlip</th>
               <th scope="col" style="text-align: center;">Amount</th>
@@ -35,27 +36,43 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in queDataRef" :key="index">
-              <td scope="row" style="text-align: center;">{{ formatDate(item.date_and_time) }}</td>
-              <td style="text-align: center;">{{ getUserById(item.user_id).name }}</td>
-              <td style="text-align: center;">{{ getTableById(item.table_id).zone}}{{ getTableById(item.table_id).name}}
-              </td>
-              <td style="text-align: center;">{{ getUserById(item.user_id).phone_number }}</td>
-              <td style="text-align: center;">
-                <img :src="getImagePath(item.payslip_url)" @click="openModal(item.payslip_url)"
-                  style="max-width: 50px; max-height: 50px; cursor: pointer;" />
-              </td>
-              <td style="text-align: center;">{{ item.amount !== null ? item.amount : 0 }}</td>
-              <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
+            <!-- Check if queDataRef has data -->
+            <template v-if="queDataRef.length > 0">
+              <tr v-for="(item, index) in queDataRef" :key="index">
+                <td scope="row" style="text-align: start;">{{ formatDate(item.date_and_time) }}</td>
+                <td style="text-align: start;">{{ getUserById(item.user_id).name }}</td>
+                <td style="text-align: start;">{{ getTableById(item.table_id).zone }}{{
+                  getTableById(item.table_id).name }}
+                </td>
+                <td style="text-align: start;">{{ item.type }}</td>
+                <td style="text-align: center;">{{ getUserById(item.user_id).phone_number }}</td>
+                <td style="text-align: center;">
+                  <!-- Render image or "-" based on the amount -->
+                  <template v-if="item.amount !== 0 && item.payslip_url">
+                    <img :src="getImagePath(item.payslip_url)" @click="openModal(item.payslip_url)"
+                      style="max-width: 50px; max-height: 50px; cursor: pointer;" />
+                  </template>
+                  <template v-else>
+                    -
+                  </template>
+                </td>
+                <td style="text-align: center;">{{ item.amount !== null ? item.amount : 0 }}</td>
+                <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
 
-              <td style="text-align: center;">
-                <button :class="
-                    item.status === 0 ? 'btn btn-success' : 'btn btn-danger'
-                  " @click="handleClick(item.id, item.status)">
-                  {{ item.status === 0 ? "Confirm" : "Cancel" }}
-                </button>
-              </td>
-            </tr>
+                <td style="text-align: center;">
+                  <button :class="item.status === 0 ? 'btn btn-success' : 'btn btn-danger'
+          " @click="handleClick(item.id, item.status)">
+                    {{ item.status === 0 ? "Confirm" : "Cancel" }}
+                  </button>
+                </td>
+              </tr>
+            </template>
+            <!-- Show "No data" if queDataRef is empty -->
+            <template v-else>
+              <tr>
+                <td colspan="9" style="text-align: center;">No data</td>
+              </tr>
+            </template>
           </tbody>
         </table>
 
@@ -145,9 +162,11 @@ export default {
       return tableDataRef.value.find((table) => table.id === tableId) || {};
     };
 
-    const getImageById = (queId) => {
+    const getQueById = (queId) => {
       return queDataRef.value.find((que) => que.id === queId) || {};
     };
+
+
 
     const showButtonLabel = computed(() => {
       return queDataRef.value.status ? "Cancel" : "Confirm";
@@ -189,7 +208,7 @@ export default {
         sortByDate();
         console.log("queDataRef", queDataRef.value)
         // console.log("userData", userData.value)
-        // console.log("tableDataRef", tableDataRef.value)
+        console.log("tableDataRef", tableDataRef.value)
         // console.log("eventDataRef", eventDataRef.value)
         // console.log("orderDataRef", orderDataRef.value)
 
@@ -218,7 +237,7 @@ export default {
       formatDate,
       getUserById,
       getTableById,
-      getImageById,
+      getQueById,
       getImagePath,
       showButtonLabel,
       handleClick,

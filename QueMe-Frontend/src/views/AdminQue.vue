@@ -21,7 +21,9 @@
   <div class="container">
     <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
       <div class="table-container" style="height: 700px; width: 1200px; overflow-y: auto; margin: 0 auto">
+        <!-- Table -->
         <table class="table">
+          <!-- Table header -->
           <thead>
             <tr>
               <th scope="col" style="text-align: start;">Date</th>
@@ -32,13 +34,16 @@
               <th scope="col" style="text-align: center;">PaySlip</th>
               <th scope="col" style="text-align: center;">Amount</th>
               <th scope="col" style="text-align: center;">Status</th>
+              <th scope="col" style="text-align: center;">Food</th>
+              <th scope="col" style="text-align: center;"></th>
               <th scope="col" style="text-align: center;"></th>
             </tr>
           </thead>
+          <!-- Table body -->
           <tbody>
             <!-- Check if queDataRef has data -->
             <template v-if="queDataRef.length > 0">
-              <tr v-for="(item, index) in queDataRef" :key="index">
+              <tr v-for="(item, index) in queDataRef" :key="index" @click="openModal(item)">
                 <td scope="row" style="text-align: start;">{{ formatDate(item.date_and_time) }}</td>
                 <td style="text-align: start;">{{ getUserById(item.user_id).name }}</td>
                 <td style="text-align: start;">{{ getTableById(item.table_id).zone }}{{
@@ -47,10 +52,8 @@
                 <td style="text-align: start;">{{ item.type }}</td>
                 <td style="text-align: center;">{{ getUserById(item.user_id).phone_number }}</td>
                 <td style="text-align: center;">
-                  <!-- Render image or "-" based on the amount -->
                   <template v-if="item.amount !== 0 && item.payslip_url">
-                    <img :src="getImagePath(item.payslip_url)" @click="openModal(item.payslip_url)"
-                      style="max-width: 50px; max-height: 50px; cursor: pointer;" />
+                    <img :src="getImagePath(item.payslip_url)" style="max-width: 50px; max-height: 50px;" />
                   </template>
                   <template v-else>
                     -
@@ -58,11 +61,16 @@
                 </td>
                 <td style="text-align: center;">{{ item.amount !== null ? item.amount : 0 }}</td>
                 <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
-
+                <td style="text-align: center;">{{ getFoodById(item.food_id) }}</td>
                 <td style="text-align: center;">
-                  <button :class="item.status === 0 ? 'btn btn-success' : 'btn btn-danger'
-          " @click="handleClick(item.id, item.status)">
+                  <button :class="item.status === 0 ? 'btn btn-success' : 'btn btn-danger'"
+                    @click.stop="handleClick(item.id, item.status)">
                     {{ item.status === 0 ? "Confirm" : "Cancel" }}
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-primary" @click="openModal(item)">
+                    Open Modal
                   </button>
                 </td>
               </tr>
@@ -78,15 +86,22 @@
 
 
         <!-- modal -->
-        <div v-if="modalOpen" class="modal fade show" tabindex="-1" aria-labelledby="exampleModalLabel"
-          aria-modal="true" role="dialog">
-          <div class="modal-dialog modal-dialog-centered">
+        <div class="modal" tabindex="-1" v-if="isModalOpen">
+          <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="btn-close ms-auto" @click="closeModal" aria-label="Close"></button>
+                <h5 class="modal-title">Detail</h5>
               </div>
               <div class="modal-body">
-                <img :src="modalImageUrl" style="width: 400px; height: auto;" />
+                <p>Date and Time: {{ formatDate(selectedRow.date_and_time) }}</p>
+                <p>Name: {{ getUserById(selectedRow.user_id).name }}</p>
+                <p>Table: {{ getTableById(selectedRow.table_id).zone }}{{ getTableById(selectedRow.table_id).name }}</p>
+                <p>Type: {{ selectedRow.type }}</p>
+                <p>Phone Number: {{ getUserById(selectedRow.user_id).phone_number }}</p>
+                <p>Order: {{ getOrderById(selectedRow.food_id) }}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
               </div>
             </div>
           </div>
@@ -115,18 +130,54 @@ export default {
   },
   data() {
     return {
-      modalOpen: false,
-      modalImageUrl: ''
+      isModalOpen: false,
+      queDataRef: [],
+      tableDataRef: [],
+      userData: [],
+      orderDataRef: [],
+      selectedRow: null
     };
   },
   methods: {
-    openModal(imageUrl) {
-      this.modalImageUrl = imageUrl;
-      this.modalOpen = true;
+    openModal(item) {
+      this.selectedRow = item;
+      this.isModalOpen = true;
+      // Fetch data for the selected row
+      const user = this.getUserById(row.user_id);
+      const table = this.getTableById(row.table_id);
+      const que = this.getQueById(row.que_id);
+      const order = this.getOrderById(row.order_id)
+
+      // Log fetched data
+      console.log('User:', user);
+      console.log('Table:', table);
+      console.log('Que:', que);
+      console.log('Oder:', order);
+
     },
     closeModal() {
-      this.modalOpen = false;
+      this.selectedRow = null;
+      this.isModalOpen = false;
+    },
+    formatDate(date) {
+      return moment(date).format("LL");
+    },
+    getUserById(userId) {
+      return userData.value.find((user) => user.id === userId) || {};
+    },
+    getTableById(tableId) {
+      return tableDataRef.value.find((table) => table.id === tableId) || {};
+    },
+    getQueById(queId) {
+      return queDataRef.value.find((que) => que.id === queId) || {};
+    },
+    getOrderById(orderId) {
+      return orderDataRef.value.find((order) => order.id === orderId) || {};
+    },
+    getFoodById(foodId) {
+      return foodDataRef.value.find((food) => food.id === foodId) || {};
     }
+
   },
 
   setup(props, { emit }) {
@@ -137,6 +188,7 @@ export default {
     const tableDataRef = ref([]);
     const eventDataRef = ref([]);
     const orderDataRef = ref([]);
+    const foodDataRef = ref([]);
 
     const getImagePath = (payslipUrl) => {
       return `${payslipUrl}`; // Assuming payslipUrl is the complete path
@@ -164,6 +216,10 @@ export default {
 
     const getQueById = (queId) => {
       return queDataRef.value.find((que) => que.id === queId) || {};
+    };
+
+    const getFoodById = (food) => {
+      return foodDataRef.value.find((food) => food.id === foodId) || {};
     };
 
 
@@ -197,20 +253,21 @@ export default {
         const response = await axios.get(
           `${BASR_URL}/${RoutePathUrl.adminTable}`
         );
-        const { que, user, table, event, order} = response.data.result;
+        const { que, user, table, event, order, food } = response.data.result;
         queDataRef.value = que || [];
         userData.value = user || [];
         tableDataRef.value = table || [];
-        eventDataRef.value = event || [];    
-        orderDataRef.value = order || [];      
-
+        eventDataRef.value = event || [];
+        orderDataRef.value = order || [];
+        foodDataRef.value = food || [];
 
         sortByDate();
-        console.log("queDataRef", queDataRef.value)
+        // console.log("queDataRef", queDataRef.value)
         // console.log("userData", userData.value)
-        console.log("tableDataRef", tableDataRef.value)
+        // console.log("tableDataRef", tableDataRef.value)
         // console.log("eventDataRef", eventDataRef.value)
         // console.log("orderDataRef", orderDataRef.value)
+        console.log("foodDataRef", foodDataRef.value)
 
 
       } catch (error) {
@@ -234,10 +291,12 @@ export default {
       userData,
       tableDataRef,
       eventDataRef,
+      foodDataRef,
       formatDate,
       getUserById,
       getTableById,
       getQueById,
+      getFoodById,
       getImagePath,
       showButtonLabel,
       handleClick,
@@ -249,51 +308,59 @@ export default {
 </script>
 
 <style scoped>
-.btn-close{
-  padding: 0px;
-  margin: 0px;
-  justify-items: end;
+.modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(.3rem - 1px);
+  border-top-right-radius: calc(.3rem - 1px);
+  padding: 1rem;
 }
 .modal {
   display: block;
   background-color: rgba(0, 0, 0, 0.5);
-  /* Semi-transparent background */
+  padding: 1rem;
 }
-
-.modal-dialog {
-  width: 80%;
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+.modal-footer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  padding: .75rem;
+  border-top: 1px solid #dee2e6;
+  border-bottom-right-radius: calc(.3rem - 1px);
+  border-bottom-left-radius: calc(.3rem - 1px);
 }
 
 .modal-content {
-  background-color: transparent;
+  background-color: #fff;
   width: 400px;
   border: none;
   box-shadow: none;
 }
 
-.modal-header {
-  background-color: transparent;
-  padding: 0px;
-  border-bottom: none;
-
-}
-
-.modal-body {
-  padding: 0;
-  /* No padding */
-}
 
 
 
 .table {
   border-radius: 10px;
 }
+
 .btnAll {
   border-radius: 20px;
   min-width: 110px;
   background-color: #ff4e08;
   color: #fff;
 }
+
 .leftText {
   align-self: self-end;
 }
@@ -342,11 +409,30 @@ export default {
 .space {
   margin-right: 22px;
 }
-.table-container        { overflow: auto; height: 750px; }
-.table-container thead th { position: sticky; top: 0; z-index: 1; }
+
+.table-container {
+  overflow: auto;
+  height: 750px;
+}
+
+.table-container thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 
 /* Just common table stuff. Really. */
-table  { border-collapse: collapse; width: 100%; }
-th, td { padding: 8px 16px; }
-th     { background:#eee; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 8px 16px;
+}
+
+th {
+  background: #eee;
+}
 </style>

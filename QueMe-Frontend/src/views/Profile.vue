@@ -204,7 +204,7 @@ export default {
         console.log("queData:", queDataRef.value);
         console.log("tableData:", tableDataRef.value);
         console.log("foodDataRef:", foodDataRef.value);
-        console.log("oraderDataRef", orderDataRef.value);
+        console.log("orderDataRef", orderDataRef.value);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

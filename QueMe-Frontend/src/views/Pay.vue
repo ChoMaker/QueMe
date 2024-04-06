@@ -58,7 +58,7 @@
           <div class="row d-flex justify-content-center">
             <p class="d-flex justify-content-center" style="font-size: 20px; margin-bottom: 10px">
 
-              <p>Total : {{ totalAmount }}</p>
+            <p>Total : {{ totalAmount }}</p>
 
             </p>
             <img style="height: 400px; width: auto; margin-bottom: 3px" src="/src/assets/QR.png" alt="Logo" />
@@ -77,7 +77,7 @@
       <button class="btn navbarBtn space" @click="router.push({ name: 'ClientHome' })" type="submit">
         Cancel
       </button>
-      <button class="btn navbarBtn" @click="router.push({ name: 'Profile' })" type="submit">
+      <button class="btn navbarBtn" @click="router.push({ name: 'Profile' });" type="submit">
         Next
       </button>
     </div>
@@ -104,15 +104,22 @@ export default {
   },
 
   methods: {
-    async handleFileUpload(event) {
-      const file = event.target.files[0];
-
-      const formData = new FormData();
-      formData.append("image", file);
-      const queID = localStorage.getItem("queID");
-      formData.append("queID", queID);
-
+    async handleFileUpload() {
       try {
+        const fileInput = document.getElementById('formFile');
+        console.log("File input:", fileInput);
+
+        const file = fileInput.files[0];
+        console.log("Selected file:", file);
+
+        const queID = localStorage.getItem("queID");
+        console.log("queID:", queID);
+
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("queID", queID);
+        console.log("FormData:", formData);
+
         const response = await axios.post(
           `${BASR_URL}/${RoutePathUrl.uploadPayslip}`,
           formData,
@@ -128,14 +135,9 @@ export default {
         console.error("Error uploading file:", error);
       }
     },
-
-    handleFileUpload(event) {
-      if (event.target.files.length > 0) {
-        alert("Payment successfully");
-        // event.target.value = "";
-      }
-    }
   },
+
+
 
   setup() {
     const router = useRouter();

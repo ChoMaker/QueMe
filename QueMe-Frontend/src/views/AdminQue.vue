@@ -2,34 +2,16 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img
-          src="/src/assets/logo-removebg.png"
-          alt="Logo"
-          style="width: 91px; height: auto"
-        />
+        <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
       </a>
       <div class="d-flex justify-content-end">
-        <button
-          class="btn btn-link"
-          style="color: #fff"
-          @click="router.push({ name: 'AdminEvent' })"
-          type="submit"
-        >
+        <button class="btn btn-link" style="color: #fff" @click="router.push({ name: 'AdminEvent' })" type="submit">
           Event
         </button>
-        <button
-          class="btn btn-link"
-          style="color: #fff"
-          @click="router.push({ name: 'AdminQue' })"
-          type="submit"
-        >
+        <button class="btn btn-link" style="color: #fff" @click="router.push({ name: 'AdminQue' })" type="submit">
           Que
         </button>
-        <button
-          class="btn btnAll"
-          @click="router.push({ name: 'Login' })"
-          type="submit"
-        >
+        <button class="btn btnAll" @click="router.push({ name: 'Login' })" type="submit">
           Logout
         </button>
       </div>
@@ -37,17 +19,8 @@
   </nav>
 
   <div class="container">
-    <div
-      data-bs-spy="scroll"
-      data-bs-target="#list-example"
-      data-bs-offset="0"
-      class="scrollspy-example"
-      tabindex="0"
-    >
-      <div
-        class="table-container"
-        style="height: 700px; width: 1200px; overflow-y: auto; margin: 0 auto"
-      >
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+      <div class="table-container" style="height: 700px; width: 1200px; overflow-y: auto; margin: 0 auto">
         <table class="table">
           <thead>
             <tr>
@@ -65,25 +38,44 @@
             <tr v-for="(item, index) in queDataRef" :key="index">
               <td scope="row" style="text-align: center;">{{ formatDate(item.date_and_time) }}</td>
               <td style="text-align: center;">{{ getUserById(item.user_id).name }}</td>
-              <td style="text-align: center;">{{ getTableById(item.table_id).zone}}{{ getTableById(item.table_id).name }}</td>
+              <td style="text-align: center;">{{ getTableById(item.table_id).zone}}{{ getTableById(item.table_id).name}}
+              </td>
               <td style="text-align: center;">{{ getUserById(item.user_id).phone_number }}</td>
-              <td style="text-align: center;">{{ getUserById(item.user_id).payslip_url }}</td>
+              <td style="text-align: center;">
+                <img :src="getImagePath(item.payslip_url)" @click="openModal(item.payslip_url)"
+                  style="max-width: 50px; max-height: 50px; cursor: pointer;" />
+              </td>
               <td style="text-align: center;">{{ item.amount !== null ? item.amount : 0 }}</td>
               <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
 
               <td style="text-align: center;">
-                <button
-                  :class="
+                <button :class="
                     item.status === 0 ? 'btn btn-success' : 'btn btn-danger'
-                  "
-                  @click="handleClick(item.id, item.status)"
-                >
+                  " @click="handleClick(item.id, item.status)">
                   {{ item.status === 0 ? "Confirm" : "Cancel" }}
                 </button>
               </td>
             </tr>
           </tbody>
         </table>
+
+
+        <!-- modal -->
+        <div v-if="modalOpen" class="modal fade show" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-modal="true" role="dialog">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close ms-auto" @click="closeModal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img :src="modalImageUrl" style="width: 400px; height: auto;" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
@@ -98,10 +90,26 @@ import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
 import { DatePickerComponent } from "@syncfusion/ej2-vue-calendars";
 
+
 export default {
   name: "Home",
   components: {
     "ejs-datepicker": DatePickerComponent,
+  },
+  data() {
+    return {
+      modalOpen: false,
+      modalImageUrl: ''
+    };
+  },
+  methods: {
+    openModal(imageUrl) {
+      this.modalImageUrl = imageUrl;
+      this.modalOpen = true;
+    },
+    closeModal() {
+      this.modalOpen = false;
+    }
   },
 
   setup(props, { emit }) {
@@ -112,6 +120,10 @@ export default {
     const tableDataRef = ref([]);
     const eventDataRef = ref([]);
     const orderDataRef = ref([]);
+
+    const getImagePath = (payslipUrl) => {
+      return `${payslipUrl}`; // Assuming payslipUrl is the complete path
+    };
 
     const sortByDate = () => {
       queDataRef.value.sort((a, b) => {
@@ -131,6 +143,10 @@ export default {
 
     const getTableById = (tableId) => {
       return tableDataRef.value.find((table) => table.id === tableId) || {};
+    };
+
+    const getImageById = (queId) => {
+      return queDataRef.value.find((que) => que.id === queId) || {};
     };
 
     const showButtonLabel = computed(() => {
@@ -202,6 +218,8 @@ export default {
       formatDate,
       getUserById,
       getTableById,
+      getImageById,
+      getImagePath,
       showButtonLabel,
       handleClick,
       sortByDate,
@@ -212,6 +230,42 @@ export default {
 </script>
 
 <style scoped>
+.btn-close{
+  padding: 0px;
+  margin: 0px;
+  justify-items: end;
+}
+.modal {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
+}
+
+.modal-dialog {
+  width: 80%;
+}
+
+.modal-content {
+  background-color: transparent;
+  width: 400px;
+  border: none;
+  box-shadow: none;
+}
+
+.modal-header {
+  background-color: transparent;
+  padding: 0px;
+  border-bottom: none;
+
+}
+
+.modal-body {
+  padding: 0;
+  /* No padding */
+}
+
+
+
 .table {
   border-radius: 10px;
 }

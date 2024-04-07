@@ -123,6 +123,7 @@ export namespace QueController {
       const result = await QueService.updateAmount(body);
       return res.status(200).json({
         message: "Update successfully",
+        result: result,
       });
     } catch (error) {
       return res.status(404).json({

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ReserveOrder } from "../../../models/reserveOrder";
 import { OrderService } from "../services/order";
 import { GetOrder } from "../../../models/getOrder";
+import { OrderData } from "../../../models/orderData";
 
 const ReserveData: { food_id: number; que_id: number; quantity: number }[] = [];
 
@@ -49,4 +50,22 @@ export namespace OrderController {
       });
     }
   };
+
+  // export const getOrderData = async (req: Request, res: Response) => {
+  //   const body = req.body as OrderData;
+  //   const error: Error = new Error("Error message");
+
+  //   try {
+  //     const result = await OrderService.getOrderData(body);
+  //     return res.status(200).json({
+  //       message: "Reserve que successfully",
+  //       result: result,
+  //     });
+  //   } catch (error) {
+  //     return res.status(500).json({
+  //       message: "Can't reserve que",
+  //       error: (error as any).message,
+  //     });
+  //   }
+  // };
 }

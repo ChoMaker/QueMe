@@ -1,5 +1,6 @@
 import { connection } from "../../../config/db";
 import { GetOrder } from "../../../models/getOrder";
+import { OrderData } from "../../../models/orderData";
 import { ReserveOrder } from "../../../models/reserveOrder";
 
 type queData = {
@@ -24,6 +25,10 @@ type foodData = {
   id: number;
   name: string;
   quantity: number;
+};
+
+type foodIdData = {
+  food_id: number;
 };
 
 export namespace OrderService {
@@ -72,4 +77,24 @@ export namespace OrderService {
 
     return { orderData2, foods };
   };
+
+  // export const getOrderData = async (body: OrderData) => {
+  //   const [resultOrder] = await (
+  //     await connection
+  //   ).query(
+  //     `
+  //     SELECT food_id from orders WHERE que_id=?`,
+  //     [body.que_id]
+  //   );
+
+  //   const order = resultOrder as foodIdData[];
+  //   console.log(order);
+
+  //   const [resultFood] = await (
+  //     await connection
+  //   ).query("SELECT * from foods WHERE id=?", [order]);
+
+  //   // console.log([resultFood]);
+  //   // return resultFood;
+  // };
 }

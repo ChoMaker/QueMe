@@ -187,6 +187,5 @@ export namespace QueService {
     const queAmount = await (
       await connection
     ).query("UPDATE que SET amount=? WHERE id=?", [body.amount, body.queID]);
-    return body.queID;
   };
 }

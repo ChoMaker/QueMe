@@ -77,4 +77,28 @@ export namespace OrderService {
 
     return { orderData2, foods };
   };
+
+  export const getOrderData = async (body: OrderData) => {
+    const [resultOrder] = await (
+      await connection
+    ).query(
+      `
+      SELECT food_id from orders WHERE que_id=?`,
+      [body.que_id]
+    );
+
+    const result = resultOrder as foodIdData[];
+    const orderList = [];
+
+    for (const result2 of result) {
+      const [foodData] = await (
+        await connection
+      ).query(`SELECT * from foods WHERE id=?`, [result2.food_id]);
+      const foodData2 = foodData as foodData[];
+      console.log(foodData2);
+      orderList.push(foodData2);
+    }
+
+    return orderList;
+  };
 }

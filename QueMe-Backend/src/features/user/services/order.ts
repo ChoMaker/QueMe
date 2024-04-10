@@ -83,7 +83,7 @@ export namespace OrderService {
       await connection
     ).query(
       `
-      SELECT food_id from orders WHERE que_id=?`,
+      SELECT * from orders WHERE que_id=?`,
       [body.que_id]
     );
 
@@ -99,6 +99,6 @@ export namespace OrderService {
       orderList.push(foodData2);
     }
 
-    return orderList;
+    return { orderList, resultOrder };
   };
 }

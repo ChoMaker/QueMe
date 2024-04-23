@@ -26,7 +26,8 @@
           <!-- Table header -->
           <thead>
             <tr>
-              <th scope="col" style="text-align: start;">Date</th>
+              <th scope="col" style="text-align: start;">ID</th>
+              <th scope="col" style="text-align: center;">Date</th>
               <th scope="col" style="text-align: start;">Name</th>
               <th scope="col" style="text-align: start;">Table</th>
               <th scope="col" style="text-align: start;">Type</th>
@@ -34,7 +35,6 @@
               <th scope="col" style="text-align: center;">PaySlip</th>
               <th scope="col" style="text-align: center;">Amount</th>
               <th scope="col" style="text-align: center;">Status</th>
-              <th scope="col" style="text-align: center;">Food</th>
               <th scope="col" style="text-align: center;"></th>
               <th scope="col" style="text-align: center;"></th>
             </tr>
@@ -43,7 +43,8 @@
           <tbody>
             <!-- Check if queDataRef has data -->
             <template v-if="queDataRef.length > 0">
-              <tr v-for="(item, index) in queDataRef" :key="index" @click="openModal(item)">
+              <tr v-for="(item, index) in queDataRef" :key="index">
+                <td scope="row" style="text-align: start;">{{ item.id }}</td>
                 <td scope="row" style="text-align: start;">{{ formatDate(item.date_and_time) }}</td>
                 <td style="text-align: start;">{{ getUserById(item.user_id).name }}</td>
                 <td style="text-align: start;">{{ getTableById(item.table_id).zone }}{{
@@ -61,7 +62,6 @@
                 </td>
                 <td style="text-align: center;">{{ item.amount !== null ? item.amount : 0 }}</td>
                 <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
-                <td style="text-align: center;">{{ getFoodById(item.food_id) }}</td>
                 <td style="text-align: center;">
                   <button :class="item.status === 0 ? 'btn btn-success' : 'btn btn-danger'"
                     @click.stop="handleClick(item.id, item.status)">
@@ -70,7 +70,7 @@
                 </td>
                 <td>
                   <button class="btn btn-primary" @click="openModal(item)">
-                    Open Modal
+                    Details
                   </button>
                 </td>
               </tr>
@@ -93,12 +93,24 @@
                 <h5 class="modal-title">Detail</h5>
               </div>
               <div class="modal-body">
+                {{ selectedRow.id }}
                 <p>Date and Time: {{ formatDate(selectedRow.date_and_time) }}</p>
                 <p>Name: {{ getUserById(selectedRow.user_id).name }}</p>
                 <p>Table: {{ getTableById(selectedRow.table_id).zone }}{{ getTableById(selectedRow.table_id).name }}</p>
                 <p>Type: {{ selectedRow.type }}</p>
                 <p>Phone Number: {{ getUserById(selectedRow.user_id).phone_number }}</p>
-                <p>Order: {{ getOrderById(selectedRow.food_id) }}</p>
+                <p>Food:</p>
+                <table>
+                  <tbody>
+                    <!-- Iterate over foodDataRef based on selectedRow que ID -->
+                    <template v-for="(order, index) in getOrderData(selectedRow.id)" :key="index">
+                      <tr>
+                        <td style="text-align: left;">{{ getFoodById(order.food_id).name }}</td>
+                        <td style="text-align: left;">{{ order.quantity }}</td>
+                      </tr>
+                    </template>
+                  </tbody>
+                </table>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
@@ -106,6 +118,8 @@
             </div>
           </div>
         </div>
+
+
 
 
       </div>
@@ -131,67 +145,39 @@ export default {
   data() {
     return {
       isModalOpen: false,
-      queDataRef: [],
-      tableDataRef: [],
-      userData: [],
-      orderDataRef: [],
-      selectedRow: null
+      selectedRow: null,
     };
   },
   methods: {
     openModal(item) {
       this.selectedRow = item;
       this.isModalOpen = true;
-      // Fetch data for the selected row
-      const user = this.getUserById(row.user_id);
-      const table = this.getTableById(row.table_id);
-      const que = this.getQueById(row.que_id);
-      const order = this.getOrderById(row.order_id)
-
-      // Log fetched data
-      console.log('User:', user);
-      console.log('Table:', table);
-      console.log('Que:', que);
-      console.log('Oder:', order);
-
     },
     closeModal() {
       this.selectedRow = null;
       this.isModalOpen = false;
     },
-    formatDate(date) {
-      return moment(date).format("LL");
-    },
-    getUserById(userId) {
-      return userData.value.find((user) => user.id === userId) || {};
-    },
-    getTableById(tableId) {
-      return tableDataRef.value.find((table) => table.id === tableId) || {};
-    },
-    getQueById(queId) {
-      return queDataRef.value.find((que) => que.id === queId) || {};
-    },
-    getOrderById(orderId) {
-      return orderDataRef.value.find((order) => order.id === orderId) || {};
-    },
-    getFoodById(foodId) {
-      return foodDataRef.value.find((food) => food.id === foodId) || {};
+    getOrderData(queId) {
+      return this.foodDataRef.filter(order => order.que_id === queId);
     }
-
   },
+
 
   setup(props, { emit }) {
     const router = useRouter();
-
     const queDataRef = ref([]);
     const userData = ref([]);
     const tableDataRef = ref([]);
     const eventDataRef = ref([]);
     const orderDataRef = ref([]);
+
     const foodDataRef = ref([]);
+    const orderListRef = ref([]);
+    const resultOrderRef = ref([]);
+
 
     const getImagePath = (payslipUrl) => {
-      return `${payslipUrl}`; // Assuming payslipUrl is the complete path
+      return `${payslipUrl}`;
     };
 
     const sortByDate = () => {
@@ -205,21 +191,26 @@ export default {
     const formatDate = (date) => {
       return moment(date).format("LL");
     };
-
     const getUserById = (userId) => {
       return userData.value.find((user) => user.id === userId) || {};
     };
-
     const getTableById = (tableId) => {
       return tableDataRef.value.find((table) => table.id === tableId) || {};
     };
-
     const getQueById = (queId) => {
       return queDataRef.value.find((que) => que.id === queId) || {};
     };
-
-    const getFoodById = (food) => {
+    const getFoodById = (foodId) => {
       return foodDataRef.value.find((food) => food.id === foodId) || {};
+    };
+    const getOrderById = (orderId) => {
+      return orderDataRef.value.find((order) => order.id === orderId) || {};
+    };
+    const getOrderData = (queId) => {
+      console.log("Food data:", foodDataRef.value);
+      const orders = foodDataRef.value.filter((order) => order.que_id === queId);
+      console.log("Orders for que ID", queId, ":", orders);
+      return orders;
     };
 
 
@@ -230,14 +221,11 @@ export default {
 
     const handleClick = async (id, status) => {
       try {
-        // Toggle the status
         const newStatus = status === 0 ? 1 : 0;
 
-        // Update the status in the local array
         const rowToUpdate = queDataRef.value.find((row) => row.id === id);
         if (rowToUpdate) rowToUpdate.status = newStatus;
 
-        // Update the status in the database
         const response = await axios.put(
           `${BASR_URL}/${RoutePathUrl.updateStatus}`,
           { id: id, status: newStatus }
@@ -261,14 +249,25 @@ export default {
         orderDataRef.value = order || [];
         foodDataRef.value = food || [];
 
-        sortByDate();
+        
+        // sortByDate();
         // console.log("queDataRef", queDataRef.value)
         // console.log("userData", userData.value)
         // console.log("tableDataRef", tableDataRef.value)
         // console.log("eventDataRef", eventDataRef.value)
         // console.log("orderDataRef", orderDataRef.value)
-        console.log("foodDataRef", foodDataRef.value)
+        // console.log("foodDataRef", foodDataRef.value)
 
+        // console.log(getOrderById(orderDataRef.value[3].id));
+
+
+        const foodResponse = await axios.get(`${BASR_URL}/${RoutePathUrl.getFoodData}`);
+        const { orderList, resultOrder } = foodResponse.data.result;
+        orderListRef.value = orderList || [];
+        resultOrderRef.value = resultOrder || [];
+
+        // console.log("Order List:", orderListRef.value);
+        // console.log("Result Order:", resultOrderRef.value);
 
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -292,16 +291,21 @@ export default {
       tableDataRef,
       eventDataRef,
       foodDataRef,
+      orderDataRef,
       formatDate,
       getUserById,
       getTableById,
       getQueById,
       getFoodById,
+      getOrderById,
       getImagePath,
+      getOrderData,
       showButtonLabel,
       handleClick,
       sortByDate,
       sortedQueDataRef,
+      orderListRef,
+      resultOrderRef,
     };
   },
 };
@@ -318,16 +322,19 @@ export default {
   border-top-right-radius: calc(.3rem - 1px);
   padding: 1rem;
 }
+
 .modal {
   display: block;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1rem;
 }
+
 .modal-body {
   position: relative;
   flex: 1 1 auto;
   padding: 1rem;
 }
+
 .modal-footer {
   display: flex;
   flex-wrap: wrap;
@@ -421,7 +428,7 @@ export default {
   z-index: 1;
 }
 
-/* Just common table stuff. Really. */
+
 table {
   border-collapse: collapse;
   width: 100%;

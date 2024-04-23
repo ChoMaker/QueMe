@@ -13,5 +13,6 @@ export default {
   postEvent: "qm/createevent",
   getEvent: "qm/getevent",
   deleteEvent: "qm/deleteevent",
-  adminLogin:"qm/signinadmin",
+  adminLogin: "qm/signinadmin",
+  getFoodData: "qm/getorderdata",
 }

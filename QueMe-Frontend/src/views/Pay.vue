@@ -33,7 +33,7 @@
           type="text" :value="userData.phone_number" aria-label="Disabled input example" disabled readonly />
         <p class="textAboveTextfield">Date picked</p>
         <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
-          type="text" :value="formattedDate" aria-label="Disabled input example" disabled readonly />
+          type="text" :value="queDataRef.date_and_time" aria-label="Disabled input example" disabled readonly />
         <p class="textAboveTextfield">Seats (Maximum reservation: 8)</p>
         <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
           type="text" :value="queDataRef.seat" aria-label="Disabled input example" disabled readonly />
@@ -131,6 +131,8 @@ export default {
         );
 
         console.log("Server response:", response.data);
+        console.log("queDataRef.value.date_and_time:", queDataRef.value.date_and_time);
+
       } catch (error) {
         console.error("Error uploading file:", error);
       }
@@ -205,7 +207,7 @@ export default {
         foodDataRef.value = food;
 
         foodDataRef.value = food.map((food) => ({ ...food }));
-        console.log("Food: ", foodDataRef.value);
+        // console.log("Food: ", foodDataRef.value);
 
         for (let i = 0; i < foodDataRef.value.length; i++) {
           for (let j = 0; j < order.length; j++) {
@@ -218,15 +220,19 @@ export default {
 
         for (let i = 0; i < foodDataRef.value.length; i++) {
           totalSum.value += foodDataRef.value[i].price;
-          console.log(totalSum.value);
+          // console.log(totalSum.value);
         }
+
+        // console.log(queDataRef.value);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     });
 
-    const formattedDate = moment(queDataRef.date_and_time).format("LL");
+    const formattedDate = moment(queDataRef.value.date_and_time).format("LL");
     console.log(formattedDate);
+    console.log(queDataRef.value.date_and_time);
+
 
     return {
       router,

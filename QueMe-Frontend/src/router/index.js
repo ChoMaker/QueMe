@@ -9,10 +9,10 @@ import Pay from "../views/Pay.vue";
 import MenuDrink from "../views/MenuDrink.vue";
 import Profile from "../views/Profile.vue";
 import Register from "../views/Register.vue";
-
 import AdminEvent from "../views/AdminEvent.vue";
 import AdminLogin from "../views/AdminLogin.vue";
 import AdminQue from "../views/AdminQue.vue";
+import AdminQueStatus from "../views/AdminQueStatus.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -22,7 +22,7 @@ const router = createRouter({
       name: "Login",
       component: Login,
       meta: {
-        title: 'Login',
+        title: "Login",
       },
     },
     {
@@ -30,7 +30,7 @@ const router = createRouter({
       name: "Home",
       component: Home,
       meta: {
-        title: 'Reservation',
+        title: "Reservation",
       },
     },
     {
@@ -38,7 +38,7 @@ const router = createRouter({
       name: "ClientHome",
       component: ClientHome,
       meta: {
-        title: 'Home Page',
+        title: "Home Page",
       },
     },
     {
@@ -46,7 +46,7 @@ const router = createRouter({
       name: "Menu",
       component: Menu,
       meta: {
-        title: 'Menu Page',
+        title: "Menu Page",
       },
     },
     {
@@ -54,7 +54,7 @@ const router = createRouter({
       name: "ConfirmReserve",
       component: ConfirmReservation,
       meta: {
-        title: 'Confirm Reservation',
+        title: "Confirm Reservation",
       },
     },
     {
@@ -62,7 +62,7 @@ const router = createRouter({
       name: "Pay",
       component: Pay,
       meta: {
-        title: 'Payment Page',
+        title: "Payment Page",
       },
     },
     {
@@ -70,7 +70,7 @@ const router = createRouter({
       name: "MenuDrink",
       component: MenuDrink,
       meta: {
-        title: 'Menu Drink',
+        title: "Menu Drink",
       },
     },
     {
@@ -78,7 +78,7 @@ const router = createRouter({
       name: "Profile",
       component: Profile,
       meta: {
-        title: 'Profile',
+        title: "Profile",
       },
     },
     {
@@ -86,7 +86,7 @@ const router = createRouter({
       name: "Register",
       component: Register,
       meta: {
-        title: 'Register',
+        title: "Register",
       },
     },
     {
@@ -94,7 +94,7 @@ const router = createRouter({
       name: "AdminEvent",
       component: AdminEvent,
       meta: {
-        title: 'Admin Event',
+        title: "Admin Event",
       },
     },
     {
@@ -102,7 +102,7 @@ const router = createRouter({
       name: "AdminQue",
       component: AdminQue,
       meta: {
-        title: 'Admin Que',
+        title: "Admin Que",
       },
     },
     {
@@ -110,10 +110,17 @@ const router = createRouter({
       name: "AdminLogin",
       component: AdminLogin,
       meta: {
-        title: 'Admin Login',
+        title: "Admin Login",
       },
     },
-
+    {
+      path: "/admin-status",
+      name: "AdminQueStatus",
+      component: AdminQueStatus,
+      meta: {
+        title: "Admin-Que",
+      },
+    },
   ],
 });
 

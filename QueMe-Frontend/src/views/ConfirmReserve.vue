@@ -31,8 +31,8 @@
         <p class="textAboveTextfield">Phone number</p>
         <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
           type="text" :value="userData.phone_number" aria-label="Disabled input example" disabled readonly />
-          <p class="textAboveTextfield">Date picked</p>
-    <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
+        <p class="textAboveTextfield">Date picked</p>
+        <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
           type="text" :value="formattedDate" aria-label="Disabled input example" disabled readonly />
         <p class="textAboveTextfield">Seats (Maximum reservation: 8)</p>
         <input style="background-color: #e6e5c7; border: none; margin-bottom: 20px;" class="form-control textfieldStyle"
@@ -160,6 +160,8 @@ export default {
         ).data.result;
         queDataRef.value = que;
         tableDataRef.value = table;
+
+        console.log("queDataRef.value.date_and_time:", queDataRef.value.date_and_time);
 
         const { order, food } = (
           await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {

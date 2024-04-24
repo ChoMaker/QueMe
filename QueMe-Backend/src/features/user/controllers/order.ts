@@ -52,18 +52,18 @@ export namespace OrderController {
   };
 
   export const getOrderData = async (req: Request, res: Response) => {
-    const body = req.body as OrderData;
+    const body = req.query as unknown as OrderData;
     const error: Error = new Error("Error message");
 
     try {
       const result = await OrderService.getOrderData(body);
       return res.status(200).json({
-        message: "Reserve que successfully",
+        message: "Get order by que successfully",
         result: result,
       });
     } catch (error) {
       return res.status(500).json({
-        message: "Can't reserve que",
+        message: "Can't get order",
         error: (error as any).message,
       });
     }

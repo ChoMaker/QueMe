@@ -151,12 +151,7 @@ export default {
 
                 console.log("Order List:", orderListRef.value);
                 console.log("Result Order:", resultOrderRef.value);
-                // console.log("queDataRef", queDataRef.value)
-                // console.log("userData", userData.value)
-                // console.log("tableDataRef", tableDataRef.value)
-                // console.log("eventDataRef", eventDataRef.value)
                 console.log("orderDataRef", orderDataRef.value)
-                // console.log("foodDataRef", foodDataRef.value)
             } catch (error) {
                 console.error("Error fetching data:", error);
             }

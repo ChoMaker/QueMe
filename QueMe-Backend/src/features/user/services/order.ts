@@ -87,6 +87,8 @@ export namespace OrderService {
       [body.que_id]
     );
 
+    console.log(body);
+
     const result = resultOrder as foodIdData[];
     const orderList = [];
 
@@ -95,9 +97,9 @@ export namespace OrderService {
         await connection
       ).query(`SELECT * from foods WHERE id=?`, [result2.food_id]);
       const foodData2 = foodData as foodData[];
-      console.log(foodData2);
-      orderList.push(foodData2);
+      orderList.push(foodData2[0]);
     }
+    console.log(orderList);
 
     return { orderList, resultOrder };
   };

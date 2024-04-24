@@ -69,7 +69,7 @@
                   </button>
                 </td>
                 <td>
-                  <button class="btn btn-primary" @click="openModal(item)">
+                  <button class="btn btn-primary" @click="openModal(item);handleClickDetail(item)">
                     Details
                   </button>
                 </td>
@@ -94,15 +94,16 @@
               </div>
               <div class="modal-body">
                 {{ selectedRow.id }}
-                <p>Date and Time: {{ formatDate(selectedRow.date_and_time) }}</p>
-                <p>Name: {{ getUserById(selectedRow.user_id).name }}</p>
-                <p>Table: {{ getTableById(selectedRow.table_id).zone }}{{ getTableById(selectedRow.table_id).name }}</p>
-                <p>Type: {{ selectedRow.type }}</p>
-                <p>Phone Number: {{ getUserById(selectedRow.user_id).phone_number }}</p>
-                <p>Food:</p>
-                <table>
+                <p>Date and Time : {{ formatDate(selectedRow.date_and_time) }}</p>
+                <p>Name : {{ getUserById(selectedRow.user_id).name }}</p>
+                <p>Table : {{ getTableById(selectedRow.table_id).zone }}{{ getTableById(selectedRow.table_id).name }}</p>
+                <p>Type : {{ selectedRow.type }}</p>
+                <p>Phone Number : {{ getUserById(selectedRow.user_id).phone_number }}</p>
+                <p>Food : </p>
+                  <ul><li v-for="(food, index) in orderByQueDataRef"> {{ food.name }} {{ quantityDataRef[index].quantity }} </li></ul>
+                <!-- <table>
                   <tbody>
-                    <!-- Iterate over foodDataRef based on selectedRow que ID -->
+                    Iterate over foodDataRef based on selectedRow que ID
                     <template v-for="(order, index) in getOrderData(selectedRow.id)" :key="index">
                       <tr>
                         <td style="text-align: left;">{{ getFoodById(order.food_id).name }}</td>
@@ -110,7 +111,7 @@
                       </tr>
                     </template>
                   </tbody>
-                </table>
+                </table> -->
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
@@ -157,9 +158,6 @@ export default {
       this.selectedRow = null;
       this.isModalOpen = false;
     },
-    getOrderData(queId) {
-      return this.foodDataRef.filter(order => order.que_id === queId);
-    }
   },
 
 
@@ -174,6 +172,8 @@ export default {
     const foodDataRef = ref([]);
     const orderListRef = ref([]);
     const resultOrderRef = ref([]);
+    const orderByQueDataRef = ref([]);
+    const quantityDataRef = ref([]);
 
 
     const getImagePath = (payslipUrl) => {
@@ -212,8 +212,20 @@ export default {
       console.log("Orders for que ID", queId, ":", orders);
       return orders;
     };
-
-
+    const handleClickDetail = async (item) => {
+      try {
+        const response = await axios.get(
+          `${BASR_URL}/${RoutePathUrl.getFoodData}`,
+          { params: { que_id: item.id } }
+        );
+        console.log("Get order by queId:", item.id);
+        orderByQueDataRef.value = response.data.result.orderList
+        quantityDataRef.value = response.data.result.resultOrder
+        console.log("Test", quantityDataRef)
+      } catch (error) {
+        console.error("Error handling que:", error);
+      }
+    };
 
     const showButtonLabel = computed(() => {
       return queDataRef.value.status ? "Cancel" : "Confirm";
@@ -241,6 +253,7 @@ export default {
         const response = await axios.get(
           `${BASR_URL}/${RoutePathUrl.adminTable}`
         );
+
         const { que, user, table, event, order, food } = response.data.result;
         queDataRef.value = que || [];
         userData.value = user || [];
@@ -248,26 +261,9 @@ export default {
         eventDataRef.value = event || [];
         orderDataRef.value = order || [];
         foodDataRef.value = food || [];
-
-        
-        // sortByDate();
-        // console.log("queDataRef", queDataRef.value)
-        // console.log("userData", userData.value)
-        // console.log("tableDataRef", tableDataRef.value)
-        // console.log("eventDataRef", eventDataRef.value)
-        // console.log("orderDataRef", orderDataRef.value)
-        // console.log("foodDataRef", foodDataRef.value)
-
-        // console.log(getOrderById(orderDataRef.value[3].id));
-
-
-        const foodResponse = await axios.get(`${BASR_URL}/${RoutePathUrl.getFoodData}`);
         const { orderList, resultOrder } = foodResponse.data.result;
         orderListRef.value = orderList || [];
         resultOrderRef.value = resultOrder || [];
-
-        // console.log("Order List:", orderListRef.value);
-        // console.log("Result Order:", resultOrderRef.value);
 
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -292,6 +288,8 @@ export default {
       eventDataRef,
       foodDataRef,
       orderDataRef,
+      orderByQueDataRef,
+      quantityDataRef,
       formatDate,
       getUserById,
       getTableById,
@@ -302,6 +300,7 @@ export default {
       getOrderData,
       showButtonLabel,
       handleClick,
+      handleClickDetail,
       sortByDate,
       sortedQueDataRef,
       orderListRef,
@@ -353,9 +352,6 @@ export default {
   border: none;
   box-shadow: none;
 }
-
-
-
 
 .table {
   border-radius: 10px;

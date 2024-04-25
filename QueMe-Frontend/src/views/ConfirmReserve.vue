@@ -109,8 +109,8 @@ export default {
     const router = useRouter();
     const name = ref("");
     const counter = ref(0);
-    var formattedDate = ref("");
-
+    const formattedDate = ref("");
+    
     const userData = ref({
       id: "",
       name: "",
@@ -160,8 +160,6 @@ export default {
         ).data.result;
         queDataRef.value = que;
         tableDataRef.value = table;
-
-        console.log("queDataRef.value.date_and_time:", queDataRef.value.date_and_time);
 
         const { order, food } = (
           await axios.get(`${BASR_URL}/${RoutePathUrl.getOrderDetail}`, {

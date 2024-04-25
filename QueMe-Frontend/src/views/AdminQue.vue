@@ -2,16 +2,34 @@
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="/src/assets/logo-removebg.png" alt="Logo" style="width: 91px; height: auto" />
+        <img
+          src="/src/assets/logo-removebg.png"
+          alt="Logo"
+          style="width: 91px; height: auto"
+        />
       </a>
       <div class="d-flex justify-content-end">
-        <button class="btn btn-link" style="color: #fff" @click="router.push({ name: 'AdminEvent' })" type="submit">
+        <button
+          class="btn btn-link"
+          style="color: #fff"
+          @click="router.push({ name: 'AdminEvent' })"
+          type="submit"
+        >
           Event
         </button>
-        <button class="btn btn-link" style="color: #fff" @click="router.push({ name: 'AdminQue' })" type="submit">
+        <button
+          class="btn btn-link"
+          style="color: #fff"
+          @click="router.push({ name: 'AdminQue' })"
+          type="submit"
+        >
           Que
         </button>
-        <button class="btn btnAll" @click="router.push({ name: 'Login' })" type="submit">
+        <button
+          class="btn btnAll"
+          @click="router.push({ name: 'Login' })"
+          type="submit"
+        >
           Logout
         </button>
       </div>
@@ -19,24 +37,28 @@
   </nav>
 
   <div class="container">
-    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-      <div class="table-container" style="height: 700px; width: 1200px; overflow-y: auto; margin: 0 auto">
+    <div
+      data-bs-spy="scroll"
+      data-bs-target="#list-example"
+      data-bs-offset="0"
+      class="scrollspy-example"
+      tabindex="0"
+    >
+      <div
+        class="table-container"
+        style="height: 700px; width: 1200px; overflow-y: auto; margin: 0 auto"
+      >
         <!-- Table -->
-        <table class="table">
+        <table class="table table-bordered">
           <!-- Table header -->
           <thead>
             <tr>
-              <th scope="col" style="text-align: start;">ID</th>
-              <th scope="col" style="text-align: center;">Date</th>
-              <th scope="col" style="text-align: start;">Name</th>
-              <th scope="col" style="text-align: start;">Table</th>
-              <th scope="col" style="text-align: start;">Type</th>
-              <th scope="col" style="text-align: center;">Phone number</th>
-              <th scope="col" style="text-align: center;">PaySlip</th>
-              <th scope="col" style="text-align: center;">Amount</th>
-              <th scope="col" style="text-align: center;">Status</th>
-              <th scope="col" style="text-align: center;"></th>
-              <th scope="col" style="text-align: center;"></th>
+              <th scope="col" style="text-align: center">Date</th>
+              <th scope="col" style="text-align: center">Name</th>
+              <th scope="col" style="text-align: center">Table</th>
+              <th scope="col" style="text-align: center">Type</th>
+              <th scope="col" style="text-align: center">Phone number</th>
+              <th scope="col" style="text-align: center"></th>
             </tr>
           </thead>
           <!-- Table body -->
@@ -44,32 +66,54 @@
             <!-- Check if queDataRef has data -->
             <template v-if="queDataRef.length > 0">
               <tr v-for="(item, index) in queDataRef" :key="index">
-                <td scope="row" style="text-align: start;">{{ item.id }}</td>
-                <td scope="row" style="text-align: start;">{{ formatDate(item.date_and_time) }}</td>
-                <td style="text-align: start;">{{ getUserById(item.user_id).name }}</td>
-                <td style="text-align: start;">{{ getTableById(item.table_id).zone }}{{
-                  getTableById(item.table_id).name }}
+                <!-- <td scope="row" style="text-align: start">{{ item.id }}</td> -->
+                <td scope="row" style="text-align: start">
+                  {{ formatDate(item.date_and_time) }}
                 </td>
-                <td style="text-align: start;">{{ item.type }}</td>
-                <td style="text-align: center;">{{ getUserById(item.user_id).phone_number }}</td>
-                <td style="text-align: center;">
+                <td style="text-align: center">
+                  {{ getUserById(item.user_id).name }}
+                </td>
+                <td style="text-align: center">
+                  {{ getTableById(item.table_id).zone
+                  }}{{ getTableById(item.table_id).name }}
+                </td>
+                <td style="text-align: center">{{ item.type }}</td>
+                <td style="text-align: center">
+                  {{ getUserById(item.user_id).phone_number }}
+                </td>
+                <td style="text-align: center" hidden>
                   <template v-if="item.amount !== 0 && item.payslip_url">
-                    <img :src="getImagePath(item.payslip_url)" style="max-width: 50px; max-height: 50px;" />
+                    <img
+                      :src="getImagePath(item.payslip_url)"
+                      style="max-width: 50px; max-height: 50px"
+                    />
                   </template>
-                  <template v-else>
-                    -
-                  </template>
+                  <template v-else> - </template>
                 </td>
-                <td style="text-align: center;">{{ item.amount !== null ? item.amount : 0 }}</td>
-                <td style="text-align: center;">{{ item.status === 0 ? "Cancel" : "Confirm" }}</td>
-                <td style="text-align: center;">
-                  <button :class="item.status === 0 ? 'btn btn-success' : 'btn btn-danger'"
-                    @click.stop="handleClick(item.id, item.status)">
+                <td style="text-align: center" hidden>
+                  {{ item.amount !== null ? item.amount : 0 }}
+                </td>
+                <td style="text-align: center" hidden>
+                  {{ item.status === 0 ? "Cancel" : "Confirm" }}
+                </td>
+                <td style="text-align: center" hidden>
+                  <button
+                    :class="
+                      item.status === 0 ? 'btn btn-success' : 'btn btn-danger'
+                    "
+                    @click.stop="handleClick(item.id, item.status)"
+                  >
                     {{ item.status === 0 ? "Confirm" : "Cancel" }}
                   </button>
                 </td>
-                <td>
-                  <button class="btn btn-primary" @click="openModal(item);handleClickDetail(item)">
+                <td style="text-align: center">
+                  <button
+                    class="btn btnAll"
+                    @click="
+                      openModal(item);
+                      handleClickDetail(item);
+                    "
+                  >
                     Details
                   </button>
                 </td>
@@ -78,51 +122,104 @@
             <!-- Show "No data" if queDataRef is empty -->
             <template v-else>
               <tr>
-                <td colspan="9" style="text-align: center;">No data</td>
+                <td colspan="9" style="text-align: center">No data</td>
               </tr>
             </template>
           </tbody>
         </table>
 
-
         <!-- modal -->
         <div class="modal" tabindex="-1" v-if="isModalOpen">
-          <div class="modal-dialog">
+          <div class="modal-dialog custom-modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title">Detail</h5>
               </div>
               <div class="modal-body">
-                {{ selectedRow.id }}
-                <p>Date and Time : {{ formatDate(selectedRow.date_and_time) }}</p>
+                <p>
+                  Date and Time : {{ formatDate(selectedRow.date_and_time) }}
+                </p>
                 <p>Name : {{ getUserById(selectedRow.user_id).name }}</p>
-                <p>Table : {{ getTableById(selectedRow.table_id).zone }}{{ getTableById(selectedRow.table_id).name }}</p>
+                <p>
+                  Phone Number :
+                  {{ getUserById(selectedRow.user_id).phone_number }}
+                </p>
+                <p>
+                  Table : {{ getTableById(selectedRow.table_id).zone
+                  }}{{ getTableById(selectedRow.table_id).name }}
+                </p>
                 <p>Type : {{ selectedRow.type }}</p>
-                <p>Phone Number : {{ getUserById(selectedRow.user_id).phone_number }}</p>
-                <p>Food : </p>
-                  <ul><li v-for="(food, index) in orderByQueDataRef"> {{ food.name }} {{ quantityDataRef[index].quantity }} </li></ul>
-                <!-- <table>
-                  <tbody>
-                    Iterate over foodDataRef based on selectedRow que ID
-                    <template v-for="(order, index) in getOrderData(selectedRow.id)" :key="index">
-                      <tr>
-                        <td style="text-align: left;">{{ getFoodById(order.food_id).name }}</td>
-                        <td style="text-align: left;">{{ order.quantity }}</td>
-                      </tr>
-                    </template>
-                  </tbody>
-                </table> -->
+                <p>Amount : {{ selectedRow.amount }}</p>
+                <template v-if="selectedRow.payslip_url">
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+                      height: 300px;
+                      margin-bottom: 20px;
+                    "
+                  >
+                    <img
+                      :src="selectedRow.payslip_url"
+                      style="max-width: 100%; max-height: 100%"
+                    />
+                  </div>
+                </template>
+                <template
+                  v-if="queDataRef.length > 0 && orderByQueDataRef.length > 0"
+                >
+                  <!-- <p>Food:</p> -->
+                  <table class="table table-bordered">
+                    <tbody>
+                      <template
+                        v-for="(food, index) in orderByQueDataRef"
+                        :key="index"
+                      >
+                        <tr>
+                          <td>{{ food.name }}</td>
+                          <td style="text-align: center">
+                            {{ quantityDataRef[index].quantity }}
+                          </td>
+                        </tr>
+                      </template>
+                    </tbody>
+                  </table>
+                </template>
+                <div class="d-flex align-items-center">
+                  <p class="m-0 mr-2">
+                    Status:
+                    {{ selectedRow.status === 0 ? "Cancel" : "Confirm" }}
+                  </p>
+                  <div class="flex-grow-1"></div>
+                  <!-- Spacer to push the button to the right -->
+                  <button
+                    :class="
+                      selectedRow.status === 0
+                        ? 'btn btn-success'
+                        : 'btn btn-danger'
+                    "
+                    @click.stop="
+                      handleClick(selectedRow.id, selectedRow.status)
+                    "
+                  >
+                    {{ selectedRow.status === 0 ? "Confirm" : "Cancel" }}
+                  </button>
+                </div>
               </div>
+              
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  @click="closeModal"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
         </div>
-
-
-
-
       </div>
     </div>
   </div>
@@ -136,7 +233,6 @@ import moment from "moment";
 import { BASR_URL } from "@/config/app";
 import RoutePathUrl from "@/config/route";
 import { DatePickerComponent } from "@syncfusion/ej2-vue-calendars";
-
 
 export default {
   name: "Home",
@@ -160,7 +256,6 @@ export default {
     },
   },
 
-
   setup(props, { emit }) {
     const router = useRouter();
     const queDataRef = ref([]);
@@ -174,7 +269,6 @@ export default {
     const resultOrderRef = ref([]);
     const orderByQueDataRef = ref([]);
     const quantityDataRef = ref([]);
-
 
     const getImagePath = (payslipUrl) => {
       return `${payslipUrl}`;
@@ -207,8 +301,9 @@ export default {
       return orderDataRef.value.find((order) => order.id === orderId) || {};
     };
     const getOrderData = (queId) => {
-      console.log("Food data:", foodDataRef.value);
-      const orders = foodDataRef.value.filter((order) => order.que_id === queId);
+      const orders = foodDataRef.value.filter(
+        (order) => order.que_id === queId
+      );
       console.log("Orders for que ID", queId, ":", orders);
       return orders;
     };
@@ -219,9 +314,9 @@ export default {
           { params: { que_id: item.id } }
         );
         console.log("Get order by queId:", item.id);
-        orderByQueDataRef.value = response.data.result.orderList
-        quantityDataRef.value = response.data.result.resultOrder
-        console.log("Test", quantityDataRef)
+        orderByQueDataRef.value = response.data.result.orderList;
+        quantityDataRef.value = response.data.result.resultOrder;
+        console.log("Test", quantityDataRef);
       } catch (error) {
         console.error("Error handling que:", error);
       }
@@ -264,7 +359,6 @@ export default {
         const { orderList, resultOrder } = foodResponse.data.result;
         orderListRef.value = orderList || [];
         resultOrderRef.value = resultOrder || [];
-
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -317,8 +411,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #dee2e6;
-  border-top-left-radius: calc(.3rem - 1px);
-  border-top-right-radius: calc(.3rem - 1px);
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
   padding: 1rem;
 }
 
@@ -328,22 +422,16 @@ export default {
   padding: 1rem;
 }
 
-.modal-body {
-  position: relative;
-  flex: 1 1 auto;
-  padding: 1rem;
-}
-
 .modal-footer {
   display: flex;
   flex-wrap: wrap;
   flex-shrink: 0;
   align-items: center;
   justify-content: flex-end;
-  padding: .75rem;
+  padding: 0.75rem;
   border-top: 1px solid #dee2e6;
-  border-bottom-right-radius: calc(.3rem - 1px);
-  border-bottom-left-radius: calc(.3rem - 1px);
+  border-bottom-right-radius: calc(0.3rem - 1px);
+  border-bottom-left-radius: calc(0.3rem - 1px);
 }
 
 .modal-content {
@@ -423,7 +511,6 @@ export default {
   top: 0;
   z-index: 1;
 }
-
 
 table {
   border-collapse: collapse;

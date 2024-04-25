@@ -93,10 +93,10 @@
 
   <div class="container checkbox-margin">
     <div class="d-flex justify-content-end">
-      <button class="btn btn btn-dark space" @click="router.push({ name: 'ClientHome' })" type="submit">
+      <button class="btn space" @click="router.push({ name: 'ClientHome' })" type="submit">
         Back
       </button>
-      <button class="btn btn btn-dark" @click="handleNextButtonClick" type="submit">
+      <button class="btn" @click="handleNextButtonClick" type="submit">
         Next
       </button>
     </div>

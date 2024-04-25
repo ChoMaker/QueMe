@@ -173,6 +173,7 @@ export default {
       quantity: "",
     });
     const foodDataRef = ref([]);
+    const formattedDate = ref("");
 
     onMounted(async () => {
       try {
@@ -201,17 +202,18 @@ export default {
         ).data.result;
         queDataRef.value = que;
         tableDataRef.value = table;
-        console.log("queData:", queDataRef.value);
-        console.log("tableData:", tableDataRef.value);
-        console.log("foodDataRef:", foodDataRef.value);
-        console.log("orderDataRef", orderDataRef.value);
+
+        formattedDate.value = moment(queDataRef.value.date_and_time).format("LL");
+
+        // console.log("queData:", queDataRef.value);
+        // console.log("tableData:", tableDataRef.value);
+        // console.log("foodDataRef:", foodDataRef.value);
+        // console.log("orderDataRef", orderDataRef.value);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     });
 
-    const formattedDate = moment(queDataRef.date_and_time).format('LL');
-    console.log(formattedDate);
 
     return { router, userData, tableDataRef, queDataRef, formattedDate, orderDataRef, foodDataRef, };
   },

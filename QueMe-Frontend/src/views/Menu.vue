@@ -33,7 +33,7 @@
           </p>
           <button style="color: #fff;" class="btn otherBtn" @click="router.push({ name: 'ConfirmReserve' })"
             type="submit">
-            Next
+            Skip
           </button>
         </div>
       </div>

@@ -67,8 +67,13 @@
                   <button type="button" class="btn btnInCard" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Order detail
                 </button>
+                <button type="button" class="btn btnInCard" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Cancel que
+                </button>
+                <button type="button" class="btn btnInCard" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Upload payslip
+                </button>
               </div>
-                
 
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
